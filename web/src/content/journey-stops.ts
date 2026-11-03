@@ -4,6 +4,11 @@ export type JourneyStop = {
   x: number;
   y: number;
   lessonId?: string;
+  introduction?: {
+    heroName: string;
+    culture: string;
+    source: string;
+  };
 };
 
 // Conditional discovery positions, explicitly approved as placeholders by the author.
@@ -31,10 +36,30 @@ const positions = [
   [1200, 160],
 ];
 
+// Первые три знакомства подтверждены материалами уроков; остальные пока анонимны.
+const introductions = [
+  {
+    heroName: "Егор",
+    culture: "Русская культура",
+    source: "lesson-01-teacher.docx, Сюжетная линия урока",
+  },
+  {
+    heroName: "Айдар",
+    culture: "Татарская культура",
+    source: "lesson-02-teacher.doc, Сюжетная линия урока",
+  },
+  {
+    heroName: "Амина",
+    culture: "Башкирская культура",
+    source: "lesson-03-teacher.docx, Сюжетная линия урока",
+  },
+];
+
 export const journeyStops: JourneyStop[] = positions.map(([x, y], index) => ({
   id: `stop-${String(index + 1).padStart(2, "0")}`,
   number: index + 1,
   x,
   y,
   ...(index === 0 ? { lessonId: "lesson-01" } : {}),
+  ...(introductions[index] ? { introduction: introductions[index] } : {}),
 }));

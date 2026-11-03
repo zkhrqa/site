@@ -623,3 +623,93 @@
     transition: none;
   }
 }
+
+/* One catalogue replaces the duplicate illustrated lesson section. */
+.journey-list summary {
+  cursor: pointer;
+  list-style: none;
+}
+.journey-list summary::-webkit-details-marker {
+  display: none;
+}
+.journey-list[open] > summary > svg {
+  transform: rotate(180deg);
+}
+.journey-stop-list .journey-stop-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 7px;
+  width: 100%;
+  height: 100%;
+  min-height: 160px;
+  padding: 15px 13px;
+  background: #f8f0df;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--ink);
+  text-decoration: none;
+  text-align: left;
+}
+.journey-stop-list .journey-stop-card.is-ready {
+  background: var(--sage-pale);
+  border-color: var(--sage);
+}
+.journey-stop-list .journey-stop-card:hover {
+  background: #e9ead7;
+}
+.journey-stop-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3px 8px;
+  font: 14px/1.4 var(--body);
+  color: var(--muted);
+}
+.journey-stop-list .journey-list-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+}
+.journey-stop-list .journey-stop-card > .journey-stop-meta {
+  font-weight: 400;
+}
+.journey-stop-name {
+  font: 600 21px/1.25 var(--display);
+}
+.journey-stop-culture {
+  font: 16px/1.4 var(--body);
+}
+.journey-stop-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-top: 5px;
+  margin-top: auto;
+  font-size: 15px;
+  color: var(--sage);
+}
+@media (max-width: 1000px) {
+  .journey-stop-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .journey-stop-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .journey-stop-list .journey-stop-card {
+    min-height: 154px;
+    padding: 13px 11px;
+  }
+  .journey-stop-name {
+    font-size: 19px;
+  }
+  .journey-stop-culture {
+    font-size: 15px;
+  }
+}

@@ -52,7 +52,13 @@ export function JourneyMap({
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [width, setWidth] = useState(1100);
-  const [listOpen, setListOpen] = useState(false);
+  const catalogue = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    if (location.hash === "#/lessons" && catalogue.current) {
+      catalogue.current.open = true;
+      catalogue.current.scrollIntoView({ behavior: "instant" });
+    }
+  }, []);
   const [dragging, setDragging] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
   const view = useRef({ zoom, pan, width });
@@ -514,10 +520,19 @@ export function JourneyMap({
               <p className="journey-panel-meta">
                 Знакомство {selected.number} из 20
               </p>
-              <h3 id="journey-selection-title">Новое знакомство готовится</h3>
+              <h3 id="journey-selection-title">
+                {selected.introduction
+                  ? `Знакомство с ${selected.introduction.heroName === "Айдар" ? "Айдаром" : selected.introduction.heroName === "Амина" ? "Аминой" : selected.introduction.heroName}`
+                  : "Новое знакомство готовится"}
+              </h3>
+              {selected.introduction && (
+                <p className="journey-panel-culture">
+                  {selected.introduction.culture} · Материалы готовятся
+                </p>
+              )}
               <p>
-                Здесь появятся герой, история и задания. Пока можно начать
-                путешествие с уже доступного урока.
+                Здесь появятся история, задания и материалы урока. Пока можно
+                начать путешествие с уже доступного урока.
               </p>
               <button
                 className="text-link text-button"
@@ -529,13 +544,8 @@ export function JourneyMap({
           )}
         </div>
       )}
-      <div className="journey-list">
-        <button
-          className="journey-list-toggle"
-          aria-expanded={listOpen}
-          aria-controls="journey-stop-list"
-          onClick={() => setListOpen(!listOpen)}
-        >
+      <details className="journey-list" id="lessons" ref={catalogue}>
+        <summary className="journey-list-toggle">
           <span>
             Все знакомства{" "}
             <span className="journey-list-count">
@@ -544,39 +554,72 @@ export function JourneyMap({
               ещё {journeyStops.length - readyStops.length} готовятся
             </span>
           </span>
-          <CaretDown
-            size={23}
-            style={{ transform: listOpen ? "rotate(180deg)" : undefined }}
-          />
-        </button>
-        {listOpen && (
-          <ol id="journey-stop-list" className="journey-stop-list">
-            {journeyStops.map((stop) => (
-              <li key={stop.id}>
-                <button
-                  aria-label={`Выбрать знакомство ${stop.number}. ${isPublished(stop) ? (isDone(stop) ? "Отмечено" : "Урок доступен") : "Готовится"}`}
-                  aria-pressed={selected?.id === stop.id}
-                  onClick={() => selectFromList(stop)}
-                >
-                  <span>{stop.number}</span>
-                  {isDone(stop) ? (
-                    <Star size={21} weight="fill" />
-                  ) : (
-                    <QuestionMark size={20} />
-                  )}
+          <CaretDown size={23} aria-hidden="true" />
+        </summary>
+        <ol id="journey-stop-list" className="journey-stop-list">
+          {journeyStops.map((stop) => {
+            const ready = stop.lessonId
+              ? publishedLessons[stop.lessonId]
+              : undefined;
+            const intro = stop.introduction;
+            const description = intro
+              ? `${intro.heroName}. ${intro.culture}`
+              : "Новое знакомство";
+            const contents = (
+              <>
+                <span className="journey-stop-meta">
+                  <span>Знакомство {stop.number}</span>
                   <span className="journey-list-status">
-                    {isPublished(stop)
-                      ? isDone(stop)
-                        ? "Отмечено"
-                        : "Доступно"
-                      : "Готовится"}
+                    {isDone(stop) ? (
+                      <>
+                        <Star size={15} weight="fill" />
+                        Отмечено
+                      </>
+                    ) : ready ? (
+                      "Доступно"
+                    ) : (
+                      "Готовится"
+                    )}
                   </span>
-                </button>
+                </span>
+                <strong className="journey-stop-name">
+                  {intro?.heroName ?? "Новое знакомство"}
+                </strong>
+                <span className="journey-stop-culture">
+                  {intro?.culture ?? "Герой и народ будут добавлены"}
+                </span>
+                {ready && (
+                  <span className="journey-stop-action">
+                    К подготовке <ArrowRight size={18} />
+                  </span>
+                )}
+              </>
+            );
+            return (
+              <li key={stop.id}>
+                {ready ? (
+                  <a
+                    className="journey-stop-card is-ready"
+                    href={ready.href}
+                    aria-label={`Знакомство ${stop.number}. ${description}. Открыть подготовку к уроку`}
+                  >
+                    {contents}
+                  </a>
+                ) : (
+                  <button
+                    className="journey-stop-card"
+                    aria-label={`Выбрать знакомство ${stop.number}. ${description}. Готовится`}
+                    aria-pressed={selected?.id === stop.id}
+                    onClick={() => selectFromList(stop)}
+                  >
+                    {contents}
+                  </button>
+                )}
               </li>
-            ))}
-          </ol>
-        )}
-      </div>
+            );
+          })}
+        </ol>
+      </details>
       <p className="journey-position-note">
         Точки будущих знакомств расположены условно. Народы России живут в
         разных регионах страны.

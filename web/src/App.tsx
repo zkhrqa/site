@@ -39,14 +39,22 @@ const JourneyMap = lazy(() =>
   import("./JourneyMap").then((module) => ({ default: module.JourneyMap })),
 );
 
+function scrollSection(id: string, behavior: ScrollBehavior) {
+  const target = document.getElementById(id);
+  if (target instanceof HTMLDetailsElement) target.open = true;
+  target?.scrollIntoView({ behavior });
+}
+
 const media = (name: string) => `/media/${name}.webp`;
-type Route = "home" | "lesson" | "activity";
+type Route = "home" | "lesson" | "interactive" | "activity";
 const routeFromHash = (): Route =>
   location.hash.startsWith("#/lesson/1/activity")
     ? "activity"
-    : location.hash.startsWith("#/lesson/1")
-      ? "lesson"
-      : "home";
+    : location.hash.startsWith("#/lesson/1/interactive")
+      ? "interactive"
+      : location.hash.startsWith("#/lesson/1")
+        ? "lesson"
+        : "home";
 
 function Modal({
   title,
@@ -154,7 +162,7 @@ export function App() {
       requestAnimationFrame(() => {
         const id = location.hash.slice(2);
         if (["map", "lessons", "about"].includes(id))
-          document.getElementById(id)?.scrollIntoView({ behavior: "instant" });
+          scrollSection(id, "instant");
         else if (!id) window.scrollTo({ top: 0, behavior: "instant" });
       });
     };
@@ -192,11 +200,8 @@ export function App() {
             : location.hash === "#/about"
               ? "about"
               : "";
-      if (anchor)
-        document
-          .getElementById(anchor)
-          ?.scrollIntoView({ behavior: "instant" });
-      else window.scrollTo(0, 0);
+      if (anchor) scrollSection(anchor, "instant");
+      else window.scrollTo({ top: 0, behavior: "instant" });
     });
   }, [route]);
   useEffect(() => {
@@ -252,11 +257,12 @@ export function App() {
     // Same-page navigation owns its scroll. A hashchange would cancel it
     // with the instant positioning used for history and direct links.
     if (location.hash !== hash) history.pushState(null, "", hash);
-    document.getElementById(id)?.scrollIntoView({
-      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+    scrollSection(
+      id,
+      matchMedia("(prefers-reduced-motion: reduce)").matches
         ? "instant"
         : "smooth",
-    });
+    );
   }
   return (
     <div className={projector ? "site projector" : "site"}>
@@ -355,19 +361,13 @@ export function App() {
       <main id="main" tabIndex={-1}>
         {route === "home" && (
           <Home
-            done={done}
             completedLessonIds={progress.completedLessonIds}
             celebrate={celebrate}
             onSection={goSection}
           />
         )}
-        {route === "lesson" && (
-          <Lesson
-            onProjector={() => {
-              location.hash = "/lesson/1/activity?projector";
-            }}
-          />
-        )}
+        {route === "lesson" && <Lesson />}
+        {route === "interactive" && <InteractiveIntro />}
         {route === "activity" && (
           <Activity
             done={done}
@@ -428,12 +428,10 @@ export function App() {
 }
 
 function Home({
-  done,
   completedLessonIds,
   celebrate,
   onSection,
 }: {
-  done: boolean;
   completedLessonIds: readonly string[];
   celebrate: boolean;
   onSection: (id: string) => void;
@@ -505,65 +503,6 @@ function Home({
         />
       </Suspense>
       <section
-        className="lessons-section wrap"
-        id="lessons"
-        aria-labelledby="lessons-title"
-      >
-        <h2 id="lessons-title">Продолжим знакомство</h2>
-        <div className="lesson-grid">
-          <article className="lesson-card">
-            <a
-              className="lesson-image egor-card"
-              href="#/lesson/1"
-              tabIndex={-1}
-              aria-hidden="true"
-            >
-              <img src={media("egor")} alt="" />
-              <img className="card-landscape" src={media("landscape")} alt="" />
-            </a>
-            <p className="lesson-meta">
-              Урок 1 · 3 класс{" "}
-              {done && (
-                <span>
-                  <Check size={17} />
-                  Отмечен
-                </span>
-              )}
-            </p>
-            <h3>
-              <a href="#/lesson/1">
-                Русский язык — государственный язык России
-              </a>
-            </h3>
-            <p>
-              Егор приглашает открыть альбом дружбы и собрать первое послание.
-            </p>
-            <a className="text-link" href="#/lesson/1">
-              Открыть урок <ArrowRight size={21} />
-            </a>
-          </article>
-          <article className="lesson-card upcoming">
-            <div className="lesson-image">
-              <img
-                src={media("aydar")}
-                alt="Айдар — герой следующего знакомства"
-              />
-            </div>
-            <p className="lesson-meta">Следующая страница · в разработке</p>
-            <h3>Знакомство с Айдаром</h3>
-            <p>Герои и новые темы постепенно наполняют наш альбом.</p>
-          </article>
-          <article className="lesson-card upcoming">
-            <div className="lesson-image">
-              <img src={media("amina")} alt="Амина — героиня будущего урока" />
-            </div>
-            <p className="lesson-meta">Новая глава · в разработке</p>
-            <h3>Встреча с Аминой</h3>
-            <p>У каждого урока — своя история и свой проводник.</p>
-          </article>
-        </div>
-      </section>
-      <section
         className="about-section wrap"
         id="about"
         aria-labelledby="about-title"
@@ -593,13 +532,13 @@ function Home({
   );
 }
 
-function Lesson({ onProjector }: { onProjector: () => void }) {
+function Lesson() {
   return (
-    <div className="lesson-page wrap">
+    <div className="lesson-page preparation-page wrap">
       <div className="breadcrumbs">
         <a href="#/lessons">Все уроки</a>
         <span>/</span>
-        <span>Урок 1</span>
+        <span>Подготовка к уроку 1</span>
       </div>
       <section className="lesson-hero" aria-labelledby="lesson-title">
         <div>
@@ -610,31 +549,20 @@ function Lesson({ onProjector }: { onProjector: () => void }) {
           </h1>
           <p className="lesson-subtitle">Урок 1 · 3 класс · Русская культура</p>
           <p className="full-topic">Тема: {lesson.fullTitle}</p>
-          <div className="actions">
-            <a
-              className="button primary"
-              href="#story"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById("story")?.scrollIntoView();
-              }}
-            >
-              Начать урок <ArrowRight size={23} />
-            </a>
-            <button className="button outline" onClick={onProjector}>
-              <ProjectorScreen size={23} />
-              На проектор
-            </button>
-          </div>
+          <p className="preparation-intro">{lesson.preparation.plot}</p>
           <a
             className="text-link materials-link"
             href="#materials"
             onClick={(e) => {
               e.preventDefault();
-              document.getElementById("materials")?.scrollIntoView();
+              document.getElementById("materials")?.scrollIntoView({
+                behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+                  ? "instant"
+                  : "smooth",
+              });
             }}
           >
-            Материалы для учителя
+            Скачать материалы <DownloadSimple size={20} />
           </a>
         </div>
         <div className="lesson-hero-art">
@@ -657,42 +585,71 @@ function Lesson({ onProjector }: { onProjector: () => void }) {
           </p>
         </div>
       </section>
-      <section className="route-section" aria-labelledby="route-title">
-        <h2 id="route-title">Наш маршрут</h2>
-        <ol className="route-steps">
-          <li>
-            <a
-              href="#story"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById("story")?.scrollIntoView();
-              }}
-            >
-              <span>1</span>Язык для общения
-            </a>
-          </li>
-          <li>
-            <a
-              href="#story"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById("story")?.scrollIntoView();
-              }}
-            >
-              <span>2</span>Путешествие по России
-            </a>
-          </li>
-          <li>
-            <a href="#/lesson/1/activity">
-              <span>3</span>Послание дружбы
-            </a>
-          </li>
-        </ol>
-        <p className="small route-note">
-          На сайте — история и одно интерактивное задание. Полный урок — в
-          печатных материалах.
-        </p>
+      <section
+        className="preparation-overview"
+        aria-labelledby="preparation-title"
+      >
+        <h2 id="preparation-title">О чём урок</h2>
+        <div className="preparation-columns">
+          <div>
+            <h3>Цель</h3>
+            <p>{lesson.preparation.goal}</p>
+          </div>
+          <div>
+            <h3>Что смогут объяснить дети</h3>
+            <p>{lesson.preparation.result}</p>
+          </div>
+        </div>
       </section>
+      <section
+        className="materials-section"
+        id="materials"
+        aria-labelledby="materials-title"
+      >
+        <h2 id="materials-title">Подготовиться к занятию</h2>
+        {lesson.downloads.map((file) => (
+          <a key={file.href} className="download-row" href={file.href} download>
+            <FileDoc size={32} weight="light" />
+            <span>
+              <strong>{file.title}</strong>
+              <span className="small">{file.detail}</span>
+            </span>
+            <span className="download-label">
+              Скачать <DownloadSimple size={22} />
+            </span>
+          </a>
+        ))}
+      </section>
+      <section className="interactive-launch" aria-labelledby="launch-title">
+        <div>
+          <h2 id="launch-title">Готовы начать с классом?</h2>
+          <p>Откройте историю Егора, обсудите её и соберите послание дружбы.</p>
+          <p className="small">
+            На сайте — история из задания 1 и интерактивное задание 4 рабочего
+            листа. Все остальные задания и полный сценарий занятия — в
+            материалах выше.
+          </p>
+        </div>
+        <a className="button primary" href="#/lesson/1/interactive">
+          Запустить интерактивную часть <ArrowRight size={22} />
+        </a>
+      </section>
+    </div>
+  );
+}
+
+function InteractiveIntro() {
+  return (
+    <div className="lesson-page interactive-intro wrap">
+      <div className="breadcrumbs">
+        <a href="#/lesson/1">К подготовке учителя</a>
+        <span>/</span>
+        <span>Урок 1</span>
+      </div>
+      <header className="interactive-heading">
+        <h1>Русский язык объединяет</h1>
+        <p>История Егора · Рабочий лист, задание 1</p>
+      </header>
       <section
         className="story-section"
         id="story"
@@ -718,25 +675,6 @@ function Lesson({ onProjector }: { onProjector: () => void }) {
             </a>
           </div>
         </div>
-      </section>
-      <section
-        className="materials-section"
-        id="materials"
-        aria-labelledby="materials-title"
-      >
-        <h2 id="materials-title">Подготовиться к занятию</h2>
-        {lesson.downloads.map((file) => (
-          <a key={file.href} className="download-row" href={file.href} download>
-            <FileDoc size={32} weight="light" />
-            <span>
-              <strong>{file.title}</strong>
-              <span className="small">{file.detail}</span>
-            </span>
-            <span className="download-label">
-              Скачать <DownloadSimple size={22} />
-            </span>
-          </a>
-        ))}
       </section>
     </div>
   );

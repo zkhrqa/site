@@ -2628,3 +2628,124 @@ blockquote {
     min-width: 0;
   }
 }
+
+/* Teacher preparation precedes the classroom experience. */
+.preparation-intro {
+  max-width: 660px;
+  margin-top: 20px;
+  font-size: 20px;
+  line-height: 1.5;
+}
+.preparation-overview {
+  padding: 30px 0 35px;
+}
+.preparation-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 45px;
+  margin-top: 25px;
+}
+.preparation-columns h3 {
+  font-size: 25px;
+  margin-bottom: 13px;
+}
+.preparation-columns p {
+  font-size: 20px;
+  line-height: 1.55;
+}
+.preparation-page .materials-section {
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding-bottom: 20px;
+}
+.interactive-launch {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 25px 0 20px;
+}
+.interactive-launch > div {
+  flex: 1;
+}
+.interactive-launch h2 {
+  font-size: 34px;
+  margin-bottom: 16px;
+}
+.interactive-launch .small {
+  margin-top: 14px;
+}
+.interactive-launch > .button {
+  max-width: 330px;
+  flex-shrink: 0;
+}
+.interactive-heading {
+  padding: 15px 0 25px;
+}
+.interactive-heading h1 {
+  font-size: clamp(36px, 4.5vw, 62px);
+}
+.interactive-heading p {
+  margin-top: 15px;
+  color: var(--sage);
+}
+@media (max-width: 800px) {
+  .preparation-columns {
+    gap: 25px;
+  }
+  .interactive-launch {
+    display: block;
+  }
+  .interactive-launch > .button {
+    margin-top: 22px;
+  }
+}
+@media (max-width: 600px) {
+  .preparation-intro {
+    font-size: 18px;
+    margin-top: 16px;
+  }
+  .preparation-overview {
+    padding: 20px 0;
+  }
+  .preparation-overview h2 {
+    font-size: 30px;
+  }
+  .preparation-columns {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-top: 20px;
+  }
+  .preparation-columns h3 {
+    font-size: 23px;
+    margin-bottom: 10px;
+  }
+  .preparation-columns p {
+    font-size: 18px;
+  }
+  .interactive-launch {
+    padding-top: 25px;
+  }
+  .interactive-launch h2 {
+    font-size: 29px;
+  }
+  .interactive-launch > .button {
+    max-width: none;
+    width: 100%;
+    font-size: 18px;
+  }
+  .interactive-heading {
+    padding-top: 8px;
+  }
+  .interactive-heading p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .preparation-page .preparation-intro {
+    order: 3;
+  }
+  .preparation-page .lesson-hero-art {
+    order: 4;
+  }
+}
