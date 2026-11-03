@@ -19,7 +19,13 @@ import {
 } from "@phosphor-icons/react";
 import geography from "./content/map-path.json";
 import { journeyStops, type JourneyStop } from "./content/journey-stops";
-import { clampPan, groupStops, type StopGroup } from "./features/map-layout";
+import {
+  clampPan,
+  groupStops,
+  zoomAround,
+  type MapView,
+  type StopGroup,
+} from "./features/map-layout";
 import { publishedLessons } from "./content/published-lessons";
 import "./journey-map.css";
 
@@ -42,7 +48,6 @@ export function JourneyMap({
   const isDone = (stop: JourneyStop) =>
     Boolean(stop.lessonId && completedLessonIds.includes(stop.lessonId));
   const readyStops = journeyStops.filter(isPublished);
-  const markedCount = journeyStops.filter(isDone).length;
 
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -50,6 +55,101 @@ export function JourneyMap({
   const [listOpen, setListOpen] = useState(false);
   const [dragging, setDragging] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
+  const view = useRef({ zoom, pan, width });
+  view.current = { zoom, pan, width };
+  const suppressClickUntil = useRef(0);
+  const [gesturing, setGesturing] = useState(false);
+  useEffect(() => {
+    const element = viewport.current;
+    if (!element) return;
+    type Gesture = {
+      start: MapView;
+      anchor: { x: number; y: number };
+      distance: number;
+      fingers: number;
+    };
+    let gesture: Gesture | null = null;
+    let moved = false;
+    const position = (touches: TouchList) => {
+      const rect = element.getBoundingClientRect();
+      const a = touches[0],
+        b = touches[1] ?? a;
+      return {
+        x: (a.clientX + b.clientX) / 2 - rect.left - rect.width / 2,
+        y: (a.clientY + b.clientY) / 2 - rect.top - rect.height / 2,
+        distance: Math.max(
+          1,
+          Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY),
+        ),
+      };
+    };
+    const begin = (event: TouchEvent) => {
+      const fingers = event.touches.length;
+      if (!fingers || (fingers === 1 && view.current.zoom <= 1)) {
+        gesture = null;
+        setGesturing(false);
+        return;
+      }
+      const point = position(event.touches);
+      gesture = {
+        start: view.current,
+        anchor: point,
+        distance: point.distance,
+        fingers,
+      };
+      setGesturing(true);
+      if (fingers > 1 && event.cancelable) event.preventDefault();
+    };
+    const move = (event: TouchEvent) => {
+      if (!gesture || gesture.fingers !== event.touches.length) return;
+      const midpoint = position(event.touches);
+      if (event.cancelable) event.preventDefault();
+      if (
+        Math.hypot(
+          midpoint.x - gesture.anchor.x,
+          midpoint.y - gesture.anchor.y,
+        ) > 5 ||
+        Math.abs(midpoint.distance - gesture.distance) > 3
+      )
+        moved = true;
+      if (moved) suppressClickUntil.current = Date.now() + 400;
+      const next = zoomAround(
+        gesture.start,
+        gesture.start.zoom *
+          (gesture.fingers > 1 ? midpoint.distance / gesture.distance : 1),
+        gesture.anchor,
+        midpoint,
+        view.current.width,
+      );
+      view.current = { ...view.current, ...next };
+      setZoom(next.zoom);
+      setPan(next.pan);
+    };
+    const end = (event: TouchEvent) => {
+      if (moved) suppressClickUntil.current = Date.now() + 400;
+      if (event.touches.length) begin(event);
+      else {
+        gesture = null;
+        moved = false;
+        setGesturing(false);
+      }
+    };
+    const cancel = () => {
+      gesture = null;
+      moved = false;
+      setGesturing(false);
+    };
+    element.addEventListener("touchstart", begin, { passive: false });
+    element.addEventListener("touchmove", move, { passive: false });
+    element.addEventListener("touchend", end);
+    element.addEventListener("touchcancel", cancel);
+    return () => {
+      element.removeEventListener("touchstart", begin);
+      element.removeEventListener("touchmove", move);
+      element.removeEventListener("touchend", end);
+      element.removeEventListener("touchcancel", cancel);
+    };
+  }, []);
   const panel = useRef<HTMLDivElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
   const drag = useRef<{
@@ -58,15 +158,6 @@ export function JourneyMap({
     panX: number;
     panY: number;
   } | null>(null);
-  useEffect(() => {
-    if (location.hash !== "#/map") return;
-    const frame = requestAnimationFrame(() =>
-      document
-        .getElementById("map")
-        ?.scrollIntoView({ behavior: "instant", block: "start" }),
-    );
-    return () => cancelAnimationFrame(frame);
-  }, []);
   const groups = useMemo(
     () => groupStops(journeyStops, width, zoom),
     [width, zoom],
@@ -76,11 +167,11 @@ export function JourneyMap({
     const observer = new ResizeObserver(([entry]) => {
       const nextWidth = entry.contentRect.width;
       setWidth(nextWidth);
-      setPan((current) => clampPan(current, nextWidth, zoom));
+      setPan((current) => clampPan(current, nextWidth, view.current.zoom));
     });
     observer.observe(viewport.current);
     return () => observer.disconnect();
-  }, [zoom]);
+  }, []);
   useEffect(() => {
     if (!selected) return;
     panel.current?.focus({ preventScroll: true });
@@ -98,7 +189,7 @@ export function JourneyMap({
     else viewport.current?.focus({ preventScroll: true });
   }
   function changeZoom(value: number) {
-    const next = Math.max(1, Math.min(3.5, Math.round(value * 10) / 10));
+    const next = Math.max(1, Math.min(3.5, Math.round(value * 100) / 100));
     setZoom(next);
     setPan((current) => clampPan(current, width, next));
   }
@@ -107,7 +198,7 @@ export function JourneyMap({
       selectStop(group.stops[0]);
       return;
     }
-    const next = Math.min(3.5, zoom * 1.8);
+    const next = Math.min(3.5, zoom + 0.4);
     setZoom(next);
     setPan(
       clampPan(
@@ -144,12 +235,6 @@ export function JourneyMap({
       aria-labelledby="journey-title"
     >
       <header className="journey-heading">
-        <p className="journey-count">
-          20 знакомств ·{" "}
-          {markedCount
-            ? `${markedCount} ${markedCount === 1 ? "отметка" : "отметки"} на карте`
-            : "Начни с любой точки"}
-        </p>
         <h2 id="journey-title">Карта нашего путешествия</h2>
         <p>Выбери неизвестную точку — открой новую историю.</p>
       </header>
@@ -162,11 +247,17 @@ export function JourneyMap({
         />
         <div
           ref={viewport}
-          className={`journey-viewport ${zoom > 1 ? "can-pan" : ""} ${dragging ? "is-dragging" : ""}`}
+          className={`journey-viewport ${zoom > 1 ? "can-pan" : ""} ${dragging ? "is-dragging" : ""} ${gesturing ? "is-gesturing" : ""}`}
           tabIndex={0}
           role="group"
           aria-label="Карта России. При увеличении перемещайте карту стрелками или перетаскиванием."
           style={{ touchAction: zoom > 1 ? "none" : "pan-y" }}
+          onClickCapture={(e) => {
+            if (Date.now() < suppressClickUntil.current) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          }}
           onKeyDown={(e) => {
             if (e.key === "Escape") closePanel();
             if (zoom <= 1) return;
@@ -190,6 +281,7 @@ export function JourneyMap({
           }}
           onPointerDown={(e) => {
             if (
+              e.pointerType === "touch" ||
               zoom <= 1 ||
               !e.isPrimary ||
               e.button !== 0 ||
@@ -206,7 +298,7 @@ export function JourneyMap({
             setDragging(true);
           }}
           onPointerMove={(e) => {
-            if (!drag.current) return;
+            if (e.pointerType === "touch" || !drag.current) return;
             setPan(
               clampPan(
                 {
@@ -258,6 +350,7 @@ export function JourneyMap({
               <path
                 d={geography.path ?? ""}
                 fill="none"
+                className="journey-coastline"
                 stroke="#859358"
                 strokeWidth="1.2"
               />
@@ -336,7 +429,7 @@ export function JourneyMap({
             className="icon-button"
             aria-label="Уменьшить карту"
             disabled={zoom <= 1}
-            onClick={() => changeZoom(zoom - 0.5)}
+            onClick={() => changeZoom(zoom - 0.25)}
           >
             <Minus size={23} />
           </button>
@@ -347,7 +440,7 @@ export function JourneyMap({
             className="icon-button"
             aria-label="Увеличить карту"
             disabled={zoom >= 3.5}
-            onClick={() => changeZoom(zoom + 0.5)}
+            onClick={() => changeZoom(zoom + 0.25)}
           >
             <Plus size={23} />
           </button>

@@ -46,3 +46,29 @@ export function clampPan(
     y: Math.max(-maxY, Math.min(maxY, pan.y)),
   };
 }
+
+export type MapView = { zoom: number; pan: { x: number; y: number } };
+export type MapPoint = { x: number; y: number };
+
+/** Keep the same map position beneath a moving pinch midpoint. */
+export function zoomAround(
+  start: MapView,
+  value: number,
+  anchor: MapPoint,
+  midpoint: MapPoint,
+  width: number,
+): MapView {
+  const zoom = Math.max(1, Math.min(3.5, value));
+  const ratio = zoom / start.zoom;
+  return {
+    zoom,
+    pan: clampPan(
+      {
+        x: midpoint.x - (anchor.x - start.pan.x) * ratio,
+        y: midpoint.y - (anchor.y - start.pan.y) * ratio,
+      },
+      width,
+      zoom,
+    ),
+  };
+}

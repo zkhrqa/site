@@ -93,6 +93,36 @@ export function App() {
   const [preserveStoredProgress, setPreserveStoredProgress] = useState(false);
   const [progressOpen, setProgressOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileNavigation, setMobileNavigation] = useState(
+    () => matchMedia("(max-width: 600px)").matches,
+  );
+  useEffect(() => {
+    const query = matchMedia("(max-width: 600px)");
+    const update = () => setMobileNavigation(query.matches);
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+  const headerRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const dismiss = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node))
+        setMenuOpen(false);
+    };
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener("pointerdown", dismiss);
+    document.addEventListener("keydown", escape);
+    return () => {
+      document.removeEventListener("pointerdown", dismiss);
+      document.removeEventListener("keydown", escape);
+    };
+  }, [menuOpen]);
   const [toast, setToast] = useState("");
   const [projector, setProjector] = useState(
     location.hash.endsWith("?projector"),
@@ -125,6 +155,7 @@ export function App() {
         const id = location.hash.slice(2);
         if (["map", "lessons", "about"].includes(id))
           document.getElementById(id)?.scrollIntoView({ behavior: "instant" });
+        else if (!id) window.scrollTo({ top: 0, behavior: "instant" });
       });
     };
     const onStorage = (e: StorageEvent) => {
@@ -212,16 +243,20 @@ export function App() {
     location.hash = "/map";
   }
   function goSection(id: string) {
-    location.hash = `/${id}`;
-    if (route === "home")
-      requestAnimationFrame(() =>
-        document.getElementById(id)?.scrollIntoView({
-          behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
-            ? "instant"
-            : "smooth",
-        }),
-      );
+    const hash = `#/${id}`;
     setMenuOpen(false);
+    if (route !== "home") {
+      location.hash = `/${id}`;
+      return;
+    }
+    // Same-page navigation owns its scroll. A hashchange would cancel it
+    // with the instant positioning used for history and direct links.
+    if (location.hash !== hash) history.pushState(null, "", hash);
+    document.getElementById(id)?.scrollIntoView({
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
   }
   return (
     <div className={projector ? "site projector" : "site"}>
@@ -236,7 +271,7 @@ export function App() {
         К содержанию
       </a>
       {!projector && (
-        <header className="header wrap">
+        <header className="header wrap" ref={headerRef}>
           <a href="#/" className="brand" aria-label="Альбом дружбы — главная">
             <img src={media("brand")} alt="" width="80" height="60" />
             <span>
@@ -246,6 +281,8 @@ export function App() {
             </span>
           </a>
           <nav
+            id="main-navigation"
+            inert={mobileNavigation && !menuOpen}
             aria-label="Главная навигация"
             className={menuOpen ? "navigation is-open" : "navigation"}
           >
@@ -280,7 +317,10 @@ export function App() {
           <button
             className="button outline journey-button"
             aria-label="Моё путешествие"
-            onClick={() => setProgressOpen(true)}
+            onClick={() => {
+              setMenuOpen(false);
+              setProgressOpen(true);
+            }}
           >
             <MapTrifold size={23} />
             <span>Моё путешествие</span>
@@ -288,8 +328,10 @@ export function App() {
           </button>
           <button
             className="icon-button menu-button"
+            ref={menuButtonRef}
             aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={menuOpen}
+            aria-controls="main-navigation"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? <X size={26} /> : <List size={26} />}
@@ -407,12 +449,11 @@ function Home({
             объединяет
           </h1>
           <p className="hero-subtitle">
-            20 уроков — 20 знакомств
-            <br className="mobile-only" /> с народами России
+            20 интерактивных уроков о традициях и народах России
           </p>
           <div className="author-note">
-            <span>Уроки русского языка для 3 класса</span>
-            <strong>Открываем культуры вместе</strong>
+            <strong>[Имя Фамилия Автора]</strong>
+            <span>Учитель начальных классов, методист</span>
           </div>
           <div className="actions">
             <a
@@ -429,7 +470,7 @@ function Home({
               className="button outline"
               onClick={() => onSection("about")}
             >
-              О проекте
+              Как устроен курс
             </button>
           </div>
         </div>
