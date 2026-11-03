@@ -1,0 +1,106 @@
+{
+  "created": "2026-11-03",
+  "files": [
+    {
+      "path": "references/design/album-home-selected.png",
+      "original_path": "/Users/zakhar/.codex/generated_images/01a19e0c-bfb5-75e0-8e4d-dbec82ecb61e/exec-b66513f1-4f3a-404c-96c7-78518f1d7b29.png",
+      "kind": "design-reference",
+      "status": "selected",
+      "description": "Главная: выбранный пользователем Альбом дружбы",
+      "sha256": "ec73ce35ebf55eaaa7eed0f8ec6cabf80d7c6b6f1889cccfc13c58351a8f6e9b"
+    },
+    {
+      "path": "references/design/album-lesson-desktop-proposal.png",
+      "original_path": "/Users/zakhar/.codex/generated_images/01a19e0c-bfb5-75e0-8e4d-dbec82ecb61e/exec-33e99007-5f4b-4577-9c2c-03deec0bc96b.png",
+      "kind": "design-reference",
+      "status": "proposal",
+      "description": "Первый урок: настольная версия",
+      "sha256": "e3c235b23711a6ca48239f3aac0123915dc1a8f76e137db89fd32cc3be0ac495"
+    },
+    {
+      "path": "references/design/album-activity-projector-proposal.png",
+      "original_path": "/Users/zakhar/.codex/generated_images/01a19e0c-bfb5-75e0-8e4d-dbec82ecb61e/exec-dbc95710-d0aa-4780-847c-0e3647f564bc.png",
+      "kind": "design-reference",
+      "status": "proposal",
+      "description": "Задание для проектора",
+      "sha256": "319c6b4ba399eb90158db0c60777ef69520ae77fda75b4566358c8c70bcb0acd"
+    },
+    {
+      "path": "references/design/album-lesson-mobile-proposal.png",
+      "original_path": "/Users/zakhar/.codex/generated_images/01a19e0c-bfb5-75e0-8e4d-dbec82ecb61e/exec-4de45f0f-2d76-431d-a7dc-b9170f95ed34.png",
+      "kind": "design-reference",
+      "status": "proposal",
+      "description": "Первый урок: мобильная версия",
+      "sha256": "2f687754d6380c63e0a1e145a740d28014f9563b5072a752b362c61900137b25"
+    },
+    {
+      "path": "references/lessons/lesson-01-teacher.docx",
+      "original_path": "/Users/zakhar/Downloads/1 урок.docx",
+      "kind": "user-source-document",
+      "status": "source-not-public",
+      "sha256": "ba76d11db5b09ba0f230b4d36716cb08950a2484803e1d8048d34c08589d4ccc"
+    },
+    {
+      "path": "references/lessons/lesson-01-worksheet.docx",
+      "original_path": "/Users/zakhar/Downloads/1 урок рабочий лист .docx",
+      "kind": "user-source-document",
+      "status": "source-not-public",
+      "sha256": "6f5541d63043ca4307653782df3c761c1aa753cae4d64a490ba4b0dc3ad28e23"
+    },
+    {
+      "path": "references/lessons/lesson-02-teacher.doc",
+      "original_path": "/Users/zakhar/Downloads/2 урок..doc",
+      "kind": "user-source-document",
+      "status": "source-not-public",
+      "sha256": "803c0c7ce1a4622f984118f580fb80b2f25e6e90468dec6783f14844cf28e670"
+    },
+    {
+      "path": "references/lessons/lesson-02-worksheet.docx",
+      "original_path": "/Users/zakhar/Downloads/2 урок рабочий лист.docx",
+      "kind": "user-source-document",
+      "status": "source-not-public",
+      "sha256": "29521f1b3a92b6977435dbca12cd5bbaa6bd8435543a40c05b34e8f37d2c9813"
+    },
+    {
+      "path": "references/lessons/lesson-03-teacher.docx",
+      "original_path": "/Users/zakhar/Downloads/3 урок..docx",
+      "kind": "user-source-document",
+      "status": "source-not-public",
+      "sha256": "63f3d6fb613e47b2fffd68e8e41a304839375f3247cec6c98ebf9f6387e1d6d9"
+    },
+    {
+      "path": "references/lessons/lesson-03-worksheet.docx",
+      "original_path": "/Users/zakhar/Downloads/3 урок рабочий лист.docx",
+      "kind": "user-source-document",
+      "status": "source-not-public",
+      "sha256": "5d9ef0c05a1560fa59809c2f0eb9fd565d36acf216279187a21ea7d304108583"
+    },
+    {
+      "path": "references/design/aydar-lesson-desktop-proposal.png",
+      "original_path": "/Users/zakhar/.codex/generated_images/01a19e0c-bfb5-75e0-8e4d-dbec82ecb61e/exec-b56ed006-7411-41b2-825e-f7e3573323f1.png",
+      "kind": "design-reference",
+      "status": "proposal",
+      "description": "Урок Айдара: начало и задание",
+      "created": "2026-11-03",
+      "sha256": "5954c5e6a050a91ca1a02dd5c6b1debac9344115a2cd2f9b96903176d4f3e623"
+    },
+    {
+      "path": "references/design/aydar-activity-projector-proposal.png",
+      "original_path": "/Users/zakhar/.codex/generated_images/01a19e0c-bfb5-75e0-8e4d-dbec82ecb61e/exec-0c94d613-573c-4461-8e28-f037e8f36b9d.png",
+      "kind": "design-reference",
+      "status": "proposal",
+      "description": "Урок Айдара: задание и обратная связь для проектора",
+      "created": "2026-11-03",
+      "sha256": "b7e7b8d83527e1a6e0c25a01758c1aa6bbf2ce8d8568d4a92853398e3606eed6"
+    },
+    {
+      "path": "references/design/aydar-activity-mobile-proposal.png",
+      "original_path": "/Users/zakhar/.codex/generated_images/01a19e0c-bfb5-75e0-8e4d-dbec82ecb61e/exec-684a5cff-7f30-4b3e-8497-49d9e1484410.png",
+      "kind": "design-reference",
+      "status": "proposal",
+      "description": "Урок Айдара: задание на телефоне",
+      "created": "2026-11-03",
+      "sha256": "d4cbcdf534347a7005fd161cb6768b1e8483937887c6353dacb5899bcdb73acb"
+    }
+  ]
+}

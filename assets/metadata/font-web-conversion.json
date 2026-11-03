@@ -1,0 +1,29 @@
+[
+  {
+    "source": "assets/fonts/pt-sans/PT-Sans-Regular.ttf",
+    "derived": "assets/fonts/pt-sans/PT-Sans-Regular.woff2",
+    "sourceBytes": 442960,
+    "derivedBytes": 132200,
+    "unicodeMapPreserved": true,
+    "glyphNamesPreserved": true,
+    "transformation": "TTF to WOFF2 container conversion; no glyph edits"
+  },
+  {
+    "source": "assets/fonts/pt-sans/PT-Sans-Bold.ttf",
+    "derived": "assets/fonts/pt-sans/PT-Sans-Bold.woff2",
+    "sourceBytes": 470240,
+    "derivedBytes": 137120,
+    "unicodeMapPreserved": true,
+    "glyphNamesPreserved": true,
+    "transformation": "TTF to WOFF2 container conversion; no glyph edits"
+  },
+  {
+    "source": "assets/fonts/lora/Lora-Variable.ttf",
+    "derived": "assets/fonts/lora/Lora-Variable.woff2",
+    "sourceBytes": 212196,
+    "derivedBytes": 84920,
+    "unicodeMapPreserved": true,
+    "glyphNamesPreserved": true,
+    "transformation": "TTF to WOFF2 container conversion; no glyph edits"
+  }
+]

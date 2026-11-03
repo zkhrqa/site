@@ -1,0 +1,228 @@
+[
+  {
+    "id": "paper",
+    "path": "assets/textures/paper-ivory-v1.png",
+    "requestedDimensions": [
+      1024,
+      1024
+    ],
+    "actualDimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGB",
+    "transparentBackgroundRequested": false,
+    "sha256": "ccad38467db4ab27899c1a7d4c69b4ae3ccdef1fe6b52d0699ecd34e9baf2ab7",
+    "bytes": 2024350
+  },
+  {
+    "id": "brand",
+    "path": "assets/brand/book-rowan-v1.png",
+    "requestedDimensions": [
+      1024,
+      1024
+    ],
+    "actualDimensions": [
+      1448,
+      1086
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "e0259d1a3e596287d2ef6f806f9b0b7497c82893d426d8f06065ef5b130f2f16",
+    "bytes": 1083020,
+    "alpha": {
+      "min": 0,
+      "max": 255,
+      "fullyTransparentPercent": 72.15,
+      "hasActualTransparency": true,
+      "softEdgePixels": 437460
+    }
+  },
+  {
+    "id": "egor",
+    "path": "assets/illustrations/egor-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "437737b1a05fb86da7649c178f104c2bee4420c7dc00b3fd6424ae5956d881e6",
+    "bytes": 2450582,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 53.52,
+      "hasActualTransparency": true,
+      "softEdgePixels": 730992
+    }
+  },
+  {
+    "id": "aydar",
+    "path": "assets/illustrations/aydar-v1-provisional.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "b3e979824a4011a83a6552a650c6b0cca731b08b9ae894cccfad4925e7f3f918",
+    "bytes": 2473530,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 51.04,
+      "hasActualTransparency": true,
+      "softEdgePixels": 770005
+    }
+  },
+  {
+    "id": "amina",
+    "path": "assets/illustrations/amina-v1-provisional.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "88d6a284b50d652dbd78221a425efaaf531ae0b621987a83fcdbda69ae80e82c",
+    "bytes": 2546146,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 46.58,
+      "hasActualTransparency": true,
+      "softEdgePixels": 840229
+    }
+  },
+  {
+    "id": "album-spread",
+    "path": "assets/illustrations/album-spread-v1.png",
+    "requestedDimensions": [
+      1600,
+      900
+    ],
+    "actualDimensions": [
+      1672,
+      941
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "c4d471f9f0f499fd6e56cb94d48fdbd1264fe5d9970594e8ba09731253849416",
+    "bytes": 2356053,
+    "alpha": {
+      "min": 0,
+      "max": 255,
+      "fullyTransparentPercent": 15.77,
+      "hasActualTransparency": true,
+      "softEdgePixels": 1324646
+    }
+  },
+  {
+    "id": "rowan",
+    "path": "assets/illustrations/rowan-corner-v1.png",
+    "requestedDimensions": [
+      600,
+      600
+    ],
+    "actualDimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "deeb56c32b45c03faf84c69abb3207fabe6ee2beccf0d55a02ac351146546e65",
+    "bytes": 1001053,
+    "alpha": {
+      "min": 0,
+      "max": 255,
+      "fullyTransparentPercent": 77.22,
+      "hasActualTransparency": true,
+      "softEdgePixels": 357381
+    }
+  },
+  {
+    "id": "egor-museum-scene",
+    "path": "assets/illustrations/egor-museum-v1.png",
+    "requestedDimensions": [
+      1200,
+      800
+    ],
+    "actualDimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "transparentBackgroundRequested": false,
+    "sha256": "c1fde7c5238830aa2dda5fd21f732d227b0bcd29f2fe52cc543921fb2b809945",
+    "bytes": 3376514
+  },
+  {
+    "id": "landscape-watercolor",
+    "path": "assets/illustrations/landscape-watercolor-v1.png",
+    "requestedDimensions": [
+      2048,
+      1024
+    ],
+    "actualDimensions": [
+      1774,
+      887
+    ],
+    "mode": "RGB",
+    "bytes": 2516540,
+    "sha256": "1ec37979318245739ff55e1da3d00da1a9ae5d6a66433cc8afebd1b4bee40478",
+    "transparentBackgroundRequested": false
+  },
+  {
+    "id": "museum-background",
+    "path": "assets/illustrations/museum-background-v1.png",
+    "requestedDimensions": [
+      1200,
+      1000
+    ],
+    "actualDimensions": [
+      1374,
+      1145
+    ],
+    "mode": "RGB",
+    "bytes": 2932086,
+    "sha256": "16e759cf517f91a9ffc61600c17f846c16d09ba9ac61dd27085a1f19af29b1a0",
+    "transparentBackgroundRequested": false
+  },
+  {
+    "id": "russia-story-map-v2",
+    "path": "assets/illustrations/russia-story-map-v2.png",
+    "requestedDimensions": [
+      1400,
+      680
+    ],
+    "actualDimensions": [
+      1799,
+      874
+    ],
+    "mode": "RGBA",
+    "bytes": 1856309,
+    "sha256": "169d6922088a9ad85ef8d18daafe582f277cdc010da3d2494049958fd349ee44",
+    "transparentBackgroundRequested": true,
+    "alphaValidation": {
+      "extrema": [
+        0,
+        255
+      ],
+      "fullyTransparentPixels": 874104,
+      "totalPixels": 1572326
+    }
+  }
+]

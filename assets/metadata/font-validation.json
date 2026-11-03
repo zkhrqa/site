@@ -1,0 +1,29 @@
+[
+  {
+    "path": "assets/fonts/pt-sans/PT-Sans-Regular.ttf",
+    "russianAlphabetComplete": true,
+    "missing": [],
+    "glyphs": 717,
+    "variableAxes": []
+  },
+  {
+    "path": "assets/fonts/pt-sans/PT-Sans-Bold.ttf",
+    "russianAlphabetComplete": true,
+    "missing": [],
+    "glyphs": 717,
+    "variableAxes": []
+  },
+  {
+    "path": "assets/fonts/lora/Lora-Variable.ttf",
+    "russianAlphabetComplete": true,
+    "missing": [],
+    "glyphs": 778,
+    "variableAxes": [
+      {
+        "tag": "wght",
+        "min": 400.0,
+        "max": 700.0
+      }
+    ]
+  }
+]

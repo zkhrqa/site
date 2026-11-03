@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+web/dist/
+web/.vite/
+.taste-skill/inspect/
+.taste-skill/before/
+.taste-skill/after/
+*.log

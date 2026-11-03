@@ -1,0 +1,34 @@
+[
+  {
+    "font": "Lora, Georgia, serif",
+    "mapTop": 44.03125,
+    "openCards": 0,
+    "points": 3,
+    "scrollWidth": 320,
+    "width": 320
+  },
+  {
+    "font": "Lora, Georgia, serif",
+    "mapTop": 44.0625,
+    "openCards": 0,
+    "points": 6,
+    "scrollWidth": 390,
+    "width": 390
+  },
+  {
+    "font": "Lora, Georgia, serif",
+    "mapTop": 44,
+    "openCards": 0,
+    "points": 14,
+    "scrollWidth": 768,
+    "width": 768
+  },
+  {
+    "font": "Lora, Georgia, serif",
+    "mapTop": 44,
+    "openCards": 0,
+    "points": 20,
+    "scrollWidth": 1440,
+    "width": 1440
+  }
+]

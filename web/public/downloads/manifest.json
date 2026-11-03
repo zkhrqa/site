@@ -1,0 +1,16 @@
+[
+  {
+    "file": "lesson-01-worksheet.docx",
+    "sha256": "f4c6b7daed4cd58d84fcc0956717c18d9f01d5b7c6ac080d6a576e8af1b52fb3",
+    "source": "references/lessons/lesson-01-worksheet.docx",
+    "documentXmlIdentical": true,
+    "change": "Author and lastModifiedBy metadata cleared; all other ZIP entries unchanged"
+  },
+  {
+    "file": "lesson-01-teacher.docx",
+    "sha256": "6dee24ea344102d4114028b435b651aa38a8237066ea4f6aa6fb5539e853c02b",
+    "source": "references/lessons/lesson-01-teacher.docx",
+    "documentXmlIdentical": true,
+    "change": "Author and lastModifiedBy metadata cleared; all other ZIP entries unchanged"
+  }
+]

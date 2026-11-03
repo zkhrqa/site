@@ -1,0 +1,28 @@
+{
+  "sourceVersion": "5.1.1",
+  "featureCount": 1,
+  "selection": {
+    "ADM0_A3": "RUS",
+    "ADMIN": "Russia"
+  },
+  "geometryType": "MultiPolygon",
+  "coordinatePairs": 7450,
+  "coordinateRanges": {
+    "longitude": [
+      -180.0,
+      180.0
+    ],
+    "latitude": [
+      41.199267578124996,
+      81.85419921875
+    ]
+  },
+  "geographicCoordinatesValid": true,
+  "simplification": false,
+  "projectionApplied": false,
+  "boundaryEdits": false,
+  "note": "Original dataset default is de facto boundaries. Antimeridian-aware display projection is required for Russia.",
+  "allSourceCoordinatesPreserved": true,
+  "allSourceAttributesPreserved": true,
+  "sourceSelectionVerifiedBy": "pyshp 3.1.6; Counter comparison of every coordinate and equality of every source attribute"
+}

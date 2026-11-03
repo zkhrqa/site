@@ -1,0 +1,35 @@
+{
+  "name": "album-druzhby",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build && node scripts/prepare-sites-build.mjs",
+    "preview": "vite preview",
+    "test:sites": "node --test tests/sites-worker.test.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/progress.test.ts tests/map-layout.test.ts",
+    "assets": "node scripts/prepare-assets.mjs",
+    "format": "prettier --write src tests/*.test.ts scripts/prepare-assets.mjs index.html tsconfig.json",
+    "format:check": "prettier --check src tests/*.test.ts scripts/prepare-assets.mjs index.html tsconfig.json"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "@vitejs/plugin-react": "5.0.4",
+    "d3-geo": "^3.1.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "vite": "6.4.2"
+  },
+  "devDependencies": {
+    "@types/d3-geo": "^3.1.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "prettier": "3.6.2",
+    "sharp": "^0.34.3",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.3"
+  }
+}

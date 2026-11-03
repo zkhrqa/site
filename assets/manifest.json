@@ -1,0 +1,766 @@
+{
+  "preparedAt": "2026-11-03",
+  "project": "Альбом дружбы",
+  "generatedWith": "built-in Image Gen; no Higgsfield and no CLI generation",
+  "scope": "assets/ and docs/ASSETS.md only",
+  "resources": [
+    {
+      "id": "paper",
+      "path": "assets/textures/paper-ivory-v1.png",
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Very subtle page-paper texture; browser tiling check pending",
+      "generator": "built-in image_gen.imagegen",
+      "sourceOriginal": "/Users/zakhar/.codex/generated_images/01a19e8b-3e6f-7830-bc94-13f2d26598e4/exec-1d593055-f0aa-4b2d-8e97-b90b085fbe20.png",
+      "sourceReference": "references/design/album-home-selected.png",
+      "sourceReferenceSha256": "ec73ce35ebf55eaaa7eed0f8ec6cabf80d7c6b6f1889cccfc13c58351a8f6e9b",
+      "requestedDimensions": [
+        1024,
+        1024
+      ],
+      "actualDimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGB",
+      "transparentBackgroundRequested": false,
+      "promptPath": "assets/prompts/paper-ivory-v1.txt",
+      "promptText": "Use case: illustration-story. Asset type: seamless background paper texture for the educational website «Альбом дружбы». Input image 1 is STYLE REFERENCE ONLY: the approved watercolor album homepage. Create a standalone full-canvas 1024 x 1024 px raster texture of warm ivory uncoated watercolor paper, near color #FAF4E8, extremely low-contrast subtle natural fibers and tiny tonal variation. Calm, almost uniform, light enough to place readable dark text over it. Match the quiet paper in the reference, without reproducing any content. Texture should tile seamlessly on all four edges with no visible seams. Flat even lighting, no vignette, no dark edges, no page folds, no stains, no shadows, no book, no illustrations, no botanical shapes, no text, no objects, no interface. Opaque background. This is a usable single website asset, not a website mockup.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted",
+      "sha256": "ccad38467db4ab27899c1a7d4c69b4ae3ccdef1fe6b52d0699ecd34e9baf2ab7",
+      "bytes": 2024350
+    },
+    {
+      "id": "brand",
+      "path": "assets/brand/book-rowan-v1.png",
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Brand symbol without text",
+      "generator": "built-in image_gen.imagegen",
+      "sourceOriginal": "/Users/zakhar/.codex/generated_images/01a19e8b-3e6f-7830-bc94-13f2d26598e4/exec-790e7110-00c6-46d2-bf0b-e726610acecd.png",
+      "sourceReference": "references/design/album-home-selected.png",
+      "sourceReferenceSha256": "ec73ce35ebf55eaaa7eed0f8ec6cabf80d7c6b6f1889cccfc13c58351a8f6e9b",
+      "requestedDimensions": [
+        1024,
+        1024
+      ],
+      "actualDimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "promptPath": "assets/prompts/book-rowan-v1.txt",
+      "promptText": "Use case: logo-brand. Asset type: transparent raster book-and-rowan brand symbol, no wordmark. Input image 1 is STYLE REFERENCE: approved «Альбом дружбы» homepage. Create ONE standalone compact hand-painted watercolor and colored-pencil emblem closely matching the book-and-rowan icon at top left of that reference. An open cream-page book with a slim warm brown cover and subtle sage edge, a small graceful rowan sprig with muted olive-green compound leaves and a modest cluster of coral-terracotta berries rising from the book. Gentle genuine children's-book watercolor texture, fine brown pencil contours, warm quiet palette, not glossy or three dimensional. Canvas 1024 x 1024 px with complete emblem centered and generous transparent padding, silhouette readable at 64–96 CSS px. Genuine transparent background, including spaces between leaves. No letters, no symbols resembling letters, no caption, no border, no mockup, no website UI, no watermark. Preserve restrained composition of approved reference, do not add extra mascots, ribbons, sparkles or a logo circle.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted",
+      "sha256": "e0259d1a3e596287d2ef6f806f9b0b7497c82893d426d8f06065ef5b130f2f16",
+      "bytes": 1083020,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fullyTransparentPercent": 72.15,
+        "hasActualTransparency": true,
+        "softEdgePixels": 437460
+      }
+    },
+    {
+      "id": "egor",
+      "path": "assets/illustrations/egor-v1.png",
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Guide for first lesson",
+      "generator": "built-in image_gen.imagegen",
+      "sourceOriginal": "/Users/zakhar/.codex/generated_images/01a19e8b-3e6f-7830-bc94-13f2d26598e4/exec-9b2e0db2-4ee1-48e4-aaa7-3253c94fa274.png",
+      "sourceReference": "references/design/album-home-selected.png",
+      "sourceReferenceSha256": "ec73ce35ebf55eaaa7eed0f8ec6cabf80d7c6b6f1889cccfc13c58351a8f6e9b",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "promptPath": "assets/prompts/egor-v1.txt",
+      "promptText": "Use case: illustration-story. Asset type: transparent character cutout for a Russian language grade-three lesson on the website «Альбом дружбы». Input image 1 is the approved HOMEPAGE STYLE and CHARACTER REFERENCE. Create standalone Егор, the SAME friendly approximately nine-year-old brown-haired schoolboy shown holding a book in that reference: soft wavy chestnut hair, warm attentive expression, blue hoodie, a plain brown family album held comfortably against his chest with both hands. Keep identity and face design recognizable from reference. Half-body to hips, three-quarter pose turned slightly toward the viewer's left, complete head, shoulders, hands, album and lower clothing visible with margin; do not crop fingers or hair. Watercolor and colored-pencil children's book illustration, fine warm-brown contours, soft nuanced natural colors, delicately textured watercolor edges, same craft as approved reference. Not photorealistic and not a flat generic vector mascot. Ordinary contemporary child, no costume, no cultural caricature. Album cover is simple, without readable or invented lettering. Canvas 1024 x 1536 px, character occupying about 75% height, with clear surrounding genuine transparency so it can be placed on ivory paper or next to lesson text. No scenery, no ground plane, no shadow rectangle, no words, no speech bubble, no webpage, no decorative border, no watermarks.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted",
+      "sha256": "437737b1a05fb86da7649c178f104c2bee4420c7dc00b3fd6424ae5956d881e6",
+      "bytes": 2450582,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 53.52,
+        "hasActualTransparency": true,
+        "softEdgePixels": 730992
+      }
+    },
+    {
+      "id": "aydar",
+      "path": "assets/illustrations/aydar-v1-provisional.png",
+      "kind": "generated-bitmap",
+      "status": "provisional",
+      "usage": "Guide for second lesson; match against selected future Aydar screen",
+      "generator": "built-in image_gen.imagegen",
+      "sourceOriginal": "/Users/zakhar/.codex/generated_images/01a19e8b-3e6f-7830-bc94-13f2d26598e4/exec-e0b99cc4-3e50-4aed-a914-3bcf3b24d9f9.png",
+      "sourceReference": "references/design/album-home-selected.png",
+      "sourceReferenceSha256": "ec73ce35ebf55eaaa7eed0f8ec6cabf80d7c6b6f1889cccfc13c58351a8f6e9b",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "promptPath": "assets/prompts/aydar-v1-provisional.txt",
+      "promptText": "Use case: illustration-story. Asset type: provisional transparent character cutout for the lesson «Книга историй Айдара» on the educational website «Альбом дружбы». Input image 1 is the approved HOMEPAGE STYLE REFERENCE. Create ONE individual schoolboy Айдар, around nine years old, short dark chestnut hair, olive-green jumper over a light cream shirt with a modest visible collar, holding a plain burgundy-brown family storybook in his hands. His pose is open and gently inviting, half-body to hips, three-quarter turned slightly to viewer's left, warm engaged expression, clearly a different individual from the curly-haired blue-hoodie boy of the reference. Ordinary contemporary child, no ethnic costume, no headgear, no caricatured ethnic features: his family culture is told by lesson content, not encoded by stereotyped appearance. Fine watercolor and warm brown colored-pencil children's book illustration, handcrafted texture, soft sage/cream/brown palette, same proportions and rendering language as attached approved site. Entire head, shoulders, hands and book remain inside canvas with ample margin. Canvas 1024 x 1536 px, character about 75% of height; genuine transparent background including all negative spaces; soft watercolor cutout edge. No scenery, no floor, no decorative frame, no paper rectangle behind him, no speech bubble, no text or invented lettering on the book, no logo, no watermarks. This is a standalone production asset proposal, not a webpage screenshot.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted",
+      "sha256": "b3e979824a4011a83a6552a650c6b0cca731b08b9ae894cccfad4925e7f3f918",
+      "bytes": 2473530,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 51.04,
+        "hasActualTransparency": true,
+        "softEdgePixels": 770005
+      }
+    },
+    {
+      "id": "amina",
+      "path": "assets/illustrations/amina-v1-provisional.png",
+      "kind": "generated-bitmap",
+      "status": "provisional",
+      "usage": "Guide for third lesson; character subject to later screen approval",
+      "generator": "built-in image_gen.imagegen",
+      "sourceOriginal": "/Users/zakhar/.codex/generated_images/01a19e8b-3e6f-7830-bc94-13f2d26598e4/exec-b2339517-044d-48c0-b806-2e79ec6fe585.png",
+      "sourceReference": "references/design/album-home-selected.png",
+      "sourceReferenceSha256": "ec73ce35ebf55eaaa7eed0f8ec6cabf80d7c6b6f1889cccfc13c58351a8f6e9b",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "promptPath": "assets/prompts/amina-v1-provisional.txt",
+      "promptText": "Use case: illustration-story. Asset type: provisional transparent character cutout for the lesson «Альбом Амины» on the educational website «Альбом дружбы». Input image 1 is the approved HOMEPAGE STYLE REFERENCE. Create ONE individual schoolgirl Амина, around nine years old, dark brown hair arranged in one simple braid, light sky-blue cardigan over an ivory blouse, holding a warm brown family album with both hands, friendly curious thoughtful expression. Half-body to hips in a gently inviting three-quarter pose toward viewer's left. Ordinary contemporary child, no ethnic costume or ceremonial accessories, no stereotyped ethnic facial features: the lesson's Bashkir cultural context will be conveyed through checked content and objects, not a costume. The girl is a unique character in the SAME watercolor and fine warm-brown pencil children's-book illustration system as the attached approved homepage, with soft natural proportions, tender handcrafted texture, quiet blue/ivory/brown palette and readable clear silhouette. Canvas 1024 x 1536 px; complete head, braid, shoulders, hands and album visible with generous margin, character occupies about 75% of height. Genuine transparent background including space around her silhouette, delicately painted edges. No scenery, no floor, no paper rectangle, no shadow backdrop, no words or invented book lettering, no speech bubble, no border, no webpage elements or watermark. Standalone character asset proposal for later layout.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted",
+      "sha256": "88d6a284b50d652dbd78221a425efaaf531ae0b621987a83fcdbda69ae80e82c",
+      "bytes": 2546146,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 46.58,
+        "hasActualTransparency": true,
+        "softEdgePixels": 840229
+      }
+    },
+    {
+      "id": "album-spread",
+      "path": "assets/illustrations/album-spread-v1.png",
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Empty open album, frame for map; pages have usable empty interior",
+      "generator": "built-in image_gen.imagegen",
+      "sourceOriginal": "/Users/zakhar/.codex/generated_images/01a19e8b-3e6f-7830-bc94-13f2d26598e4/exec-3f4190bc-98e1-47a4-88e2-4928a871aa22.png",
+      "sourceReference": "references/design/album-home-selected.png",
+      "sourceReferenceSha256": "ec73ce35ebf55eaaa7eed0f8ec6cabf80d7c6b6f1889cccfc13c58351a8f6e9b",
+      "requestedDimensions": [
+        1600,
+        900
+      ],
+      "actualDimensions": [
+        1672,
+        941
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "promptPath": "assets/prompts/album-spread-v1.txt",
+      "promptText": "Use case: illustration-story. Asset type: transparent wide open-album frame for the main map section of the website «Альбом дружбы». Input image 1 is the approved HOMEPAGE STYLE and OBJECT REFERENCE. Generate ONE standalone wide open old-fashioned family album matching the large open book used for the map in that reference, without the map or any page contents. Target composition 1600 x 900 px, landscape, mostly front-facing with just a very gentle top-down perspective, almost flat page surfaces suitable for real HTML map content later. Warm ivory clean blank paper pages, subtle handmade watercolor paper texture, slim center gutter and crease, warm reddish-brown worn cover edge and a small muted terracotta ribbon marker at bottom. Fine colored-pencil contours and delicate watercolor materials. Pages have usable calm empty interior covering at least 80% of book spread. Both page shapes balanced, all four book corners and full ribbon remain visible with transparent outer padding. Genuine transparent background OUTSIDE the book; paper pages themselves opaque. No maps, no countries, no points, no decorative leaves, no flowers, no stamps, no writing, no printed lines, no labels, no people, no interface, no tabletop, no shadow rectangle, no watermark. Preserve the cozy restrained watercolor album style of approved homepage. This is one book-frame image asset only, not a full website screenshot.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted",
+      "sha256": "c4d471f9f0f499fd6e56cb94d48fdbd1264fe5d9970594e8ba09731253849416",
+      "bytes": 2356053,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fullyTransparentPercent": 15.77,
+        "hasActualTransparency": true,
+        "softEdgePixels": 1324646
+      }
+    },
+    {
+      "id": "rowan",
+      "path": "assets/illustrations/rowan-corner-v1.png",
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Reusable small decorative corner motif",
+      "generator": "built-in image_gen.imagegen",
+      "sourceOriginal": "/Users/zakhar/.codex/generated_images/01a19e8b-3e6f-7830-bc94-13f2d26598e4/exec-bc63f8f6-3e90-436a-afe1-2592062185cf.png",
+      "sourceReference": "references/design/album-home-selected.png",
+      "sourceReferenceSha256": "ec73ce35ebf55eaaa7eed0f8ec6cabf80d7c6b6f1889cccfc13c58351a8f6e9b",
+      "requestedDimensions": [
+        600,
+        600
+      ],
+      "actualDimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "promptPath": "assets/prompts/rowan-corner-v1.txt",
+      "promptText": "Use case: illustration-story. Asset type: small transparent rowan corner motif for the educational website «Альбом дружбы». Input image 1 is the approved HOMEPAGE STYLE REFERENCE. Create ONE standalone delicate rowan sprig with a natural slender warm-brown stem, muted sage/olive compound leaves with small serrated leaflets and one modest bunch of coral-terracotta rowan berries. Same hand-painted watercolor with fine warm pencil contours and light genuine paper-like pigment granulation as the botanical motifs around the portrait and album in the reference. Target composition 600 x 600 px, corner ornament flowing diagonally from lower left toward upper right with airy negative space, complete leaves and berries contained with generous padding. Genuine transparent background, including spaces between stems and leaflets. Quiet, friendly, restrained children's book illustration: no shiny 3D, no flat vector geometry, no heavy outlines. No book, no frame, no postcard, no text, no typography, no labels, no UI, no scenery, no rectangular paper patch or watermark. A single reusable corner asset, not a collage or sprite sheet.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted",
+      "sha256": "deeb56c32b45c03faf84c69abb3207fabe6ee2beccf0d55a02ac351146546e65",
+      "bytes": 1001053,
+      "alpha": {
+        "min": 0,
+        "max": 255,
+        "fullyTransparentPercent": 77.22,
+        "hasActualTransparency": true,
+        "softEdgePixels": 357381
+      }
+    },
+    {
+      "id": "lora",
+      "kind": "font",
+      "status": "base",
+      "name": "Lora",
+      "weight": "400–700",
+      "originalPath": "assets/fonts/lora/Lora-Variable.ttf",
+      "webPath": "assets/fonts/lora/Lora-Variable.woff2",
+      "sourceUrl": "https://raw.githubusercontent.com/google/fonts/2fe1e8c6b137fb13041a7cfca6fdcd8a910ea4dc/ofl/lora/Lora%5Bwght%5D.ttf",
+      "sourceCommit": "2fe1e8c6b137fb13041a7cfca6fdcd8a910ea4dc",
+      "license": "SIL Open Font License 1.1",
+      "licensePath": "assets/fonts/lora/OFL.txt",
+      "russianAlphabetVerified": true,
+      "woff2Conversion": "Container compression, Unicode map and glyph order preserved"
+    },
+    {
+      "id": "pt-sans-regular",
+      "kind": "font",
+      "status": "base",
+      "name": "PT Sans Regular",
+      "weight": "400",
+      "originalPath": "assets/fonts/pt-sans/PT-Sans-Regular.ttf",
+      "webPath": "assets/fonts/pt-sans/PT-Sans-Regular.woff2",
+      "sourceUrl": "https://raw.githubusercontent.com/google/fonts/2fe1e8c6b137fb13041a7cfca6fdcd8a910ea4dc/ofl/ptsans/PT_Sans-Web-Regular.ttf",
+      "sourceCommit": "2fe1e8c6b137fb13041a7cfca6fdcd8a910ea4dc",
+      "license": "SIL Open Font License 1.1",
+      "licensePath": "assets/fonts/pt-sans/OFL.txt",
+      "russianAlphabetVerified": true,
+      "woff2Conversion": "Container compression, Unicode map and glyph order preserved"
+    },
+    {
+      "id": "pt-sans-bold",
+      "kind": "font",
+      "status": "base",
+      "name": "PT Sans Bold",
+      "weight": "700",
+      "originalPath": "assets/fonts/pt-sans/PT-Sans-Bold.ttf",
+      "webPath": "assets/fonts/pt-sans/PT-Sans-Bold.woff2",
+      "sourceUrl": "https://raw.githubusercontent.com/google/fonts/2fe1e8c6b137fb13041a7cfca6fdcd8a910ea4dc/ofl/ptsans/PT_Sans-Web-Bold.ttf",
+      "sourceCommit": "2fe1e8c6b137fb13041a7cfca6fdcd8a910ea4dc",
+      "license": "SIL Open Font License 1.1",
+      "licensePath": "assets/fonts/pt-sans/OFL.txt",
+      "russianAlphabetVerified": true,
+      "woff2Conversion": "Container compression, Unicode map and glyph order preserved"
+    },
+    {
+      "id": "natural-earth-russia",
+      "kind": "geodata",
+      "status": "base",
+      "name": "Natural Earth Admin 0 Countries 1:50m",
+      "version": "5.1.1",
+      "originalPath": "assets/map/original/ne_50m_admin_0_countries.zip",
+      "derivedPath": "assets/map/derived/russia-natural-earth-50m.geojson",
+      "sourceUrl": "https://naturalearth.s3.amazonaws.com/50m_cultural/ne_50m_admin_0_countries.zip",
+      "sourcePage": "https://www.naturalearthdata.com/downloads/50m-cultural-vectors/50m-admin-0-countries-2/",
+      "license": "public domain",
+      "licensePage": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "licenseSnapshot": "assets/map/original/natural-earth-terms-of-use.html",
+      "transformation": "Select exactly ADM0_A3=RUS; no coordinate, attribute or boundary edits; no projection or simplification",
+      "displayStatus": "Requires geographic rendering/projection and antimeridian handling; not a ready-to-insert watercolor bitmap",
+      "boundaryPolicy": "Publisher default de facto boundaries; editorial decision required before public release"
+    },
+    {
+      "id": "egor-museum-scene",
+      "path": "assets/illustrations/egor-museum-v1.png",
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "First lesson museum story: Egor right, guide left, three other children, mammoth skeleton and display cases; opaque watercolor illustration without text or UI",
+      "generator": "built-in image_gen.imagegen",
+      "sourceOriginal": "/Users/zakhar/.codex/generated_images/01a19e8b-3e6f-7830-bc94-13f2d26598e4/exec-e26eac09-a2c4-457e-8411-3f80b4951616.png",
+      "sourceReference": "references/design/album-lesson-desktop-proposal.png",
+      "sourceReferenceSha256": "e3c235b23711a6ca48239f3aac0123915dc1a8f76e137db89fd32cc3be0ac495",
+      "additionalReferences": [
+        {
+          "path": "references/design/album-home-selected.png",
+          "sha256": "ec73ce35ebf55eaaa7eed0f8ec6cabf80d7c6b6f1889cccfc13c58351a8f6e9b"
+        },
+        {
+          "path": "assets/illustrations/egor-v1.png",
+          "sha256": "437737b1a05fb86da7649c178f104c2bee4420c7dc00b3fd6424ae5956d881e6"
+        }
+      ],
+      "requestedDimensions": [
+        1200,
+        800
+      ],
+      "actualDimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "transparentBackgroundRequested": false,
+      "promptPath": "assets/prompts/egor-museum-v1.txt",
+      "promptText": "Use case: illustration-story. Asset type: one standalone landscape story illustration for the first grade-three Russian-language lesson on the educational website «Альбом дружбы». Target slot 1200 × 800 px, aspect ratio 3:2. Opaque raster illustration, not a webpage or mockup.\nInput image 1 is the approved lesson-page STYLE AND SCENE reference; take the museum vignette language only, not any layout or text. Input image 2 is the approved homepage palette and watercolor/pencil STYLE reference. Input image 3 is the exact Егор CHARACTER reference: preserve his identity, age about nine, warm chestnut wavy hair, curious face, blue hoodie, brown backpack and plain brown family album.\nScene: a welcoming school museum interior during a guided visit. Place Егор clearly in the RIGHT foreground holding the same plain brown album against his chest and looking attentively toward a friendly female museum guide on the LEFT. The guide wears ordinary contemporary clothing and gestures toward the exhibits. A small group of three other children in ordinary modern clothes listens nearby, secondary to Егор. Behind them are a few clean glass display cases with pottery and natural-history objects, and ONE plausible mammoth skeleton as a recognizable museum exhibit. Warm daylight through a tall arched window, quiet sense of discovery and shared understanding.\nStyle: match the attached educational album references faithfully — delicate hand-painted watercolor, fine warm-brown colored-pencil contours, soft natural child proportions, handmade pigment texture, warm ivory paper, muted sage, blue and terracotta accents. Entire scene has a gently irregular light paper outer edge merging softly into uniform warm ivory #FAF4E8, with no heavy vignette or dark border. Keep faces, hands and the album readable, avoid visual clutter. Natural museum storytelling, not a fantasy adventure, not a historical reconstruction.\nConstraints: no readable or invented letters anywhere: no signs, labels, writing on album, inscriptions, captions or speech bubbles. No UI, buttons, frames, logos, watermarks, infographic symbols, flags, national costumes or ethnic caricatures. Do not crop a screenshot or reproduce the interface. Preserve the exact character from input 3 and the approved watercolor craft. Output one complete illustration only.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted",
+      "sha256": "c1fde7c5238830aa2dda5fd21f732d227b0bcd29f2fe52cc543921fb2b809945",
+      "bytes": 3376514
+    },
+    {
+      "id": "landscape-watercolor",
+      "path": "assets/illustrations/landscape-watercolor-v1.png",
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Decorative imagined panoramic landscape for small scenic details; superseded for map fill by russia-story-map-v2. Not geographic or hydrological data.",
+      "generator": "built-in image_gen.imagegen",
+      "sourceOriginal": "/Users/zakhar/.codex/generated_images/01a19e8b-3e6f-7830-bc94-13f2d26598e4/exec-26d7e14d-b2a4-49b3-ab9f-9afb1bb3b7a1.png",
+      "sourceReference": "references/design/album-home-selected.png",
+      "sourceReferenceSha256": "ec73ce35ebf55eaaa7eed0f8ec6cabf80d7c6b6f1889cccfc13c58351a8f6e9b",
+      "additionalReferences": [
+        {
+          "path": "assets/textures/paper-ivory-v1.png",
+          "sha256": "ccad38467db4ab27899c1a7d4c69b4ae3ccdef1fe6b52d0699ecd34e9baf2ab7"
+        }
+      ],
+      "requestedDimensions": [
+        2048,
+        1024
+      ],
+      "actualDimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGB",
+      "transparentBackgroundRequested": false,
+      "promptPath": "assets/prompts/landscape-watercolor-v1.txt",
+      "promptText": "Use case: illustration-story. Asset type: one wide low-contrast watercolor landscape texture for the educational website «Альбом дружбы». Input image 1 is the selected HOMEPAGE STYLE reference, and input image 2 is the existing gentle ivory PAPER TEXTURE reference. Generate a standalone panoramic hand-painted landscape, target 2048 × 1024 px, 2:1 wide composition. It will later be clipped inside a separate geographically accurate country silhouette and also used as small scenic details; therefore DO NOT draw any country silhouette or map outline.\nScene: a calm continuous stylized natural landscape with light sage-green forests, open soft green meadows, one pale sky-blue winding river, and distant modest softly rounded mountains. Handcrafted children's-book watercolor and very delicate warm pencil traces, fine paper grain, muted pigment washes. Warm ivory cream paper base like the approved album reference. Very calm LOW CONTRAST and airy spacing: no dark forest masses, no intense shadows, no dramatic sky, no harsh outlines. Keep the landscape readable as a broad gentle wash with a few trees and terrain details rather than an extremely busy realistic scene. Low horizon and soft ivory transitions allow flexible cropping; painterly details distributed across width. Opaque image, gentle irregular watercolor edges fading into warm ivory #FAF4E8, no transparency required. Preserve the approved quiet watercolor style and restrained sage/ivory/soft blue palette.\nThis is a decorative imagined landscape texture, NOT actual geographic or hydrological data. Do not identify specific locations or create factual map symbols. Absolutely no borders, coastlines, country-shaped composition, political lines, region outlines, labels, text, letters, characters, people, buildings, animals, flags, icons, stars, markers, logos, UI, frames or watermarks. Not a website mockup. Output one complete landscape raster asset only.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted",
+      "sha256": "1ec37979318245739ff55e1da3d00da1a9ae5d6a66433cc8afebd1b4bee40478",
+      "bytes": 2516540
+    },
+    {
+      "id": "museum-background",
+      "path": "assets/illustrations/museum-background-v1.png",
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Empty watercolor school museum hero background for a separately composited Egor cutout; window left, ceramics case right, open center. Avoids duplicate Egor from using story scene as backdrop.",
+      "generator": "built-in image_gen.imagegen",
+      "sourceOriginal": "/Users/zakhar/.codex/generated_images/01a19e8b-3e6f-7830-bc94-13f2d26598e4/exec-26ef98d2-b232-4a6d-b996-006d5ad84ee6.png",
+      "sourceReference": "references/design/album-lesson-desktop-proposal.png",
+      "sourceReferenceSha256": "e3c235b23711a6ca48239f3aac0123915dc1a8f76e137db89fd32cc3be0ac495",
+      "additionalReferences": [
+        {
+          "path": "references/design/album-home-selected.png",
+          "sha256": "ec73ce35ebf55eaaa7eed0f8ec6cabf80d7c6b6f1889cccfc13c58351a8f6e9b"
+        }
+      ],
+      "requestedDimensions": [
+        1200,
+        1000
+      ],
+      "actualDimensions": [
+        1374,
+        1145
+      ],
+      "intendedCssSlot": [
+        500,
+        450
+      ],
+      "mode": "RGB",
+      "transparentBackgroundRequested": false,
+      "promptPath": "assets/prompts/museum-background-v1.txt",
+      "promptText": "Use case: illustration-story.\nAsset type: a standalone EMPTY museum background painting for the hero area of the educational album website «Альбом дружбы». Target 1200×1000 px, nearly square landscape, used behind an independently composited child at about 500×450 CSS px.\nInput image 1 is the lesson page STYLE and BACKGROUND reference only: reproduce the soft school museum setting behind the hero, NOT any people, page layout, text or UI. Input image 2 is the approved homepage watercolor/pencil palette and paper reference.\nScene: a welcoming quiet school museum interior. A tall softly arched window on the LEFT with pale blue-gray glazing, warm daylight and cream walls. A wooden glass display case on the RIGHT containing a few ordinary earthenware ceramic pots and a jug. Keep the CENTER and center foreground OPEN and visually quiet so a separate child cutout can be placed there later. Background objects frame the space without a main subject. No human objects or exhibits resembling faces.\nStyle: delicate handcrafted children's-book watercolor, fine warm brown pencil traces, warm ivory cream paper #FAF4E8, muted ochre wood and pale blue-gray highlights, gentle natural depth, light low-contrast pigment washes. Match the illustration craft in the provided album references. Outer painting edges are irregular, softly washed and blurred into the same warm cream paper, no hard rectangular frame, no heavy vignette. Opaque raster, no transparent background required.\nConstraints: absolutely NO PEOPLE, children, adults, portraits, faces, human silhouettes, mannequins, figures or reflections of people anywhere. NO text, letters, labels, signs, album, speech bubbles, logos, UI, buttons, watermarks or page layout. No mammoth skeleton needed in this hero background. Generate only one complete empty museum background, not a website mockup or screenshot.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted",
+      "sha256": "16e759cf517f91a9ffc61600c17f846c16d09ba9ac61dd27085a1f19af29b1a0",
+      "bytes": 2932086
+    },
+    {
+      "id": "russia-story-map-v2",
+      "path": "assets/illustrations/russia-story-map-v2.png",
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Flat illustrated story-map underlay with separate small trees, mountain chains, decorative rivers and five animals; replaces panoramic landscape texture for the map. Raster artwork must remain clipped by verified geographic SVG, not used as authoritative geography or species-range data.",
+      "generator": "built-in image_gen.imagegen",
+      "sourceOriginal": "/Users/zakhar/.codex/generated_images/01a19e8b-3e6f-7830-bc94-13f2d26598e4/exec-5d78bee0-6e7c-4ba3-b395-781274438ee6.png",
+      "sourceReference": "assets/map/derived/russia-illustration-layout.png",
+      "sourceReferenceSha256": "60fb3f8ef1b7281b66298312a7706ee9410af6e32bd2de5315bed56d39a9db97",
+      "additionalReferences": [
+        {
+          "path": "references/design/album-home-selected.png",
+          "sha256": "ec73ce35ebf55eaaa7eed0f8ec6cabf80d7c6b6f1889cccfc13c58351a8f6e9b"
+        }
+      ],
+      "requestedDimensions": [
+        1400,
+        680
+      ],
+      "actualDimensions": [
+        1799,
+        874
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "alphaValidation": {
+        "extrema": [
+          0,
+          255
+        ],
+        "fullyTransparentPixels": 874104,
+        "totalPixels": 1572326
+      },
+      "promptPath": "assets/prompts/russia-story-map-v2.txt",
+      "promptText": "Use case: illustration-story.\nAsset type: ONE standalone wide raster illustrated story-map underlay for «Альбом дружбы», 1400×680 px or near 2.06:1. This is the MAP ART ONLY, not a webpage.\nInput image 1 is the GEOGRAPHIC LAYOUT reference. Preserve its land silhouette, aspect ratio, coastline arrangement, far-east peninsulas and islands, positions of the blank surrounding seas, and overall placement within the canvas. Land occupies the same positions and scale as input 1. Do not reinterpret the projection or reshape the land. Input image 2 is the STYLE reference: use the charming little hand-painted trees, miniature mountains and pale pistachio watercolor land from its map, never its webpage, characters or book frame.\nPaint the interior of the input-1 land silhouette in a delicate pale pistachio and sage watercolor wash, fine warm-pencil edge, small subtle patches of green terrain. Scatter MANY SEPARATELY DRAWN SMALL TREE VIGNETTES over the land: individual firs, modest clusters of firs and birches, airy woodland motifs with ample space between them. Several miniature mountain chains with tiny gray-brown peaks and light ivory snow, distributed as story-map details. A few very thin winding pale-blue decorative rivers viewed from above, not one big scenic river.\nInclude five tiny gentle naturalistic watercolor animal vignettes in separate open areas WELL INSIDE the land, not at the edges: one small brown bear, one deer, one red fox, one white polar bear, one small striped tiger. Each is roughly the height of two or three of the small trees, secondary to the map; no oversized mascots. They are symbolic nature illustrations, not scientific claims about exact species ranges. Similarly the rivers and mountains are decorative, not hydrological or relief data.\nView: strictly a FLAT ILLUSTRATED MAP seen from overhead; tree/mountain/animal symbols may have the charming pictorial elevations of a traditional children's story atlas. NO horizon anywhere, NO sky, NO continuous landscape scene, NO panoramic perspective, NO single photo-like forest or river-valley vista. The entire canvas stays a broad map with evenly distributed little landscape motifs. Keep it light, warm, airy and delicately textured like input 2.\nBackground: TRUE TRANSPARENT surrounding ocean and outside the land silhouette, including blank sea inlets. Preserve genuine alpha outside the land; no solid black/white surround, no checkerboard drawn into the artwork. If the tool cannot preserve transparency, use uniform cream #FAF4E8 only. No ocean waves or sea illustrations.\nAbsolutely NO words, letters, labels, dotted routes, markers, pins, stars, circles, internal political borders, UI, buttons, website layout, book/frame, compass, legend, flags, portraits, lesson characters, buildings, watermarks. Do not copy any of those from input 2. Output one complete map underlay raster only.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted. Geographic layout reference derived from Natural Earth public-domain data.",
+      "sha256": "169d6922088a9ad85ef8d18daafe582f277cdc010da3d2494049958fd349ee44",
+      "bytes": 1856309
+    }
+  ],
+  "planned": [
+    {
+      "id": "author-photo",
+      "status": "unavailable",
+      "reason": "User photo not provided; do not generate identity"
+    },
+    {
+      "id": "author-public-data",
+      "status": "unconfirmed",
+      "reason": "Author identity, position, school and contacts require confirmation"
+    },
+    {
+      "id": "aydar-sister-family-table-scene",
+      "status": "planned",
+      "reason": "Wait for lesson screen selection and measured dimensions"
+    },
+    {
+      "id": "amina-scenes-and-cultural-objects",
+      "status": "planned",
+      "reason": "Need screen selection and checked cultural references"
+    },
+    {
+      "id": "illustrated-map-treatment",
+      "status": "planned",
+      "reason": "Story-map raster v2 prepared from geographic layout; final app integration requires verified geographic SVG clipping and editorial boundary policy. Raster contour/rivers/animal positions are not authoritative geography."
+    },
+    {
+      "id": "lesson-pdf-docx-release-files",
+      "status": "planned",
+      "reason": "Separate document preparation and render verification"
+    }
+  ],
+  "files": [
+    {
+      "path": "assets/brand/book-rowan-v1.png",
+      "bytes": 1083020,
+      "sha256": "e0259d1a3e596287d2ef6f806f9b0b7497c82893d426d8f06065ef5b130f2f16",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/fonts/lora/Lora-Variable.ttf",
+      "bytes": 212196,
+      "sha256": "822a6621ccbe8d97d20ac88c1c41f5615c9c2c202eaa75f272cd452aac6475a7",
+      "contentType": "font/ttf"
+    },
+    {
+      "path": "assets/fonts/lora/Lora-Variable.woff2",
+      "bytes": 84920,
+      "sha256": "25744471d932083fc9b8bfa98bbd6055f3291ca96f84cf0461b4db3010978f38",
+      "contentType": "font/woff2"
+    },
+    {
+      "path": "assets/fonts/lora/METADATA.pb",
+      "bytes": 1349,
+      "sha256": "6d9e38cc8926e903359a1c4c358fd2e71864f422aae9550d0d9a2ae0c62ddb8d",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "assets/fonts/lora/OFL.txt",
+      "bytes": 4423,
+      "sha256": "1d9a970809ac804b582a6ce7f0ebc4e7fefcbfd7ff6299cad35ee656a21be716",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/fonts/pt-sans/METADATA.pb",
+      "bytes": 1868,
+      "sha256": "9a3eccc9a5d01c95b9262adb208fc40bfac4d9e465a80ad3bfaf634528434ab8",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "assets/fonts/pt-sans/OFL.txt",
+      "bytes": 4425,
+      "sha256": "2758cf7a872827f39661cf8cc24188113c030447aefb5ca7145993650076ca8c",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/fonts/pt-sans/PT-Sans-Bold.ttf",
+      "bytes": 470240,
+      "sha256": "3128bd5ecf01816e59a23d54c57a7a6b14615b07db53ff277c77376010265b05",
+      "contentType": "font/ttf"
+    },
+    {
+      "path": "assets/fonts/pt-sans/PT-Sans-Bold.woff2",
+      "bytes": 137120,
+      "sha256": "10ec9b629e41bcb5197d9853e509d71dbb8aada09ab3010050ae2c8c497ba5eb",
+      "contentType": "font/woff2"
+    },
+    {
+      "path": "assets/fonts/pt-sans/PT-Sans-Regular.ttf",
+      "bytes": 442960,
+      "sha256": "9cc831490532009bae2b3ce0d39c62adfc889060beb421593bfd9d2396d0f10a",
+      "contentType": "font/ttf"
+    },
+    {
+      "path": "assets/fonts/pt-sans/PT-Sans-Regular.woff2",
+      "bytes": 132200,
+      "sha256": "dcf8125b87198e53c173681c5905ba501e11d424279ac3857867777abdad1e9a",
+      "contentType": "font/woff2"
+    },
+    {
+      "path": "assets/illustrations/album-spread-v1.png",
+      "bytes": 2356053,
+      "sha256": "c4d471f9f0f499fd6e56cb94d48fdbd1264fe5d9970594e8ba09731253849416",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/illustrations/amina-v1-provisional.png",
+      "bytes": 2546146,
+      "sha256": "88d6a284b50d652dbd78221a425efaaf531ae0b621987a83fcdbda69ae80e82c",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/illustrations/aydar-v1-provisional.png",
+      "bytes": 2473530,
+      "sha256": "b3e979824a4011a83a6552a650c6b0cca731b08b9ae894cccfad4925e7f3f918",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/illustrations/egor-museum-v1.png",
+      "bytes": 3376514,
+      "sha256": "c1fde7c5238830aa2dda5fd21f732d227b0bcd29f2fe52cc543921fb2b809945",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/illustrations/egor-v1.png",
+      "bytes": 2450582,
+      "sha256": "437737b1a05fb86da7649c178f104c2bee4420c7dc00b3fd6424ae5956d881e6",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/illustrations/landscape-watercolor-v1.png",
+      "bytes": 2516540,
+      "sha256": "1ec37979318245739ff55e1da3d00da1a9ae5d6a66433cc8afebd1b4bee40478",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/illustrations/museum-background-v1.png",
+      "bytes": 2932086,
+      "sha256": "16e759cf517f91a9ffc61600c17f846c16d09ba9ac61dd27085a1f19af29b1a0",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/illustrations/rowan-corner-v1.png",
+      "bytes": 1001053,
+      "sha256": "deeb56c32b45c03faf84c69abb3207fabe6ee2beccf0d55a02ac351146546e65",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/illustrations/russia-story-map-v2.png",
+      "bytes": 1856309,
+      "sha256": "169d6922088a9ad85ef8d18daafe582f277cdc010da3d2494049958fd349ee44",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/map/README.md",
+      "bytes": 3805,
+      "sha256": "25de53371312b06660afc8aa2d6e79ebb957ff21b02f44c4e5f9ae743edcf810",
+      "contentType": "text/markdown"
+    },
+    {
+      "path": "assets/map/derived/russia-illustration-layout.png",
+      "bytes": 111071,
+      "sha256": "60fb3f8ef1b7281b66298312a7706ee9410af6e32bd2de5315bed56d39a9db97",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/map/derived/russia-natural-earth-50m.geojson",
+      "bytes": 263263,
+      "sha256": "e504e2eb02305a959e875e1d793cc3244643d114320bf4f0d1b891c47453f66c",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "assets/map/extract-russia.py",
+      "bytes": 1305,
+      "sha256": "da02b7e24bad48cc7f98db36c3acc70c70baaf730c779588aaaef6f1aa0138d9",
+      "contentType": "text/x-python"
+    },
+    {
+      "path": "assets/map/original/natural-earth-terms-of-use.html",
+      "bytes": 38013,
+      "sha256": "c3a68b212d0f556041ec26be750fd17d444627e2045a8ddbaf0e380413045c4d",
+      "contentType": "text/html"
+    },
+    {
+      "path": "assets/map/original/ne_50m_admin_0_countries/ne_50m_admin_0_countries.README.html",
+      "bytes": 38988,
+      "sha256": "28dbb5a402d8f4f752ae338b819a3fd3cc60b26752fae16e764de19189e9c995",
+      "contentType": "text/html"
+    },
+    {
+      "path": "assets/map/original/ne_50m_admin_0_countries/ne_50m_admin_0_countries.VERSION.txt",
+      "bytes": 7,
+      "sha256": "548358969090d629b41888f5fe664ac31b7203dfd849f7c1ef820ac055b62191",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/map/original/ne_50m_admin_0_countries/ne_50m_admin_0_countries.cpg",
+      "bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "assets/map/original/ne_50m_admin_0_countries/ne_50m_admin_0_countries.dbf",
+      "bytes": 786828,
+      "sha256": "4ec70fc63842df719ee1f9f7bb0469b528b1eab8099c44aea6c7339a10cacc4b",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "assets/map/original/ne_50m_admin_0_countries/ne_50m_admin_0_countries.prj",
+      "bytes": 143,
+      "sha256": "98aaf3d1c0ecadf1a424a4536de261c3daf4e373697cb86c40c43b989daf52eb",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "assets/map/original/ne_50m_admin_0_countries/ne_50m_admin_0_countries.shp",
+      "bytes": 1613020,
+      "sha256": "94799b91827fb9f32c0c517d60281572abcf5e4647d19b7f52217071cc4fd30d",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "assets/map/original/ne_50m_admin_0_countries/ne_50m_admin_0_countries.shx",
+      "bytes": 2036,
+      "sha256": "1813a4b55c3e9db05b7f5f77adbfe7b8f8ad5bce870dab0f4e5ec937f0e5a791",
+      "contentType": "application/octet-stream"
+    },
+    {
+      "path": "assets/map/original/ne_50m_admin_0_countries.zip",
+      "bytes": 799734,
+      "sha256": "5fed433373581fa648920435f937d95f2d3c0200e067409c6478dcdf1b853139",
+      "contentType": "application/zip"
+    },
+    {
+      "path": "assets/metadata/font-validation.json",
+      "bytes": 571,
+      "sha256": "79a1582092d9daa7b25cea3319324f0bc1e1e53c653f27a87004fdc0d9246e58",
+      "contentType": "application/json"
+    },
+    {
+      "path": "assets/metadata/font-web-conversion.json",
+      "bytes": 955,
+      "sha256": "4c2ff3e1fde7ec9986a216ef1602c8470d94beabedec818f0c46dc96cb1da555",
+      "contentType": "application/json"
+    },
+    {
+      "path": "assets/metadata/image-validation.json",
+      "bytes": 5219,
+      "sha256": "71f1cbce9f1ef91418595785a15acfa9634780956ca8d74e8974b1bb1a93322c",
+      "contentType": "application/json"
+    },
+    {
+      "path": "assets/metadata/map-validation.json",
+      "bytes": 782,
+      "sha256": "905aaa0874e85256ad25e88d2490e25cd5ad80ba9cce97ce2da2ddd884bd758f",
+      "contentType": "application/json"
+    },
+    {
+      "path": "assets/prompts/album-spread-v1.txt",
+      "bytes": 1426,
+      "sha256": "459e592d472486e77a90864557cdaaf1c5bf00009d387b8595fbf23bbd3a4f34",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/prompts/amina-v1-provisional.txt",
+      "bytes": 1518,
+      "sha256": "c0ca777e94415ab6ad944ef8578012fd0caf4c5849ed3606ee64b3e7ffbbc185",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/prompts/aydar-v1-provisional.txt",
+      "bytes": 1531,
+      "sha256": "c62966f6c3d623b999f589747335c76ba709448ea0511a4f08560df65c14aeda",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/prompts/book-rowan-v1.txt",
+      "bytes": 1089,
+      "sha256": "afcae33503994a2486aa0e16ea30c10ff3e28373d1bd27ad8c951dc429c33c4d",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/prompts/egor-museum-v1.txt",
+      "bytes": 2357,
+      "sha256": "829a12ef764e5a51ad71dc9d3f535ea74bf06d1b2c3f61977f141a79a9386f4b",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/prompts/egor-v1.txt",
+      "bytes": 1420,
+      "sha256": "51e37a353cea997becb3642c664632ccf4cef048de370f6f311e1236489e9a7d",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/prompts/landscape-watercolor-v1.txt",
+      "bytes": 1946,
+      "sha256": "8698bb22a79a2742c1753ec615c256a05377ad7a2db1a389570458ccad4e5a20",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/prompts/museum-background-v1.txt",
+      "bytes": 1884,
+      "sha256": "90c85ce89e2b5fd83b3d67145ced7c4548457667c18bd82d77734fa3e3e70219",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/prompts/paper-ivory-v1.txt",
+      "bytes": 874,
+      "sha256": "5b8c8bb438ef965755b9569cd6c3e454fd72032ee28008024308c609a646fb74",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/prompts/rowan-corner-v1.txt",
+      "bytes": 1148,
+      "sha256": "35f16d93786a8fab5ef66fb8bb86445ab20694ad05c97378f49349aea4d14058",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/prompts/russia-story-map-v2.txt",
+      "bytes": 2901,
+      "sha256": "1e8fd5b18cfa9d732cd69ce6df5067276440c9e659812f4006f9d0e1052a23af",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/textures/paper-ivory-v1.png",
+      "bytes": 2024350,
+      "sha256": "ccad38467db4ab27899c1a7d4c69b4ae3ccdef1fe6b52d0699ecd34e9baf2ab7",
+      "contentType": "image/png"
+    }
+  ]
+}

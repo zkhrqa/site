@@ -1,0 +1,237 @@
+{
+ "files": 5,
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "src/App.tsx",
+   "line": 381,
+   "match": "className=\"eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "src/App.tsx",
+   "line": 790,
+   "match": "className=\"eyebrow",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "src/styles.css",
+   "line": 273,
+   "match": ".eyebrow {",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "file": "src/styles.css",
+   "line": 369,
+   "match": "linear-gradient(",
+   "message": "Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception)."
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "file": "src/styles.css",
+   "line": 370,
+   "match": "linear-gradient(",
+   "message": "Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception)."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "src/styles.css",
+   "line": 408,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "src/styles.css",
+   "line": 440,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "src/styles.css",
+   "line": 513,
+   "match": "border-left: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "file": "src/styles.css",
+   "line": 542,
+   "match": "linear-gradient(",
+   "message": "Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception)."
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "file": "src/styles.css",
+   "line": 677,
+   "match": "linear-gradient(",
+   "message": "Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception)."
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "file": "src/styles.css",
+   "line": 678,
+   "match": "linear-gradient(",
+   "message": "Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception)."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "src/styles.css",
+   "line": 721,
+   "match": "height: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "file": "src/styles.css",
+   "line": 794,
+   "match": "linear-gradient(",
+   "message": "Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception)."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "src/styles.css",
+   "line": 827,
+   "match": "border-bottom: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "src/styles.css",
+   "line": 843,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "src/styles.css",
+   "line": 875,
+   "match": ".eyebrow {",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "src/styles.css",
+   "line": 915,
+   "match": "border-bottom: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "src/styles.css",
+   "line": 1087,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "src/styles.css",
+   "line": 1149,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "file": "src/styles.css",
+   "line": 1177,
+   "match": "box-shadow:",
+   "message": "Shadow. Elements at rest carry none; only real overlays (menu, dialog, sticky bar) may."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "src/styles.css",
+   "line": 1393,
+   "match": ".eyebrow {",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "WARN",
+   "id": "outlined-box",
+   "file": "src/styles.css",
+   "line": 1686,
+   "match": "border: 1px solid",
+   "message": "A 1px outlined box. Prefer a filled surface or no box."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "src/styles.css",
+   "line": 1706,
+   "match": ".eyebrow {",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "src/styles.css",
+   "line": 1864,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "file": "src/styles.css",
+   "line": 2105,
+   "match": ".eyebrow {",
+   "message": "Eyebrow / kicker label above a heading."
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "file": "src/styles.css",
+   "line": 2217,
+   "match": "border-top: 1px",
+   "message": "Thin rule / divider line. Separate with space, tone or scale; lines belong to real tables and form fields."
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "file": "src/styles.css",
+   "line": 2674,
+   "match": "linear-gradient(",
+   "message": "Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception)."
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "file": "src/styles.css",
+   "line": 2675,
+   "match": "linear-gradient(",
+   "message": "Gradient fill. Use a flat colour or a real image (a neutral scrim over a photo is the one exception)."
+  },
+  {
+   "level": "WARN",
+   "id": "em-dash",
+   "file": "(all files)",
+   "line": 0,
+   "match": "15 em dashes",
+   "message": "Em-dash habit. Use a full stop or a comma; keep at most one or two on a page."
+  }
+ ]
+}

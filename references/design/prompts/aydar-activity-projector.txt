@@ -1,0 +1,14 @@
+Use case: ui-mockup. Generate ONE internal educational activity screen for «Альбом дружбы», same exact selected watercolor paper-album identity as the attached homepage reference. Target dimensions 1440 × 1024 px, landscape projection/classroom web viewport. Single screen screenshot, no browser frame, no devices or collage, no redesign. Warm ivory paper, dark brown clear serif Cyrillic display type, restrained sage green and terracotta actions, watercolor pencil illustration, very readable text from back of classroom. No more than two font families. Few subtle rowan leaves at margins, clean light reading area, no animation implied over the words.
+
+Real lesson 2: «Типы текстов: повествование, описание, рассуждение», guide Айдар. Ordinary friendly nine-year-old boy with short dark chestnut hair, olive-green sweater over a light shirt, burgundy-brown family book. No national costume or headgear. Tatar family story is taught through real text content, not stereotyped scenery. Exercise is classifying a passage and explaining the clue words. Show a SUCCESS STATE after the pupil selected the correct answer, not an error state.
+
+Top minimal bar: small book-rowan brand «Альбом дружбы», «К уроку» back link, modest progress «Страница 1 из 3», right «Выйти из показа». No account/class selector.
+Main heading «Верни страницу в книгу». Supporting line «Прочитай текст и определи его тип».
+About 75% width main reading area, visually an open lightly ruled album sheet but not thick ornamental framed card. Exact text in large readable type:
+«Утром Айдар помог бабушке приготовить угощение. Потом он украсил коробку узором и отнёс её к праздничному столу».
+Keep punctuation and letters correct, no text over texture noise. In text softly highlight only «Утром» and «Потом» as clues, with readable dark foreground.
+Under passage: «Какой это тип текста?» then three big choices in one row: «Повествование» selected with a sage check mark and text, «Описание», «Рассуждение» neutral. Text-based radio/check button appearance, no stereotype illustrations in answer controls.
+Below, one calm feedback area, not pop-up: «Верно! Это повествование». Explanation «Текст рассказывает о событиях. Слова «Утром» и «Потом» помогают увидеть их порядок». Never convey correctness only through green.
+Right 20%: Aydar with book, small supportive dialogue «Что было сначала, а что потом?», gentle illustration fading into ivory edge, not taking half the screen.
+Bottom primary terracotta CTA «Следующая страница», small secondary «Попробовать ещё раз». One discreet future-completion indication can be omitted; do not show «Знакомство завершено» yet because one task doesn't complete whole lesson.
+Polished real website activity design, not a poster. No scores, medals, time limit, coins, ranking, dashboard, login, admin, class names, giant map or invented facts. Focus is reading, selecting, and explaining.

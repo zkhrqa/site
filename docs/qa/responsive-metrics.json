@@ -1,0 +1,86 @@
+[
+  {
+    "route": "home",
+    "h1Font": "Lora, Georgia, serif",
+    "imagesLoaded": true,
+    "scrollWidth": 768,
+    "viewport": 768
+  },
+  {
+    "route": "lesson",
+    "h1Font": "Lora, Georgia, serif",
+    "imagesLoaded": true,
+    "scrollWidth": 768,
+    "viewport": 768
+  },
+  {
+    "route": "activity",
+    "h1Font": "Lora, Georgia, serif",
+    "imagesLoaded": true,
+    "scrollWidth": 768,
+    "viewport": 768
+  },
+  {
+    "route": "home",
+    "h1Font": "Lora, Georgia, serif",
+    "imagesLoaded": true,
+    "scrollWidth": 320,
+    "viewport": 320
+  },
+  {
+    "route": "lesson",
+    "h1Font": "Lora, Georgia, serif",
+    "imagesLoaded": true,
+    "scrollWidth": 320,
+    "viewport": 320
+  },
+  {
+    "route": "activity",
+    "h1Font": "Lora, Georgia, serif",
+    "imagesLoaded": true,
+    "scrollWidth": 320,
+    "viewport": 320
+  },
+  {
+    "route": "home",
+    "fontsLoaded": true,
+    "imagesLoaded": true,
+    "scrollWidth": 390,
+    "width": 390
+  },
+  {
+    "route": "lesson",
+    "fontsLoaded": true,
+    "imagesLoaded": true,
+    "scrollWidth": 390,
+    "width": 390
+  },
+  {
+    "route": "activity",
+    "fontsLoaded": true,
+    "imagesLoaded": true,
+    "scrollWidth": 390,
+    "width": 390
+  },
+  {
+    "route": "home",
+    "fontsLoaded": true,
+    "imagesLoaded": true,
+    "scrollWidth": 1440,
+    "width": 1440
+  },
+  {
+    "route": "lesson",
+    "fontsLoaded": true,
+    "imagesLoaded": true,
+    "scrollWidth": 1440,
+    "width": 1440
+  },
+  {
+    "route": "activity",
+    "fontsLoaded": true,
+    "imagesLoaded": true,
+    "scrollWidth": 1440,
+    "width": 1440
+  }
+]
