@@ -1,6 +1,8 @@
 import {
+  Fragment,
   lazy,
   Suspense,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -40,13 +42,29 @@ const JourneyMap = lazy(() =>
 );
 
 function scrollSection(id: string, behavior: ScrollBehavior) {
-  const target = document.getElementById(id);
-  if (target instanceof HTMLDetailsElement) target.open = true;
-  target?.scrollIntoView({ behavior });
+  document.getElementById(id)?.scrollIntoView({ behavior });
 }
+
+const Worksheet = lazy(() =>
+  import("./Worksheet").then((module) => ({ default: module.Worksheet })),
+);
 
 const media = (name: string) => `/media/${name}.webp`;
 type Route = "home" | "lesson" | "interactive" | "activity";
+type HomeSection = "map" | "lessons" | "about";
+type HomeNavigation = { section: HomeSection | null; behavior: ScrollBehavior };
+
+function homeNavigationFromHash(): HomeNavigation {
+  const section = location.hash.slice(2);
+  return {
+    section:
+      section === "map" || section === "lessons" || section === "about"
+        ? section
+        : null,
+    behavior: "instant",
+  };
+}
+
 const routeFromHash = (): Route =>
   location.hash.startsWith("#/lesson/1/activity")
     ? "activity"
@@ -96,6 +114,7 @@ function Modal({
 
 export function App() {
   const [route, setRoute] = useState<Route>(routeFromHash);
+  const [homeNavigation, setHomeNavigation] = useState(homeNavigationFromHash);
   const [progress, setProgress] = useState<Progress>(emptyProgress);
   const [storageError, setStorageError] = useState("");
   const [preserveStoredProgress, setPreserveStoredProgress] = useState(false);
@@ -143,7 +162,6 @@ export function App() {
     return () => clearTimeout(timer);
   }, [celebrate]);
   useEffect(() => {
-    history.scrollRestoration = "manual";
     try {
       const result = readProgress(localStorage);
       setProgress(result.progress);
@@ -156,15 +174,11 @@ export function App() {
       );
     }
     const onHash = () => {
-      setRoute(routeFromHash());
+      const nextRoute = routeFromHash();
+      setRoute(nextRoute);
       setMenuOpen(false);
       setProjector(location.hash.endsWith("?projector"));
-      requestAnimationFrame(() => {
-        const id = location.hash.slice(2);
-        if (["map", "lessons", "about"].includes(id))
-          scrollSection(id, "instant");
-        else if (!id) window.scrollTo({ top: 0, behavior: "instant" });
-      });
+      if (nextRoute === "home") setHomeNavigation(homeNavigationFromHash());
     };
     const onStorage = (e: StorageEvent) => {
       if (e.key === STORAGE_KEY || e.key === null) {
@@ -190,19 +204,11 @@ export function App() {
       route === "home"
         ? "Альбом дружбы — русский язык объединяет"
         : `${route === "activity" ? lesson.exercise.title : lesson.title} · Альбом дружбы`;
-    requestAnimationFrame(() => {
+    const frame = requestAnimationFrame(() => {
       document.getElementById("main")?.focus({ preventScroll: true });
-      const anchor =
-        location.hash === "#/map"
-          ? "map"
-          : location.hash === "#/lessons"
-            ? "lessons"
-            : location.hash === "#/about"
-              ? "about"
-              : "";
-      if (anchor) scrollSection(anchor, "instant");
-      else window.scrollTo({ top: 0, behavior: "instant" });
+      if (route !== "home") window.scrollTo({ top: 0, behavior: "instant" });
     });
+    return () => cancelAnimationFrame(frame);
   }, [route]);
   useEffect(() => {
     if (!toast) return;
@@ -214,7 +220,7 @@ export function App() {
     const leave = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setProjector(false);
-        location.hash = "/lesson/1/activity";
+        location.hash = location.hash.replace("?projector", "");
       }
     };
     window.addEventListener("keydown", leave);
@@ -242,12 +248,12 @@ export function App() {
     setCelebrate(true);
     setToast(
       saved
-        ? "Первое знакомство отмечено! Путешествие сохранено в этом браузере."
-        : "Знакомство отмечено на этой странице. Сохраните путешествие в файл.",
+        ? "Урок пройден! Отметка сохранена в этом браузере."
+        : "Урок отмечен как пройденный на этой странице. Сохраните путешествие в файл.",
     );
     location.hash = "/map";
   }
-  function goSection(id: string) {
+  function goSection(id: HomeSection) {
     const hash = `#/${id}`;
     setMenuOpen(false);
     if (route !== "home") {
@@ -257,12 +263,12 @@ export function App() {
     // Same-page navigation owns its scroll. A hashchange would cancel it
     // with the instant positioning used for history and direct links.
     if (location.hash !== hash) history.pushState(null, "", hash);
-    scrollSection(
-      id,
-      matchMedia("(prefers-reduced-motion: reduce)").matches
+    setHomeNavigation({
+      section: id,
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
         ? "instant"
         : "smooth",
-    );
+    });
   }
   return (
     <div className={projector ? "site projector" : "site"}>
@@ -363,23 +369,34 @@ export function App() {
           <Home
             completedLessonIds={progress.completedLessonIds}
             celebrate={celebrate}
+            navigation={homeNavigation}
             onSection={goSection}
           />
         )}
         {route === "lesson" && <Lesson />}
-        {route === "interactive" && <InteractiveIntro />}
-        {route === "activity" && (
-          <Activity
-            done={done}
-            projector={projector}
-            setProjector={(value) => {
-              setProjector(value);
-              location.hash = value
-                ? "/lesson/1/activity?projector"
-                : "/lesson/1/activity";
-            }}
-            onFinish={finish}
-          />
+        {(route === "interactive" || route === "activity") && (
+          <Suspense
+            fallback={
+              <div className="wrap journey-loading" aria-live="polite">
+                <h1>Рабочий лист Егора</h1>
+                <p>Загружаем задания…</p>
+              </div>
+            }
+          >
+            <Worksheet
+              done={done}
+              projector={projector}
+              setProjector={(value) => {
+                setProjector(value);
+                const path =
+                  route === "activity"
+                    ? "/lesson/1/activity"
+                    : "/lesson/1/interactive";
+                location.hash = value ? `${path}?projector` : path;
+              }}
+              onFinish={finish}
+            />
+          </Suspense>
         )}
       </main>
       {!projector && (
@@ -387,18 +404,8 @@ export function App() {
           <a className="footer-brand" href="#/">
             Альбом дружбы
           </a>
-          <p>Русский язык. Разные культуры. Общая история.</p>
-          <p className="small">
-            Географическая основа:{" "}
-            <a
-              href="https://www.naturalearthdata.com/about/terms-of-use/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Natural Earth
-            </a>{" "}
-            · Иллюстрации созданы для проекта
-          </p>
+          <p>У каждого народа — своя история. Вместе — одна большая страна.</p>
+          <p className="small">© 2026 · Авторский образовательный проект</p>
         </footer>
       )}
       {toast && (
@@ -430,12 +437,26 @@ export function App() {
 function Home({
   completedLessonIds,
   celebrate,
+  navigation,
   onSection,
 }: {
   completedLessonIds: readonly string[];
   celebrate: boolean;
-  onSection: (id: string) => void;
+  navigation: HomeNavigation;
+  onSection: (id: HomeSection) => void;
 }) {
+  const [mapReady, setMapReady] = useState(false);
+  const mapRef = useCallback((element: HTMLElement | null) => {
+    setMapReady(element !== null);
+  }, []);
+  const canScroll = mapReady || navigation.section === null;
+  useEffect(() => {
+    if (!canScroll) return;
+    if (navigation.section)
+      scrollSection(navigation.section, navigation.behavior);
+    else window.scrollTo({ top: 0, behavior: "instant" });
+  }, [canScroll, navigation]);
+
   return (
     <>
       <section className="home-hero wrap" aria-labelledby="home-title">
@@ -450,7 +471,7 @@ function Home({
             20 интерактивных уроков о традициях и народах России
           </p>
           <div className="author-note">
-            <strong>[Имя Фамилия Автора]</strong>
+            <strong>Медведева Екатерина Ивановна</strong>
             <span>Учитель начальных классов, методист</span>
           </div>
           <div className="actions">
@@ -464,12 +485,16 @@ function Home({
             >
               Начать путешествие <ArrowRight size={23} />
             </a>
-            <button
+            <a
               className="button outline"
-              onClick={() => onSection("about")}
+              href="#/about"
+              onClick={(e) => {
+                e.preventDefault();
+                onSection("about");
+              }}
             >
               Как устроен курс
-            </button>
+            </a>
           </div>
         </div>
         <div className="author-art">
@@ -491,7 +516,7 @@ function Home({
       </section>
       <Suspense
         fallback={
-          <section id="map" className="wrap journey-loading" aria-live="polite">
+          <section className="wrap journey-loading" aria-live="polite">
             <h2>Карта нашего путешествия</h2>
             <p>Загружаем карту…</p>
           </section>
@@ -500,6 +525,7 @@ function Home({
         <JourneyMap
           completedLessonIds={completedLessonIds}
           celebrate={celebrate}
+          sectionRef={mapRef}
         />
       </Suspense>
       <section
@@ -511,17 +537,26 @@ function Home({
         <div>
           <h2 id="about-title">Один язык — много историй</h2>
           <p>
-            «Альбом дружбы» — цикл уроков русского языка для третьеклассников.
-            Вместе с героями дети изучают язык и знакомятся с культурой народов
-            России.
+            «Альбом дружбы» — авторский образовательный проект, посвящённый Году
+            единства народов России. Он объединяет 20 уроков русского языка для
+            учеников начальных классов, каждый из которых знакомит детей с
+            культурой, традициями и историей одного из народов нашей страны.
+            Через увлекательные задания и путешествия с героями школьники не
+            только осваивают русский язык, но и учатся понимать и ценить
+            культурное многообразие России.
           </p>
           <p>
-            Учитель может открыть урок на проекторе, скачать рабочий лист для
-            печати и после занятия оставить отметку в общем альбоме класса.
+            Проект создан в помощь учителям начальных классов. Здесь можно
+            познакомиться с методикой, подготовиться к занятиям, открыть
+            интерактивные уроки для показа на проекторе, скачать рабочие листы и
+            готовые материалы. После каждого занятия класс может сохранить
+            результаты своего путешествия в общем «Альбоме дружбы», постепенно
+            создавая собственную историю знакомства с народами России.
           </p>
           <p className="small">
-            Сейчас доступна первая интерактивная часть урока с Егором. Полный
-            сценарий и рабочий лист — на странице урока. Цикл продолжает расти.
+            Проект развивается и пополняется новыми материалами. Уже сейчас
+            можно познакомиться с первыми уроками и отправиться в путешествие
+            вместе с его героями.
           </p>
           <a className="text-link" href="#/lesson/1">
             Познакомиться с первым уроком <ArrowRight size={21} />
@@ -547,23 +582,8 @@ function Lesson() {
             государственный
             <br className="desktop-only" /> язык России
           </h1>
-          <p className="lesson-subtitle">Урок 1 · 3 класс · Русская культура</p>
-          <p className="full-topic">Тема: {lesson.fullTitle}</p>
+          <p className="lesson-subtitle">Урок 1</p>
           <p className="preparation-intro">{lesson.preparation.plot}</p>
-          <a
-            className="text-link materials-link"
-            href="#materials"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("materials")?.scrollIntoView({
-                behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
-                  ? "instant"
-                  : "smooth",
-              });
-            }}
-          >
-            Скачать материалы <DownloadSimple size={20} />
-          </a>
         </div>
         <div className="lesson-hero-art">
           <img
@@ -586,19 +606,25 @@ function Lesson() {
         </div>
       </section>
       <section
-        className="preparation-overview"
-        aria-labelledby="preparation-title"
+        className="preparation-route"
+        aria-labelledby="lesson-route-title"
       >
-        <h2 id="preparation-title">О чём урок</h2>
-        <div className="preparation-columns">
-          <div>
-            <h3>Цель</h3>
-            <p>{lesson.preparation.goal}</p>
-          </div>
-          <div>
-            <h3>Что смогут объяснить дети</h3>
-            <p>{lesson.preparation.result}</p>
-          </div>
+        <h2 id="lesson-route-title">Как пройдёт урок</h2>
+        <div className="preparation-copy">
+          <p>
+            {lesson.preparation.opening}{" "}
+            {lesson.preparation.trials.map((trial, index, trials) => {
+              const last = index === trials.length - 1;
+              return (
+                <Fragment key={trial.title}>
+                  {last ? "а в " : "в "}
+                  <strong>«{trial.title}»</strong> {trial.description}
+                  {last ? "." : ", "}
+                </Fragment>
+              );
+            })}
+          </p>
+          <p>{lesson.preparation.closing}</p>
         </div>
       </section>
       <section
@@ -606,249 +632,24 @@ function Lesson() {
         id="materials"
         aria-labelledby="materials-title"
       >
-        <h2 id="materials-title">Подготовиться к занятию</h2>
+        <h2 id="materials-title">Подготовка к занятию</h2>
+        <p className="preparation-copy">{lesson.preparation.materials}</p>
         {lesson.downloads.map((file) => (
           <a key={file.href} className="download-row" href={file.href} download>
-            <FileDoc size={32} weight="light" />
+            <FileDoc size={32} weight="light" aria-hidden="true" />
             <span>
               <strong>{file.title}</strong>
               <span className="small">{file.detail}</span>
             </span>
             <span className="download-label">
-              Скачать <DownloadSimple size={22} />
+              Скачать DOCX <DownloadSimple size={22} aria-hidden="true" />
             </span>
           </a>
         ))}
-      </section>
-      <section className="interactive-launch" aria-labelledby="launch-title">
-        <div>
-          <h2 id="launch-title">Готовы начать с классом?</h2>
-          <p>Откройте историю Егора, обсудите её и соберите послание дружбы.</p>
-          <p className="small">
-            На сайте — история из задания 1 и интерактивное задание 4 рабочего
-            листа. Все остальные задания и полный сценарий занятия — в
-            материалах выше.
-          </p>
-        </div>
-        <a className="button primary" href="#/lesson/1/interactive">
-          Запустить интерактивную часть <ArrowRight size={22} />
-        </a>
-      </section>
-    </div>
-  );
-}
-
-function InteractiveIntro() {
-  return (
-    <div className="lesson-page interactive-intro wrap">
-      <div className="breadcrumbs">
-        <a href="#/lesson/1">К подготовке учителя</a>
-        <span>/</span>
-        <span>Урок 1</span>
-      </div>
-      <header className="interactive-heading">
-        <h1>Русский язык объединяет</h1>
-        <p>История Егора · Рабочий лист, задание 1</p>
-      </header>
-      <section
-        className="story-section"
-        id="story"
-        aria-labelledby="story-title"
-      >
-        <h2 id="story-title">
-          <span className="chapter-number">1</span>Почему мы понимаем друг
-          друга?
-        </h2>
-        <div className="story-grid">
-          <img
-            src={media("museum")}
-            alt="Егор и другие ребята слушают экскурсовода в музее"
-          />
-          <div>
-            <p>{lesson.story}</p>
-            <blockquote>{lesson.question}</blockquote>
-            <p className="small">
-              Обсудите в классе, а затем соберите послание дружбы.
-            </p>
-            <a className="button primary" href="#/lesson/1/activity">
-              К посланию дружбы <ArrowRight size={22} />
-            </a>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-function Activity({
-  done,
-  projector,
-  setProjector,
-  onFinish,
-}: {
-  done: boolean;
-  projector: boolean;
-  setProjector: (state: boolean) => void;
-  onFinish: () => void;
-}) {
-  const [selected, setSelected] = useState<number[]>([]);
-  const [checked, setChecked] = useState(false);
-  const [reflection, setReflection] = useState("");
-  const words = lesson.exercise.words;
-  const correct =
-    selected.length === words.length &&
-    selected.every((id, i) => words[id] === lesson.exercise.answer[i]);
-  function reset() {
-    setSelected([]);
-    setChecked(false);
-  }
-  return (
-    <div className="activity-page wrap">
-      <div className="activity-toolbar">
-        <a className="text-link" href="#/lesson/1">
-          <ArrowLeft size={20} />К уроку
-        </a>
-        <button
-          className="button outline"
-          aria-pressed={projector}
-          onClick={() => setProjector(!projector)}
-        >
-          {projector ? <X size={22} /> : <ProjectorScreen size={22} />}{" "}
-          {projector ? "Выйти из режима проектора" : "На проектор"}
-        </button>
-      </div>
-      <div className="activity-heading">
-        <img className="activity-rowan left" src={media("rowan")} alt="" />
-        <img className="activity-rowan right" src={media("rowan")} alt="" />
-        <p className="eyebrow">{lesson.exercise.source}</p>
-        <h1>{lesson.exercise.title}</h1>
-        <p>{lesson.exercise.instruction}</p>
-      </div>
-      <div className="activity-stage">
-        <aside className="guide">
-          <img src={media("egor")} alt="Егор с альбомом" />
-          <p>
-            Давай соберём
-            <br />
-            важные слова вместе!
-          </p>
-        </aside>
-        <section className="exercise-paper" aria-label="Сборка предложения">
-          <div className="sentence" aria-label="Твоё предложение">
-            <p className="sentence-caption">Твоё послание</p>
-            <div className="sentence-words">
-              {selected.length === 0 ? (
-                <span className="empty-sentence">Выбирай слова по порядку</span>
-              ) : (
-                selected.map((id, i) => (
-                  <button
-                    key={id}
-                    className={`word selected-word ${checked && correct ? "correct-word" : ""}`}
-                    aria-label={`Убрать слово «${words[id]}», позиция ${i + 1}`}
-                    onClick={() => {
-                      setSelected(selected.filter((item) => item !== id));
-                      setChecked(false);
-                    }}
-                  >
-                    {words[id]}
-                    {i === words.length - 1 && "."}
-                  </button>
-                ))
-              )}
-            </div>
-          </div>
-          <div className="word-bank" aria-label="Слова для предложения">
-            {words.map((word, id) => (
-              <button
-                key={id}
-                className="word"
-                disabled={selected.includes(id)}
-                onClick={() => {
-                  setSelected([...selected, id]);
-                  setChecked(false);
-                }}
-              >
-                {word}
-              </button>
-            ))}
-          </div>
-          <p className="word-help">
-            Нажми на слово, чтобы добавить его. Нажми ещё раз в послании, чтобы
-            убрать.
-          </p>
-          <div className="exercise-actions">
-            <button
-              className="button primary"
-              disabled={selected.length !== words.length}
-              onClick={() => setChecked(true)}
-            >
-              Проверить <Check size={22} />
-            </button>
-            <button
-              className="text-button reset-button"
-              onClick={reset}
-              disabled={!selected.length}
-            >
-              <ArrowCounterClockwise size={21} />
-              Начать заново
-            </button>
-          </div>
-          <div
-            className={`exercise-feedback ${checked && correct ? "success" : ""}`}
-            aria-live="polite"
-          >
-            {checked &&
-              (correct ? (
-                <>
-                  <CheckCircle size={25} weight="fill" />
-                  <span>
-                    Получилось! Русский язык помогает понимать друг друга.
-                  </span>
-                </>
-              ) : (
-                <>
-                  <Info size={25} />
-                  <span>
-                    Прочитай предложение вслух. Начни со слов «Русский язык» и
-                    попробуй ещё раз.
-                  </span>
-                </>
-              ))}
-          </div>
-        </section>
-      </div>
-      <section
-        className="reflection-section"
-        aria-labelledby="reflection-title"
-      >
-        <div>
-          <h2 id="reflection-title">Поговорим о послании</h2>
-          <label htmlFor="reflection">{lesson.exercise.reflection}</label>
-          <p className="small">
-            Можно ответить устно, в рабочем листе или записать мысль здесь.
-          </p>
-          <textarea
-            id="reflection"
-            value={reflection}
-            onChange={(e) => setReflection(e.target.value)}
-            maxLength={2000}
-            rows={3}
-            placeholder="Я думаю, что…"
-          />
-          <p className="small">Запись остаётся только на этом экране.</p>
-        </div>
-        <div className="finish-note">
-          <BookOpen size={42} weight="light" />
-          <h3>Новая страница альбома</h3>
-          <p>
-            Когда знакомство завершено, учитель или ученик может оставить
-            отметку на карте.
-          </p>
-          <button className="button primary" onClick={onFinish}>
-            {done ? "Вернуться к отметке" : "Отметить знакомство"}
-            <Star size={23} weight={done ? "fill" : "regular"} />
-          </button>
-          <p className="small">Отметка не зависит от результата задания.</p>
+        <div className="preparation-actions">
+          <a className="button primary" href="#/lesson/1/interactive">
+            Запустить интерактивную часть <ArrowRight size={22} />
+          </a>
         </div>
       </section>
     </div>
@@ -904,7 +705,7 @@ function ProgressDialog({
     <Modal title="Моё путешествие" onClose={close}>
       <p className="progress-count">
         <Star size={28} weight={count ? "fill" : "regular"} />
-        {count ? "Первое знакомство отмечено" : "Альбом ждёт первой отметки"}
+        {count ? "Первый урок пройден" : "Альбом ждёт первой отметки"}
       </p>
       <p>
         Отметки хранятся в этом браузере на этом устройстве. Чтобы перенести их
@@ -945,7 +746,7 @@ function ProgressDialog({
       <div className="reset-progress">
         {count > 0 && (
           <div className="completed-lesson-row">
-            <p>Урок 1 · Знакомство с Егором</p>
+            <p>Урок 1 · {lesson.title}</p>
             <button
               className="text-button"
               onClick={() => {

@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -32,9 +33,11 @@ import "./journey-map.css";
 export function JourneyMap({
   completedLessonIds,
   celebrate,
+  sectionRef,
 }: {
   completedLessonIds: readonly string[];
   celebrate: boolean;
+  sectionRef: (section: HTMLElement | null) => void;
 }) {
   const [selected, setSelected] = useState<JourneyStop | null>(null);
   const selectedLesson = selected?.lessonId
@@ -52,13 +55,44 @@ export function JourneyMap({
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [width, setWidth] = useState(1100);
-  const catalogue = useRef<HTMLDetailsElement>(null);
+  const [catalogueExpanded, setCatalogueExpanded] = useState(false);
+  const [mobileCatalogue, setMobileCatalogue] = useState(
+    () => matchMedia("(max-width: 600px)").matches,
+  );
+  const previewCount = mobileCatalogue ? 4 : 5;
+  const catalogue = useRef<HTMLElement>(null);
+  const catalogueFrame = useRef<HTMLDivElement>(null);
+  const catalogueList = useRef<HTMLOListElement>(null);
   useEffect(() => {
-    if (location.hash === "#/lessons" && catalogue.current) {
-      catalogue.current.open = true;
-      catalogue.current.scrollIntoView({ behavior: "instant" });
-    }
+    const query = matchMedia("(max-width: 600px)");
+    const update = () => setMobileCatalogue(query.matches);
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
   }, []);
+  useLayoutEffect(() => {
+    const frame = catalogueFrame.current;
+    const list = catalogueList.current;
+    const lastPreview =
+      list?.children[Math.min(previewCount, journeyStops.length) - 1];
+    if (!frame || !list || !lastPreview) return;
+
+    const measure = () => {
+      const bounds = list.getBoundingClientRect();
+      const padding = parseFloat(getComputedStyle(list).paddingBottom);
+      const previewHeight =
+        lastPreview.getBoundingClientRect().bottom - bounds.top + padding;
+      frame.style.setProperty(
+        "--catalogue-preview-height",
+        `${previewHeight}px`,
+      );
+      frame.style.setProperty("--catalogue-full-height", `${bounds.height}px`);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(list);
+    observer.observe(lastPreview);
+    return () => observer.disconnect();
+  }, [previewCount]);
   const [dragging, setDragging] = useState(false);
   const viewport = useRef<HTMLDivElement>(null);
   const view = useRef({ zoom, pan, width });
@@ -168,6 +202,15 @@ export function JourneyMap({
     () => groupStops(journeyStops, width, zoom),
     [width, zoom],
   );
+  const selectedPoint = selected
+    ? (groups.find((group) => group.stops.includes(selected)) ?? selected)
+    : null;
+  const selectionOffset = selectedPoint
+    ? {
+        x: ((selectedPoint.x - 700) / 1400) * width * zoom + pan.x,
+        y: ((selectedPoint.y - 340) / 1400) * width * zoom + pan.y,
+      }
+    : null;
   useEffect(() => {
     if (!viewport.current) return;
     const observer = new ResizeObserver(([entry]) => {
@@ -181,17 +224,23 @@ export function JourneyMap({
   useEffect(() => {
     if (!selected) return;
     panel.current?.focus({ preventScroll: true });
-    panel.current?.scrollIntoView({ block: "nearest", behavior: "instant" });
+    panel.current?.scrollIntoView({
+      block: "nearest",
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
   }, [selected]);
 
-  function selectStop(stop: JourneyStop) {
-    if (!panel.current?.contains(document.activeElement))
-      previousFocus.current = document.activeElement as HTMLElement;
+  function selectStop(stop: JourneyStop, trigger?: HTMLElement) {
+    if (trigger) previousFocus.current = trigger;
+    if (stop === selected) panel.current?.focus();
     setSelected(stop);
   }
   function closePanel() {
     setSelected(null);
-    if (previousFocus.current?.isConnected) previousFocus.current.focus();
+    if (previousFocus.current?.getClientRects().length)
+      previousFocus.current.focus();
     else viewport.current?.focus({ preventScroll: true });
   }
   function changeZoom(value: number) {
@@ -199,9 +248,9 @@ export function JourneyMap({
     setZoom(next);
     setPan((current) => clampPan(current, width, next));
   }
-  function revealGroup(group: StopGroup) {
+  function revealGroup(group: StopGroup, trigger: HTMLButtonElement) {
     if (group.stops.length === 1) {
-      selectStop(group.stops[0]);
+      selectStop(group.stops[0], trigger);
       return;
     }
     const next = Math.min(3.5, zoom + 0.4);
@@ -218,8 +267,8 @@ export function JourneyMap({
     );
     viewport.current?.focus({ preventScroll: true });
   }
-  function selectFromList(stop: JourneyStop) {
-    selectStop(stop);
+  function selectFromList(stop: JourneyStop, trigger?: HTMLButtonElement) {
+    selectStop(stop, trigger);
     const next = Math.max(zoom, width < 600 ? 2.5 : 1);
     setZoom(next);
     setPan(
@@ -234,185 +283,338 @@ export function JourneyMap({
     );
   }
 
+  function renderCatalogueStop(stop: JourneyStop, index: number) {
+    const ready = stop.lessonId ? publishedLessons[stop.lessonId] : undefined;
+    const completed = isDone(stop);
+    const info = ready ?? stop.introduction;
+    const description = info ? ` ${info.heroName}. ${info.title}.` : "";
+    const contents = (
+      <>
+        <span className="journey-stop-meta">
+          <span>Урок {stop.number}</span>
+          <span className="journey-list-status">
+            {completed ? (
+              <>
+                <Star size={15} weight="fill" />
+                Пройден
+              </>
+            ) : ready ? (
+              "Доступно"
+            ) : (
+              "Готовится"
+            )}
+          </span>
+        </span>
+        <strong className="journey-stop-name">
+          {info?.heroName ?? "Новый урок"}
+        </strong>
+        <span className="journey-stop-topic">
+          {info?.title ?? "Тема урока появится позже"}
+        </span>
+        {ready && (
+          <span className="journey-stop-action">
+            К подготовке <ArrowRight size={18} />
+          </span>
+        )}
+      </>
+    );
+    return (
+      <li
+        key={stop.id}
+        data-extra={index >= previewCount || undefined}
+        inert={!catalogueExpanded && index >= previewCount}
+      >
+        {ready ? (
+          <a
+            className={`journey-stop-card ${completed ? "is-done" : "is-ready"}`}
+            href={ready.href}
+            aria-label={`Урок ${stop.number}.${description} ${completed ? "Пройден. " : ""}Открыть подготовку к уроку`}
+          >
+            {contents}
+          </a>
+        ) : (
+          <button
+            className="journey-stop-card"
+            aria-label={`Выбрать урок ${stop.number}.${description} Готовится`}
+            aria-pressed={selected?.id === stop.id}
+            aria-controls={
+              selected?.id === stop.id ? "journey-selection" : undefined
+            }
+            onClick={(e) => selectFromList(stop, e.currentTarget)}
+          >
+            {contents}
+          </button>
+        )}
+      </li>
+    );
+  }
+
   return (
     <section
       id="map"
       className="journey-section wrap"
+      ref={sectionRef}
       aria-labelledby="journey-title"
     >
       <header className="journey-heading">
         <h2 id="journey-title">Карта нашего путешествия</h2>
         <p>Выбери неизвестную точку — открой новую историю.</p>
       </header>
-      <div className="journey-atlas">
-        <img
-          className="journey-book"
-          src="/media/album.webp"
-          alt=""
-          loading="lazy"
-        />
-        <div
-          ref={viewport}
-          className={`journey-viewport ${zoom > 1 ? "can-pan" : ""} ${dragging ? "is-dragging" : ""} ${gesturing ? "is-gesturing" : ""}`}
-          tabIndex={0}
-          role="group"
-          aria-label="Карта России. При увеличении перемещайте карту стрелками или перетаскиванием."
-          style={{ touchAction: zoom > 1 ? "none" : "pan-y" }}
-          onClickCapture={(e) => {
-            if (Date.now() < suppressClickUntil.current) {
-              e.preventDefault();
-              e.stopPropagation();
-            }
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Escape") closePanel();
-            if (zoom <= 1) return;
-            const directions: Record<string, [number, number]> = {
-              ArrowLeft: [65, 0],
-              ArrowRight: [-65, 0],
-              ArrowUp: [0, 65],
-              ArrowDown: [0, -65],
-            };
-            const delta = directions[e.key];
-            if (delta) {
-              e.preventDefault();
-              setPan((current) =>
+      <div className="journey-map-stack">
+        <div className="journey-atlas">
+          <img
+            className="journey-book"
+            src="/media/album.webp"
+            alt=""
+            loading="lazy"
+          />
+          <div
+            ref={viewport}
+            className={`journey-viewport ${zoom > 1 ? "can-pan" : ""} ${dragging ? "is-dragging" : ""} ${gesturing ? "is-gesturing" : ""}`}
+            tabIndex={0}
+            role="group"
+            aria-label="Карта России. При увеличении перемещайте карту стрелками или перетаскиванием."
+            style={{ touchAction: zoom > 1 ? "none" : "pan-y" }}
+            onClickCapture={(e) => {
+              if (Date.now() < suppressClickUntil.current) {
+                e.preventDefault();
+                e.stopPropagation();
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Escape" && selected) closePanel();
+              if (zoom <= 1) return;
+              const directions: Record<string, [number, number]> = {
+                ArrowLeft: [65, 0],
+                ArrowRight: [-65, 0],
+                ArrowUp: [0, 65],
+                ArrowDown: [0, -65],
+              };
+              const delta = directions[e.key];
+              if (delta) {
+                e.preventDefault();
+                setPan((current) =>
+                  clampPan(
+                    { x: current.x + delta[0], y: current.y + delta[1] },
+                    width,
+                    zoom,
+                  ),
+                );
+              }
+            }}
+            onPointerDown={(e) => {
+              if (
+                e.pointerType === "touch" ||
+                zoom <= 1 ||
+                !e.isPrimary ||
+                e.button !== 0 ||
+                (e.target as HTMLElement).closest("button")
+              )
+                return;
+              drag.current = {
+                x: e.clientX,
+                y: e.clientY,
+                panX: pan.x,
+                panY: pan.y,
+              };
+              e.currentTarget.setPointerCapture(e.pointerId);
+              setDragging(true);
+            }}
+            onPointerMove={(e) => {
+              if (e.pointerType === "touch" || !drag.current) return;
+              setPan(
                 clampPan(
-                  { x: current.x + delta[0], y: current.y + delta[1] },
+                  {
+                    x: drag.current.panX + e.clientX - drag.current.x,
+                    y: drag.current.panY + e.clientY - drag.current.y,
+                  },
                   width,
                   zoom,
                 ),
               );
-            }
-          }}
-          onPointerDown={(e) => {
-            if (
-              e.pointerType === "touch" ||
-              zoom <= 1 ||
-              !e.isPrimary ||
-              e.button !== 0 ||
-              (e.target as HTMLElement).closest("button")
-            )
-              return;
-            drag.current = {
-              x: e.clientX,
-              y: e.clientY,
-              panX: pan.x,
-              panY: pan.y,
-            };
-            e.currentTarget.setPointerCapture(e.pointerId);
-            setDragging(true);
-          }}
-          onPointerMove={(e) => {
-            if (e.pointerType === "touch" || !drag.current) return;
-            setPan(
-              clampPan(
-                {
-                  x: drag.current.panX + e.clientX - drag.current.x,
-                  y: drag.current.panY + e.clientY - drag.current.y,
-                },
-                width,
-                zoom,
-              ),
-            );
-          }}
-          onPointerUp={() => {
-            drag.current = null;
-            setDragging(false);
-          }}
-          onPointerCancel={() => {
-            drag.current = null;
-            setDragging(false);
-          }}
-        >
-          <div
-            className="journey-plane"
-            style={
-              {
-                transform: `translate(-50%, -50%) translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
-                "--map-zoom": zoom,
-              } as CSSProperties
-            }
+            }}
+            onPointerUp={() => {
+              drag.current = null;
+              setDragging(false);
+            }}
+            onPointerCancel={() => {
+              drag.current = null;
+              setDragging(false);
+            }}
           >
-            <svg
-              viewBox="0 0 1400 680"
-              className="journey-geography"
-              role="img"
-              aria-label="Рисованная карта России с лесами, горами и животными"
+            <div
+              className="journey-plane"
+              style={
+                {
+                  transform: `translate(-50%, -50%) translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+                  "--map-zoom": zoom,
+                } as CSSProperties
+              }
             >
-              <defs>
-                <clipPath id="russia-geographic-clip">
-                  <path d={geography.path ?? ""} />
-                </clipPath>
-              </defs>
-              <path d={geography.path ?? ""} fill="#d9dfb1" />
-              <image
-                href="/media/russia-story-map.webp"
-                width="1400"
-                height="680"
-                preserveAspectRatio="none"
-                clipPath="url(#russia-geographic-clip)"
-              />
-              <path
-                d={geography.path ?? ""}
-                fill="none"
-                className="journey-coastline"
-                stroke="#859358"
-                strokeWidth="1.2"
-              />
-            </svg>
-            <div className="journey-points" aria-label="Точки знакомств">
-              {groups.map((group) => {
-                const stop = group.stops[0],
-                  isGroup = group.stops.length > 1;
-                const completed = !isGroup && isDone(stop);
-                const available = !isGroup && isPublished(stop);
-                const groupHasLesson = isGroup && group.stops.some(isPublished);
-                const active =
-                  selected &&
-                  group.stops.some((item) => item.id === selected.id);
-                const label = isGroup
-                  ? `Увеличить группу: ${group.stops.length} ${group.stops.length < 5 ? "знакомства" : "знакомств"}${groupHasLesson ? ". Есть доступный урок" : ""}`
-                  : `Знакомство ${stop.number}. ${completed ? "Отмечено" : available ? "Урок доступен" : "Урок готовится"}`;
-                return (
-                  <button
-                    key={group.stops.map((item) => item.id).join("-")}
-                    className={`journey-point ${isGroup ? "is-group" : ""} ${groupHasLesson ? "has-ready-lesson" : ""} ${available ? "is-available" : ""} ${completed ? "is-completed" : ""} ${active ? "is-selected" : ""} ${completed && celebrate ? "is-new-mark" : ""}`}
-                    style={{
-                      left: `${group.x / 14}%`,
-                      top: `${group.y / 6.8}%`,
-                    }}
-                    aria-label={label}
-                    aria-pressed={Boolean(active)}
-                    aria-controls={selected ? "journey-selection" : undefined}
-                    title={label}
-                    onClick={() => revealGroup(group)}
-                  >
-                    <span className="journey-point-face">
-                      {isGroup ? (
-                        <>
-                          {group.stops.length}
-                          {group.stops.some(isDone) && (
-                            <Star size={12} weight="fill" />
-                          )}
-                        </>
-                      ) : completed ? (
-                        <Star size={22} weight="fill" />
-                      ) : (
-                        <QuestionMark size={20} weight="bold" />
-                      )}
-                    </span>
-                  </button>
-                );
-              })}
+              <svg
+                viewBox="0 0 1400 680"
+                className="journey-geography"
+                role="img"
+                aria-label="Рисованная карта России с лесами, горами и животными"
+              >
+                <defs>
+                  <clipPath id="russia-geographic-clip">
+                    <path d={geography.path ?? ""} />
+                  </clipPath>
+                </defs>
+                <path d={geography.path ?? ""} fill="#d9dfb1" />
+                <image
+                  href="/media/russia-story-map.webp"
+                  width="1400"
+                  height="680"
+                  preserveAspectRatio="none"
+                  clipPath="url(#russia-geographic-clip)"
+                />
+                <path
+                  d={geography.path ?? ""}
+                  fill="none"
+                  className="journey-coastline"
+                  stroke="#859358"
+                  strokeWidth="1.2"
+                />
+              </svg>
+              <div className="journey-points" aria-label="Уроки на карте">
+                {groups.map((group) => {
+                  const stop = group.stops[0],
+                    isGroup = group.stops.length > 1;
+                  const completed = !isGroup && isDone(stop);
+                  const available = !isGroup && isPublished(stop);
+                  const groupHasLesson =
+                    isGroup &&
+                    group.stops.some(
+                      (item) => isPublished(item) && !isDone(item),
+                    );
+                  const groupHasCompletion =
+                    isGroup && group.stops.some(isDone);
+                  const active =
+                    selected &&
+                    group.stops.some((item) => item.id === selected.id);
+                  const label = isGroup
+                    ? `Увеличить группу уроков (${group.stops.length})${groupHasLesson ? ". Есть доступный урок" : ""}${groupHasCompletion ? ". Есть пройденный урок" : ""}`
+                    : `Урок ${stop.number}. ${completed ? "Пройден" : available ? "Доступен" : "Готовится"}`;
+                  return (
+                    <button
+                      key={group.stops.map((item) => item.id).join("-")}
+                      className={`journey-point ${isGroup ? "is-group" : ""} ${groupHasLesson ? "has-ready-lesson" : ""} ${groupHasCompletion ? "has-completed-lesson" : ""} ${available ? "is-available" : ""} ${completed ? "is-completed" : ""} ${active ? "is-selected" : ""} ${completed && celebrate ? "is-new-mark" : ""}`}
+                      style={{
+                        left: `${group.x / 14}%`,
+                        top: `${group.y / 6.8}%`,
+                      }}
+                      aria-label={label}
+                      aria-pressed={Boolean(active)}
+                      aria-controls={active ? "journey-selection" : undefined}
+                      title={label}
+                      onClick={(e) => revealGroup(group, e.currentTarget)}
+                    >
+                      <span className="journey-point-face">
+                        {isGroup ? (
+                          <>
+                            {group.stops.length}
+                            {groupHasCompletion && (
+                              <Star size={12} weight="fill" />
+                            )}
+                          </>
+                        ) : completed ? (
+                          <Star size={22} weight="fill" />
+                        ) : (
+                          <QuestionMark size={20} weight="bold" />
+                        )}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
+        {selected && selectionOffset && (
+          <div
+            key={selected.id}
+            className={`journey-selection ${selectedLesson ? "has-lesson" : ""}`}
+            id="journey-selection"
+            data-side={selectionOffset.x <= 0 ? "right" : "left"}
+            style={
+              {
+                "--journey-point-x": `${selectionOffset.x}px`,
+                "--journey-card-top": `${Math.min(width * 0.6, Math.max(100, width / 3 + selectionOffset.y + 25))}px`,
+              } as CSSProperties
+            }
+            ref={panel}
+            tabIndex={-1}
+            role="region"
+            aria-labelledby="journey-selection-title"
+            onKeyDown={(e) => {
+              if (e.key === "Escape") closePanel();
+            }}
+          >
+            <button
+              className="icon-button journey-close"
+              aria-label="Закрыть карточку урока"
+              onClick={closePanel}
+            >
+              <X size={24} />
+            </button>
+            {selectedLesson ? (
+              <>
+                <img
+                  className="journey-guide"
+                  src={selectedLesson.heroImage}
+                  alt={selectedLesson.heroName}
+                />
+                <div>
+                  <p className="journey-panel-meta">Урок {selected.number}</p>
+                  <h3 id="journey-selection-title">{selectedLesson.title}</h3>
+                  <p>{selectedLesson.greeting}</p>
+                  {done && (
+                    <p className="journey-already-done">
+                      <Check size={19} />
+                      Этот урок уже отмечен как пройденный
+                    </p>
+                  )}
+                  <a className="button primary" href={selectedLesson.href}>
+                    {done ? "Вернуться к уроку" : "Открыть урок"}
+                    <ArrowRight size={22} />
+                  </a>
+                </div>
+              </>
+            ) : (
+              <div className="journey-coming">
+                <p className="journey-panel-meta">
+                  Урок {selected.number} из {journeyStops.length}
+                  {selected.introduction &&
+                    ` · ${selected.introduction.heroName}`}
+                </p>
+                <h3 id="journey-selection-title">
+                  {selected.introduction?.title ?? "Новый урок готовится"}
+                </h3>
+                <p>
+                  Здесь появятся история, задания и материалы урока. Пока можно
+                  начать путешествие с уже доступного урока.
+                </p>
+                {readyStops.length > 0 && (
+                  <button
+                    className="text-link text-button"
+                    onClick={() => selectFromList(readyStops[0])}
+                  >
+                    Найти доступный урок <ArrowRight size={20} />
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
       <div className="journey-map-bottom">
         <div className="journey-legend" aria-label="Условные обозначения">
-          <span>
-            <QuestionMark size={19} />
+          <span className="journey-legend-available">
+            <span className="legend-available">
+              <QuestionMark size={17} weight="bold" />
+            </span>
             Урок доступен
           </span>
           <span>
@@ -421,9 +623,9 @@ export function JourneyMap({
             </span>
             Готовится
           </span>
-          <span>
+          <span className="journey-legend-completed">
             <Star size={19} weight="fill" />
-            Познакомились
+            Урок пройден
           </span>
         </div>
         <div
@@ -467,163 +669,71 @@ export function JourneyMap({
         {zoom > 1
           ? "Перемещай карту пальцем, мышью или стрелками клавиатуры."
           : groups.some((group) => group.stops.length > 1)
-            ? "Нажми на группу точек, чтобы рассмотреть знакомства ближе."
-            : "Каждый вопрос — новое знакомство. Нажми, чтобы узнать больше."}
+            ? "Нажми на группу точек, чтобы увидеть отдельные уроки."
+            : "Нажми на точку, чтобы узнать об уроке."}
       </p>
-      {selected && (
-        <div
-          className={`journey-selection ${selectedLesson ? "has-lesson" : ""}`}
-          id="journey-selection"
-          ref={panel}
-          tabIndex={-1}
-          role="region"
-          aria-labelledby="journey-selection-title"
-          onKeyDown={(e) => {
-            if (e.key === "Escape") closePanel();
-          }}
-        >
-          <button
-            className="icon-button journey-close"
-            aria-label="Закрыть карточку знакомства"
-            onClick={closePanel}
-          >
-            <X size={24} />
-          </button>
-          {selectedLesson ? (
-            <>
-              <img
-                className="journey-guide"
-                src={selectedLesson.heroImage}
-                alt={selectedLesson.heroName}
-              />
-              <div>
-                <p className="journey-panel-meta">
-                  Знакомство {selected.number} · {selectedLesson.grade} класс ·{" "}
-                  {selectedLesson.culture}
-                </p>
-                <h3 id="journey-selection-title">{selectedLesson.title}</h3>
-                <p>{selectedLesson.greeting}</p>
-                {done && (
-                  <p className="journey-already-done">
-                    <Check size={19} />
-                    Это знакомство уже отмечено на карте
-                  </p>
-                )}
-                <a className="button primary" href={selectedLesson.href}>
-                  {done ? "Вернуться к уроку" : "Открыть урок"}
-                  <ArrowRight size={22} />
-                </a>
-              </div>
-            </>
-          ) : (
-            <div className="journey-coming">
-              <p className="journey-panel-meta">
-                Знакомство {selected.number} из 20
-              </p>
-              <h3 id="journey-selection-title">
-                {selected.introduction
-                  ? `Знакомство с ${selected.introduction.heroName === "Айдар" ? "Айдаром" : selected.introduction.heroName === "Амина" ? "Аминой" : selected.introduction.heroName}`
-                  : "Новое знакомство готовится"}
-              </h3>
-              {selected.introduction && (
-                <p className="journey-panel-culture">
-                  {selected.introduction.culture} · Материалы готовятся
-                </p>
-              )}
-              <p>
-                Здесь появятся история, задания и материалы урока. Пока можно
-                начать путешествие с уже доступного урока.
-              </p>
-              <button
-                className="text-link text-button"
-                onClick={() => selectFromList(readyStops[0])}
-              >
-                Найти доступный урок <ArrowRight size={20} />
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-      <details className="journey-list" id="lessons" ref={catalogue}>
-        <summary className="journey-list-toggle">
-          <span>
-            Все знакомства{" "}
-            <span className="journey-list-count">
-              {readyStops.length}{" "}
-              {readyStops.length === 1 ? "урок доступен" : "урока доступны"} ·
-              ещё {journeyStops.length - readyStops.length} готовятся
-            </span>
-          </span>
-          <CaretDown size={23} aria-hidden="true" />
-        </summary>
-        <ol id="journey-stop-list" className="journey-stop-list">
-          {journeyStops.map((stop) => {
-            const ready = stop.lessonId
-              ? publishedLessons[stop.lessonId]
-              : undefined;
-            const intro = stop.introduction;
-            const description = intro
-              ? `${intro.heroName}. ${intro.culture}`
-              : "Новое знакомство";
-            const contents = (
-              <>
-                <span className="journey-stop-meta">
-                  <span>Знакомство {stop.number}</span>
-                  <span className="journey-list-status">
-                    {isDone(stop) ? (
-                      <>
-                        <Star size={15} weight="fill" />
-                        Отмечено
-                      </>
-                    ) : ready ? (
-                      "Доступно"
-                    ) : (
-                      "Готовится"
-                    )}
-                  </span>
-                </span>
-                <strong className="journey-stop-name">
-                  {intro?.heroName ?? "Новое знакомство"}
-                </strong>
-                <span className="journey-stop-culture">
-                  {intro?.culture ?? "Герой и народ будут добавлены"}
-                </span>
-                {ready && (
-                  <span className="journey-stop-action">
-                    К подготовке <ArrowRight size={18} />
-                  </span>
-                )}
-              </>
-            );
-            return (
-              <li key={stop.id}>
-                {ready ? (
-                  <a
-                    className="journey-stop-card is-ready"
-                    href={ready.href}
-                    aria-label={`Знакомство ${stop.number}. ${description}. Открыть подготовку к уроку`}
-                  >
-                    {contents}
-                  </a>
-                ) : (
-                  <button
-                    className="journey-stop-card"
-                    aria-label={`Выбрать знакомство ${stop.number}. ${description}. Готовится`}
-                    aria-pressed={selected?.id === stop.id}
-                    onClick={() => selectFromList(stop)}
-                  >
-                    {contents}
-                  </button>
-                )}
-              </li>
-            );
-          })}
-        </ol>
-      </details>
       <p className="journey-position-note">
-        Точки будущих знакомств расположены условно. Народы России живут в
-        разных регионах страны.
+        Точки уроков расположены условно. Народы России живут в разных регионах
+        страны.
       </p>
+      <section
+        className="journey-list"
+        id="lessons"
+        ref={catalogue}
+        aria-labelledby="journey-list-title"
+      >
+        <div className="journey-list-heading">
+          <h3 id="journey-list-title">Все уроки</h3>
+          <p className="journey-list-count">
+            {readyStops.length}{" "}
+            {readyStops.length === 1 ? "урок доступен" : "урока доступны"} · ещё{" "}
+            {journeyStops.length - readyStops.length} готовятся
+          </p>
+        </div>
+        <div
+          className="journey-catalogue-frame"
+          data-expanded={catalogueExpanded}
+          ref={catalogueFrame}
+          id="journey-catalogue-items"
+        >
+          <ol className="journey-stop-list" ref={catalogueList} role="list">
+            {journeyStops.map(renderCatalogueStop)}
+          </ol>
+        </div>
+        {journeyStops.length > previewCount && (
+          <button
+            type="button"
+            className="button outline journey-list-toggle"
+            aria-expanded={catalogueExpanded}
+            aria-controls="journey-catalogue-items"
+            onClick={(event) => {
+              setCatalogueExpanded(!catalogueExpanded);
+              if (catalogueExpanded) {
+                event.currentTarget.focus({ preventScroll: true });
+                if ((catalogue.current?.getBoundingClientRect().top ?? 0) < 0) {
+                  catalogue.current?.scrollIntoView({
+                    behavior: matchMedia("(prefers-reduced-motion: reduce)")
+                      .matches
+                      ? "instant"
+                      : "smooth",
+                  });
+                }
+              } else if (event.detail === 0) {
+                requestAnimationFrame(() => {
+                  catalogueList.current?.children[previewCount]
+                    ?.querySelector<HTMLElement>("a, button")
+                    ?.focus({ preventScroll: true });
+                });
+              }
+            }}
+          >
+            {catalogueExpanded
+              ? `Свернуть до ${previewCount} уроков`
+              : `Показать все ${journeyStops.length} уроков`}
+            <CaretDown size={19} aria-hidden="true" />
+          </button>
+        )}
+      </section>
     </section>
   );
 }

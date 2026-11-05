@@ -6,7 +6,7 @@ export type JourneyStop = {
   lessonId?: string;
   introduction?: {
     heroName: string;
-    culture: string;
+    title: string;
     source: string;
   };
 };
@@ -36,22 +36,18 @@ const positions = [
   [1200, 160],
 ];
 
-// Первые три знакомства подтверждены материалами уроков; остальные пока анонимны.
+// Герой и тема опубликованного урока берутся из реестра publishedLessons.
 const introductions = [
-  {
-    heroName: "Егор",
-    culture: "Русская культура",
-    source: "lesson-01-teacher.docx, Сюжетная линия урока",
-  },
+  undefined,
   {
     heroName: "Айдар",
-    culture: "Татарская культура",
-    source: "lesson-02-teacher.doc, Сюжетная линия урока",
+    title: "Типы текстов: повествование, описание, рассуждение",
+    source: "lesson-02-teacher.doc, тема и сюжетная линия урока",
   },
   {
     heroName: "Амина",
-    culture: "Башкирская культура",
-    source: "lesson-03-teacher.docx, Сюжетная линия урока",
+    title: "Предложение: признаки и связь слов",
+    source: "lesson-03-teacher.docx, тема и сюжетная линия урока",
   },
 ];
 

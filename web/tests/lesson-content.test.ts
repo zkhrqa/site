@@ -48,14 +48,58 @@ test("interactive wording and word set match task 4 of the actual downloadable w
   assert.ok(lines.includes(`б) ${lesson.question}`));
 });
 
-test("teacher goals and published lesson texts match the source documents", () => {
-  const teacher = paragraphs("../../references/lessons/lesson-01-teacher.docx");
-  assert.ok(teacher.includes(lesson.preparation.goal));
-  assert.ok(teacher.includes(lesson.preparation.result));
-  for (const file of ["lesson-01-teacher.docx", "lesson-01-worksheet.docx"]) {
+test("published lesson downloads preserve the original document texts", () => {
+  for (const { href } of lesson.downloads) {
+    const filename = href.split("/").at(-1);
     assert.deepEqual(
-      paragraphs(`../public/downloads/${file}`),
-      paragraphs(`../../references/lessons/${file}`),
+      paragraphs(`../public${href}`),
+      paragraphs(`../../references/lessons/${filename}`),
     );
+  }
+});
+
+test("all eight screens preserve the actual worksheet's instructions, choices and oral prompts", async () => {
+  const { worksheetTasks } = await import("../src/content/lesson-01-worksheet");
+  const lines = paragraphs("../public/downloads/lesson-01-worksheet.docx").map(
+    (line) =>
+      line
+        .replace(/^[□_]+\s*/, "")
+        .replace(/_+$/, "")
+        .trim(),
+  );
+  for (const task of worksheetTasks) {
+    assert.ok(
+      lines.includes(`${task.number}. ${task.title}`),
+      `title ${task.number}`,
+    );
+    if (task.instruction)
+      assert.ok(lines.includes(task.instruction), `instruction ${task.number}`);
+    for (const prompt of task.discussion ?? [])
+      assert.ok(
+        lines.includes(prompt),
+        `oral prompt ${task.number}: ${prompt}`,
+      );
+    if (task.type === "multiple" && task.text) {
+      assert.ok(lines.includes(task.text));
+      assert.ok(lines.includes(task.choicePrompt!));
+      assert.ok(
+        lines.includes(task.options.map((option) => option.text).join(" ")),
+      );
+    } else if (
+      task.type === "multiple" ||
+      task.type === "creative" ||
+      task.type === "self-review"
+    ) {
+      for (const option of task.options)
+        assert.ok(
+          lines.includes(option.text),
+          `option ${task.number}: ${option.text}`,
+        );
+    } else if (task.type === "verdicts") {
+      for (const item of task.items) assert.ok(lines.includes(item.text));
+    } else if (task.type === "matching") {
+      for (const item of [...task.items, ...task.categories])
+        assert.ok(lines.includes(item.text));
+    }
   }
 });

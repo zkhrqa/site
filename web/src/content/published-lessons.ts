@@ -8,8 +8,6 @@ export const publishedLessons: Record<
     href: string;
     heroName: string;
     heroImage: string;
-    culture: string;
-    grade: number;
     greeting: string;
   }
 > = {
@@ -19,8 +17,6 @@ export const publishedLessons: Record<
     href: "#/lesson/1",
     heroName: "Егор",
     heroImage: "/media/egor.webp",
-    culture: "Русская культура",
-    grade: 3,
     greeting: "Привет! Я Егор. Поможешь мне заполнить альбом дружбы?",
   },
 };

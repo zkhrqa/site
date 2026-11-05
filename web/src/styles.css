@@ -26,6 +26,7 @@
   --sage-pale: #e6e9d8;
   --blue: #a8c9d2;
   --line: #d5bc94;
+  --disclosure-ease: cubic-bezier(0.22, 0.7, 0.28, 1);
   --display: Lora, Georgia, serif;
   --body: "PT Sans", Arial, sans-serif;
 }
@@ -193,9 +194,6 @@ main:focus {
   white-space: normal;
   text-align: center;
 }
-.button:hover:not(:disabled) {
-  transform: translateY(-2px);
-}
 .button:active:not(:disabled) {
   transform: translateY(0);
 }
@@ -204,16 +202,21 @@ main:focus {
   color: #fff9eb;
   border-color: var(--accent);
 }
-.primary:hover:not(:disabled) {
-  background: var(--accent-hover);
-}
 .outline {
   background: transparent;
   border-color: var(--sage);
   color: #42521f;
 }
-.outline:hover {
-  background: var(--sage-pale);
+@media (hover: hover) and (pointer: fine) {
+  .button:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+  .primary:hover:not(:disabled) {
+    background: var(--accent-hover);
+  }
+  .outline:hover {
+    background: var(--sage-pale);
+  }
 }
 .button:disabled {
   opacity: 0.5;
@@ -238,6 +241,29 @@ main:focus {
 }
 .icon-button:hover {
   background: #e9dec9;
+}
+.disclosure {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    grid-template-rows 320ms var(--disclosure-ease),
+    opacity 180ms var(--disclosure-ease),
+    visibility 0s linear 320ms;
+}
+.disclosure[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.disclosure-clip {
+  min-height: 0;
+  overflow: clip;
+}
+.projector .disclosure {
+  transition: none;
 }
 .menu-button {
   display: none;
@@ -1633,11 +1659,13 @@ blockquote {
   }
   .about-section {
     display: block;
-    padding-block: 45px 45px;
+    padding-block: 24px 42px;
+  }
+  .about-section[id] {
+    scroll-margin-top: 76px;
   }
   .about-section > img {
-    width: 105px;
-    margin-bottom: 20px;
+    display: none;
   }
   .about-section h2 {
     font-size: 32px;
@@ -2520,34 +2548,37 @@ blockquote {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transform: translateY(-8px) scaleY(0.94);
-    transform-origin: top center;
+    transform: translateY(-8px);
     transition:
-      transform 180ms ease-out,
-      opacity 140ms ease-out,
-      visibility 0s linear 180ms;
-    left: 18px;
+      transform 220ms var(--disclosure-ease),
+      opacity 180ms var(--disclosure-ease),
+      visibility 0s linear 220ms;
+    top: calc(100% - 3px);
+    left: auto;
     right: 18px;
-    width: auto;
-    padding: 12px 16px;
+    width: min(176px, calc(100% - 36px));
+    padding: 5px;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    border: 0;
+    border: 1px solid var(--line);
+    border-radius: 10px;
     box-shadow: 0 8px 20px #4825121a;
   }
   .navigation.is-open {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: translateY(0) scaleY(1);
+    transform: translateY(0);
     transition-delay: 0s;
   }
   .navigation a {
-    padding: 10px 12px;
-    font-size: 20px;
+    padding: 7px 11px;
+    border-radius: 5px;
+    font-size: 18px;
   }
-  .navigation a:hover {
+  .navigation a:focus-visible,
+  .navigation a:active {
     background: var(--sage-pale);
   }
   .home-hero {
@@ -2608,8 +2639,8 @@ blockquote {
   .home-hero .hero-rowan {
     width: 96px;
     height: 123px;
-    right: 34px;
-    top: -8px;
+    right: 54px;
+    top: -28px;
   }
   .home-hero .hero-landscape {
     width: 150px;
@@ -2626,6 +2657,7 @@ blockquote {
   .home-hero .actions .button {
     width: 100%;
     min-width: 0;
+    touch-action: manipulation;
   }
 }
 
@@ -2636,47 +2668,33 @@ blockquote {
   font-size: 20px;
   line-height: 1.5;
 }
-.preparation-overview {
-  padding: 30px 0 35px;
+.preparation-page .lesson-hero-art {
+  align-self: center;
 }
-.preparation-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 45px;
-  margin-top: 25px;
+.preparation-route h2 {
+  font-size: clamp(31px, 3.3vw, 43px);
+  margin-bottom: 14px;
 }
-.preparation-columns h3 {
-  font-size: 25px;
-  margin-bottom: 13px;
-}
-.preparation-columns p {
-  font-size: 20px;
+.preparation-copy {
+  max-width: 76ch;
   line-height: 1.55;
 }
-.preparation-page .materials-section {
-  margin-top: 10px;
-  margin-bottom: 0;
-  padding-bottom: 20px;
-}
-.interactive-launch {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  padding: 25px 0 20px;
-}
-.interactive-launch > div {
-  flex: 1;
-}
-.interactive-launch h2 {
-  font-size: 34px;
-  margin-bottom: 16px;
-}
-.interactive-launch .small {
+.preparation-copy p + p {
   margin-top: 14px;
 }
-.interactive-launch > .button {
-  max-width: 330px;
-  flex-shrink: 0;
+.preparation-route {
+  padding-block: 34px 42px;
+  border-top: 2px solid var(--line);
+}
+.preparation-page .materials-section {
+  margin-bottom: 0;
+  padding-bottom: 34px;
+}
+.preparation-page .materials-section > .preparation-copy {
+  margin-bottom: 16px;
+}
+.preparation-actions {
+  margin-top: 18px;
 }
 .interactive-heading {
   padding: 15px 0 25px;
@@ -2688,50 +2706,21 @@ blockquote {
   margin-top: 15px;
   color: var(--sage);
 }
-@media (max-width: 800px) {
-  .preparation-columns {
-    gap: 25px;
-  }
-  .interactive-launch {
-    display: block;
-  }
-  .interactive-launch > .button {
-    margin-top: 22px;
-  }
-}
 @media (max-width: 600px) {
   .preparation-intro {
     font-size: 18px;
     margin-top: 16px;
   }
-  .preparation-overview {
-    padding: 20px 0;
+  .preparation-route {
+    padding-block: 28px 30px;
   }
-  .preparation-overview h2 {
-    font-size: 30px;
-  }
-  .preparation-columns {
-    grid-template-columns: 1fr;
-    gap: 22px;
-    margin-top: 20px;
-  }
-  .preparation-columns h3 {
-    font-size: 23px;
-    margin-bottom: 10px;
-  }
-  .preparation-columns p {
+  .preparation-copy {
     font-size: 18px;
   }
-  .interactive-launch {
-    padding-top: 25px;
-  }
-  .interactive-launch h2 {
-    font-size: 29px;
-  }
-  .interactive-launch > .button {
-    max-width: none;
+  .preparation-actions > .button {
     width: 100%;
     font-size: 18px;
+    padding-inline: 14px;
   }
   .interactive-heading {
     padding-top: 8px;
@@ -2739,13 +2728,20 @@ blockquote {
   .interactive-heading p {
     font-size: 16px;
   }
-}
-
-@media (max-width: 600px) {
   .preparation-page .preparation-intro {
     order: 3;
   }
   .preparation-page .lesson-hero-art {
     order: 4;
+  }
+  .preparation-page .download-row {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    align-items: start;
+  }
+  .preparation-page .download-label {
+    grid-column: 2;
+    justify-self: end;
+    margin-left: 0;
   }
 }

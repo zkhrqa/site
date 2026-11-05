@@ -1,0 +1,360 @@
+.worksheet-heading {
+  max-width: 1100px;
+  margin-bottom: 24px;
+}
+.worksheet-position {
+  font: 17px/1.4 var(--body);
+  color: var(--sage);
+  margin-bottom: 10px;
+}
+.worksheet-heading h1 {
+  outline: none;
+}
+.worksheet-stage {
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.worksheet-guide {
+  align-self: start;
+  padding-top: 35px;
+}
+.worksheet-guide img {
+  max-height: 300px;
+}
+.worksheet-guide p {
+  font-size: 19px;
+}
+.worksheet-paper {
+  min-width: 0;
+  padding: 45px 60px 95px;
+  min-height: 470px;
+}
+.worksheet-reading {
+  font: 22px/1.5 var(--display);
+  margin-bottom: 22px;
+}
+.worksheet-options,
+.worksheet-verdict-row {
+  border: 0;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+}
+.worksheet-options legend {
+  font-size: 19px;
+  padding: 0;
+  margin-bottom: 14px;
+}
+.worksheet-options {
+  display: grid;
+  gap: 10px;
+}
+.worksheet-choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 12px 14px;
+  min-height: 48px;
+  background: #f8f0df;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  font-size: 20px;
+  line-height: 1.45;
+  cursor: pointer;
+}
+.worksheet-choice.is-chosen,
+.worksheet-verdict-row .is-chosen {
+  background: var(--sage-pale);
+  border-color: var(--sage);
+}
+.worksheet-choice:focus-within,
+.worksheet-verdict-row label:focus-within {
+  outline: 3px solid var(--sage);
+  outline-offset: 3px;
+}
+.worksheet-choice input,
+.worksheet-verdict-row input {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin: 5px 0 0;
+  accent-color: var(--sage);
+}
+.compact-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+.compact-options legend {
+  float: left;
+  width: 100%;
+}
+.compact-options .worksheet-choice {
+  align-items: center;
+  padding-block: 9px;
+}
+.compact-options input {
+  margin-top: 0;
+}
+.worksheet-verdicts {
+  display: grid;
+  gap: 20px;
+}
+.worksheet-verdict-row legend {
+  font: 21px/1.45 var(--display);
+  margin-bottom: 10px;
+  padding: 0;
+}
+.worksheet-verdict-row > div {
+  display: flex;
+  gap: 10px;
+}
+.worksheet-verdict-row label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  cursor: pointer;
+}
+.worksheet-verdict-row input {
+  margin-top: 0;
+}
+.worksheet-matching {
+  display: grid;
+  gap: 22px;
+}
+.worksheet-match-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: 18px;
+  align-items: start;
+  font: 22px/1.4 var(--display);
+}
+.worksheet-match-row > span {
+  padding-top: 9px;
+}
+.worksheet-picker-trigger,
+.worksheet-picker-options button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+  padding: 9px 12px;
+  background: #fbf6eb;
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+  border-radius: 6px;
+  font: 18px/1.4 var(--body);
+  text-align: left;
+}
+.worksheet-picker svg {
+  flex-shrink: 0;
+}
+.worksheet-picker-trigger > svg {
+  transition: transform 220ms var(--disclosure-ease);
+}
+.worksheet-picker-trigger[aria-expanded="true"] > svg {
+  transform: rotate(180deg);
+}
+.projector .worksheet-picker-trigger > svg {
+  transition: none;
+}
+.worksheet-picker-options {
+  display: grid;
+  margin-block: 5px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fbf6eb;
+}
+.worksheet-picker-options button {
+  min-height: 44px;
+  border-color: transparent;
+  background: transparent;
+}
+.worksheet-picker-options
+  button:is(:hover, :focus-visible, [aria-selected="true"]) {
+  background: var(--sage-pale);
+}
+.worksheet-feedback {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  margin-top: 16px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+.worksheet-feedback:empty {
+  display: none;
+}
+.worksheet-feedback.success {
+  color: #42521f;
+}
+.worksheet-feedback svg {
+  margin-top: 2px;
+}
+.worksheet-discussion {
+  margin-top: 24px;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--line);
+}
+.worksheet-discussion:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.worksheet-discussion h2 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 22px;
+  margin-bottom: 13px;
+}
+.worksheet-discussion p {
+  font-size: 20px;
+  line-height: 1.5;
+}
+.worksheet-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 25px 0 10px;
+}
+.worksheet-navigation > span {
+  font-size: 17px;
+  color: var(--muted);
+}
+.worksheet-page .sentence {
+  min-height: 125px;
+}
+.projector .worksheet-stage {
+  grid-template-columns: 110px minmax(0, 1fr);
+}
+.projector .worksheet-heading h1 {
+  font-size: 42px;
+}
+.projector .worksheet-choice,
+.projector .worksheet-discussion p,
+.projector .worksheet-reading,
+.projector .worksheet-verdict-row legend {
+  font-size: 25px;
+}
+.projector .worksheet-paper {
+  padding: 40px 50px 90px;
+}
+.projector .worksheet-navigation {
+  padding-top: 20px;
+}
+@media (max-width: 1000px) {
+  .worksheet-stage {
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 10px;
+  }
+  .worksheet-paper {
+    padding-inline: 32px;
+  }
+  .worksheet-match-row {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+  .worksheet-match-row > span {
+    padding-top: 0;
+  }
+}
+@media (max-width: 700px) {
+  .worksheet-stage,
+  .projector .worksheet-stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .worksheet-guide {
+    display: none;
+  }
+  .worksheet-paper,
+  .projector .worksheet-paper {
+    background: #f8f0df url("/media/paper.webp");
+    border-radius: 8px;
+    padding: 22px 18px;
+    min-height: 0;
+  }
+  .worksheet-heading {
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 23px;
+  }
+  .worksheet-heading h1,
+  .projector .worksheet-heading h1 {
+    font-size: 31px;
+    line-height: 1.18;
+  }
+  .worksheet-heading > p:last-child {
+    font-size: 19px;
+    margin-top: 14px;
+  }
+  .worksheet-position {
+    font-size: 15px;
+  }
+  .worksheet-options legend {
+    font-size: 17px;
+  }
+  .worksheet-reading,
+  .projector .worksheet-reading {
+    font-size: 20px;
+  }
+  .worksheet-choice,
+  .projector .worksheet-choice {
+    font-size: 18px;
+    padding: 11px 10px;
+  }
+  .worksheet-verdict-row legend,
+  .projector .worksheet-verdict-row legend {
+    font-size: 20px;
+  }
+  .worksheet-verdict-row label {
+    font-size: 16px;
+    padding-inline: 10px;
+  }
+  .worksheet-match-row {
+    font-size: 21px;
+  }
+  .worksheet-picker-trigger,
+  .worksheet-picker-options button {
+    font-size: 16px;
+  }
+  .worksheet-discussion h2 {
+    font-size: 21px;
+  }
+  .worksheet-discussion p,
+  .projector .worksheet-discussion p {
+    font-size: 18px;
+  }
+  .worksheet-navigation {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 20px;
+  }
+  .worksheet-navigation > span {
+    order: -1;
+    flex-basis: 100%;
+    text-align: center;
+    font-size: 15px;
+  }
+  .worksheet-navigation .button {
+    font-size: 17px;
+    padding-inline: 16px;
+    min-height: 49px;
+  }
+  .worksheet-navigation .button:last-child {
+    margin-left: auto;
+  }
+  .worksheet-page .word {
+    font-size: 21px;
+  }
+}

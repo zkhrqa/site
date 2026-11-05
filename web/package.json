@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test:sites": "node --test tests/sites-worker.test.mjs",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test tests/progress.test.ts tests/map-layout.test.ts tests/lesson-content.test.ts",
+    "test": "node --import tsx --test tests/progress.test.ts tests/map-layout.test.ts tests/lesson-content.test.ts tests/worksheet.test.ts",
     "assets": "node scripts/prepare-assets.mjs",
     "format": "prettier --write src tests/*.test.ts scripts/prepare-assets.mjs index.html tsconfig.json",
     "format:check": "prettier --check src tests/*.test.ts scripts/prepare-assets.mjs index.html tsconfig.json"
