@@ -1,6 +1,9 @@
 import { lesson } from "./lesson-01";
 
 export type Option = { id: string; text: string };
+type ReadingPart =
+  | { text: string }
+  | { id: string; text: string; punctuation: string };
 type BaseTask = {
   id: string;
   number: number;
@@ -15,8 +18,12 @@ export type WorksheetTask = BaseTask &
         type: "multiple";
         options: Option[];
         correct: string[];
-        text?: string;
-        choicePrompt?: string;
+      }
+    | {
+        type: "underline";
+        parts: ReadingPart[];
+        prompt: string;
+        correct: string[];
       }
     | {
         type: "verdicts";
@@ -38,25 +45,37 @@ const source = (section: number) => ({
   document: "lesson-01-worksheet.docx" as const,
   section,
 });
+const readingParts: ReadingPart[] = lesson.story
+  .split(/(\s+)/)
+  .map((part, index) => {
+    const word = /^([\p{L}-]+)(.*)$/u.exec(part);
+    return word
+      ? { id: String(index), text: word[1], punctuation: word[2] }
+      : { text: part };
+  });
+const readingAnswers = new Set([
+  "музее",
+  "указатели",
+  "расписание",
+  "экскурсовод",
+]);
+
 export const worksheetTasks: WorksheetTask[] = [
   {
     id: "communication",
     number: 1,
-    type: "multiple",
+    type: "underline",
     title: "Язык для общения",
     instruction: "Прочитай текст.",
     source: source(1),
-    text: lesson.story,
-    choicePrompt:
+    parts: readingParts,
+    prompt:
       "а) Где Егор встретил русский язык? Подчеркни все подходящие варианты.",
-    options: [
-      { id: "signs", text: "указатели" },
-      { id: "schedule", text: "расписание" },
-      { id: "guide", text: "экскурсовод" },
-      { id: "sports", text: "спортивная площадка" },
-      { id: "museum", text: "музей" },
-    ],
-    correct: ["signs", "schedule", "guide", "museum"],
+    correct: readingParts.flatMap((part) =>
+      "id" in part && readingAnswers.has(part.text.toLowerCase())
+        ? [part.id]
+        : [],
+    ),
     discussion: [`б) ${lesson.question}`],
   },
   {

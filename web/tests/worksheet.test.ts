@@ -19,18 +19,33 @@ test("eight worksheet tasks have stable unique IDs and the original order", () =
     [1, 2, 3, 4, 5, 6, 7, 8],
   );
 });
-test("multiple selection distinguishes omitted choices, distractors and a complete answer", () => {
+test("underlining accepts the four source words and rejects missing or extra words", () => {
+  const task = worksheetTasks[0];
+  assert.ok(task.type === "underline");
+  const wordId = (word: string) => {
+    const part = task.parts.find((part) => "id" in part && part.text === word);
+    assert.ok(part && "id" in part);
+    return part.id;
+  };
   const state = emptyWorksheetAnswers();
-  assert.deepEqual(checkTask(worksheetTasks[0], state), {
+  assert.deepEqual(checkTask(task, state), {
     complete: false,
     correct: false,
   });
-  state.selections.communication = ["signs", "schedule", "guide"];
-  assert.equal(checkTask(worksheetTasks[0], state)?.correct, false);
-  state.selections.communication.push("museum");
-  assert.equal(checkTask(worksheetTasks[0], state)?.correct, true);
-  state.selections.communication.push("sports");
-  assert.equal(checkTask(worksheetTasks[0], state)?.correct, false);
+  const selected = ["указатели", "расписание", "экскурсовод"].map(wordId);
+  state.selections[task.id] = selected;
+  assert.equal(checkTask(task, state)?.correct, false);
+  selected.push(wordId("музее"));
+  assert.equal(checkTask(task, state)?.correct, true);
+  const extra = wordId("экспонатах");
+  state.selections[task.id] = toggleChoice(selected, extra);
+  assert.equal(checkTask(task, state)?.correct, false);
+  state.selections[task.id] = toggleChoice(state.selections[task.id], extra);
+  assert.equal(checkTask(task, state)?.correct, true);
+  assert.equal(checkTask(task, resetTask(task, state))?.complete, false);
+});
+test("the second task accepts all six situations from the worksheet", () => {
+  const state = emptyWorksheetAnswers();
   state.selections.situations = [
     "school",
     "library",
@@ -85,13 +100,13 @@ test("matching uses the author's confirmed key and rejects unknown categories", 
 test("oral tasks and self-assessment are not graded; reset preserves other tasks", () => {
   const state = emptyWorksheetAnswers();
   state.words = [2, 4, 1];
-  state.selections.communication = ["museum"];
+  state.selections.situations = ["museum"];
   state.creative = "three-sentences";
   for (const index of [5, 6, 7])
     assert.equal(checkTask(worksheetTasks[index], state), null);
   const reset = resetTask(worksheetTasks[3], state);
   assert.deepEqual(reset.words, []);
-  assert.deepEqual(reset.selections.communication, ["museum"]);
+  assert.deepEqual(reset.selections.situations, ["museum"]);
   assert.equal(reset.creative, "three-sentences");
   assert.deepEqual(state.words, [2, 4, 1]);
   assert.deepEqual(toggleChoice(["a", "b"], "a"), ["b"]);

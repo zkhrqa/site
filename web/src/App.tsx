@@ -404,7 +404,6 @@ export function App() {
           <a className="footer-brand" href="#/">
             Альбом дружбы
           </a>
-          <p>У каждого народа — своя история. Вместе — одна большая страна.</p>
           <p className="small">© 2026 · Авторский образовательный проект</p>
         </footer>
       )}

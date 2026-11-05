@@ -170,6 +170,17 @@ function MatchPicker({
     </div>
   );
 }
+function Subtask({ prompt }: { prompt: string }) {
+  const part = /^([аб])\) (.+)$/u.exec(prompt);
+  if (!part) return prompt;
+
+  return (
+    <span className="worksheet-subtask">
+      <span className="worksheet-subtask-letter">{part[1]}</span>{" "}
+      <span>{part[2]}</span>
+    </span>
+  );
+}
 function Discussion({ prompts }: { prompts: string[] }) {
   return (
     <section className="worksheet-discussion" aria-label="Обсудите в классе">
@@ -178,7 +189,9 @@ function Discussion({ prompts }: { prompts: string[] }) {
         Обсудите в классе
       </h2>
       {prompts.map((prompt) => (
-        <p key={prompt}>{prompt}</p>
+        <p key={prompt}>
+          <Subtask prompt={prompt} />
+        </p>
       ))}
     </section>
   );
@@ -197,44 +210,86 @@ export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
   }, [step]);
   const editing = () =>
     setCheckedIds((ids) => ids.filter((id) => id !== task.id));
+  function toggleSelection(id: string) {
+    setAnswers((state) => ({
+      ...state,
+      selections: {
+        ...state.selections,
+        [task.id]: toggleChoice(state.selections[task.id] ?? [], id),
+      },
+    }));
+    editing();
+  }
   function content(current: WorksheetTask) {
     switch (current.type) {
+      case "underline": {
+        const selected = answers.selections[current.id] ?? [];
+        const isSelected = (part?: (typeof current.parts)[number]) =>
+          part !== undefined && "id" in part && selected.includes(part.id);
+
+        return (
+          <fieldset className="worksheet-reading-group">
+            <legend>
+              <Subtask prompt={current.prompt} />
+            </legend>
+            <p className="worksheet-reading-help">
+              Нажми на слово в тексте, чтобы подчеркнуть его. Нажми ещё раз,
+              чтобы снять подчёркивание.
+            </p>
+            <p className="worksheet-reading">
+              {current.parts.map((part, index, parts) => {
+                if (!("id" in part)) {
+                  return isSelected(parts[index - 1]) &&
+                    isSelected(parts[index + 1]) ? (
+                    <span className="worksheet-reading-join" key={index}>
+                      {part.text}
+                    </span>
+                  ) : (
+                    part.text
+                  );
+                }
+
+                const pressed = isSelected(part);
+                return (
+                  <span className="worksheet-reading-token" key={part.id}>
+                    <button
+                      type="button"
+                      className="worksheet-reading-word"
+                      aria-pressed={pressed}
+                      onClick={() => toggleSelection(part.id)}
+                    >
+                      {part.text}
+                    </button>
+                    {part.punctuation &&
+                      (pressed && isSelected(parts[index + 2]) ? (
+                        <span className="worksheet-reading-join">
+                          {part.punctuation}
+                        </span>
+                      ) : (
+                        part.punctuation
+                      ))}
+                  </span>
+                );
+              })}
+            </p>
+          </fieldset>
+        );
+      }
       case "multiple":
         return (
-          <>
-            {current.text && (
-              <p className="worksheet-reading">{current.text}</p>
-            )}
-            <fieldset
-              className={`worksheet-options ${current.text ? "compact-options" : ""}`}
-            >
-              <legend>
-                {current.choicePrompt ?? "Выбери все подходящие варианты"}
-              </legend>
-              {current.options.map((option) => (
-                <Choice
-                  key={option.id}
-                  option={option}
-                  checked={(answers.selections[current.id] ?? []).includes(
-                    option.id,
-                  )}
-                  onChange={() => {
-                    setAnswers((state) => ({
-                      ...state,
-                      selections: {
-                        ...state.selections,
-                        [current.id]: toggleChoice(
-                          state.selections[current.id] ?? [],
-                          option.id,
-                        ),
-                      },
-                    }));
-                    editing();
-                  }}
-                />
-              ))}
-            </fieldset>
-          </>
+          <fieldset className="worksheet-options">
+            <legend>Выбери все подходящие варианты</legend>
+            {current.options.map((option) => (
+              <Choice
+                key={option.id}
+                option={option}
+                checked={(answers.selections[current.id] ?? []).includes(
+                  option.id,
+                )}
+                onChange={() => toggleSelection(option.id)}
+              />
+            ))}
+          </fieldset>
         );
       case "verdicts":
         return (
@@ -420,12 +475,14 @@ export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
       </div>
       <header className="activity-heading worksheet-heading">
         <p className="worksheet-position">
-          Рабочий лист · Задание {task.number} из {worksheetTasks.length}
+          Задание {task.number} из {worksheetTasks.length}
         </p>
         <h1 ref={title} tabIndex={-1}>
           {task.title}
         </h1>
-        {task.instruction && <p>{task.instruction}</p>}
+        {task.instruction && (
+          <p className="worksheet-instruction">{task.instruction}</p>
+        )}
       </header>
       <div className="activity-stage worksheet-stage">
         <aside className="guide worksheet-guide">
@@ -437,7 +494,7 @@ export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
           </p>
         </aside>
         <section
-          className="exercise-paper worksheet-paper"
+          className="worksheet-paper"
           aria-label={`Рабочий лист, задание ${task.number}`}
         >
           {content(task)}
@@ -508,9 +565,6 @@ export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
           <ArrowLeft size={21} />
           Назад
         </button>
-        <span>
-          Задание {task.number} из {worksheetTasks.length}
-        </span>
         {step < worksheetTasks.length - 1 ? (
           <button
             className="button primary"

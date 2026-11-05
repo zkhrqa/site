@@ -1,14 +1,28 @@
+.worksheet-page {
+  --worksheet-text: 22px;
+}
 .worksheet-heading {
   max-width: 1100px;
   margin-bottom: 24px;
 }
 .worksheet-position {
   font: 17px/1.4 var(--body);
+  font-weight: 700;
   color: var(--sage);
   margin-bottom: 10px;
 }
 .worksheet-heading h1 {
   outline: none;
+}
+.activity-heading.worksheet-heading > .worksheet-instruction {
+  margin-top: 12px;
+  font: 400 var(--worksheet-text) / 1.45 var(--body);
+}
+.worksheet-page .button,
+.worksheet-page .sentence-caption,
+.worksheet-page .empty-sentence,
+.worksheet-page .word {
+  font-family: var(--body);
 }
 .worksheet-stage {
   grid-template-columns: 170px minmax(0, 1fr);
@@ -23,28 +37,80 @@
   max-height: 300px;
 }
 .worksheet-guide p {
-  font-size: 19px;
+  font: 19px/1.35 var(--body);
+  transform: none;
 }
 .worksheet-paper {
+  width: 100%;
   min-width: 0;
-  padding: 45px 60px 95px;
-  min-height: 470px;
+  padding: clamp(24px, 3.7vw, 52px) clamp(26px, 5vw, 72px);
+  border: 1px solid var(--line);
+  border-radius: clamp(18px, 3vw, 36px);
+  background: var(--paper);
+  overflow-wrap: anywhere;
 }
 .worksheet-reading {
-  font: 22px/1.5 var(--display);
-  margin-bottom: 22px;
+  font: var(--worksheet-text) / 1.55 var(--body);
+  margin-top: 14px;
+}
+.worksheet-reading-token {
+  display: inline-block;
+  white-space: nowrap;
+}
+.worksheet-reading-word {
+  display: inline;
+  padding: 1px 0;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+.worksheet-reading-word[aria-pressed="true"] {
+  background: var(--sage-pale);
+}
+.worksheet-reading-word[aria-pressed="true"],
+.worksheet-reading-join {
+  text-decoration: underline 2px var(--sage);
+  text-decoration-skip-ink: none;
+  text-underline-offset: 0.28em;
+}
+.worksheet-reading-word:focus-visible {
+  outline-offset: 1px;
+}
+.worksheet-reading-help {
+  color: var(--muted);
+  font-size: 18px;
 }
 .worksheet-options,
+.worksheet-reading-group,
 .worksheet-verdict-row {
   border: 0;
   min-width: 0;
   padding: 0;
   margin: 0;
 }
-.worksheet-options legend {
-  font-size: 19px;
+.worksheet-options legend,
+.worksheet-reading-group legend {
+  font: 700 var(--worksheet-text) / 1.35 var(--body);
   padding: 0;
   margin-bottom: 14px;
+}
+.worksheet-subtask {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  font-weight: 700;
+}
+.worksheet-subtask-letter {
+  flex: 0 0 auto;
+  min-width: 1.55em;
+  border-radius: 0.4em;
+  background: var(--sage-pale);
+  color: #42521f;
+  line-height: 1.55;
+  text-align: center;
+  text-transform: uppercase;
 }
 .worksheet-options {
   display: grid;
@@ -59,7 +125,7 @@
   background: #f8f0df;
   border: 1px solid var(--line);
   border-radius: 7px;
-  font-size: 20px;
+  font-size: var(--worksheet-text);
   line-height: 1.45;
   cursor: pointer;
 }
@@ -81,33 +147,18 @@
   margin: 5px 0 0;
   accent-color: var(--sage);
 }
-.compact-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-}
-.compact-options legend {
-  float: left;
-  width: 100%;
-}
-.compact-options .worksheet-choice {
-  align-items: center;
-  padding-block: 9px;
-}
-.compact-options input {
-  margin-top: 0;
-}
 .worksheet-verdicts {
   display: grid;
   gap: 20px;
 }
 .worksheet-verdict-row legend {
-  font: 21px/1.45 var(--display);
+  font: var(--worksheet-text) / 1.45 var(--body);
   margin-bottom: 10px;
   padding: 0;
 }
 .worksheet-verdict-row > div {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 .worksheet-verdict-row label {
@@ -132,7 +183,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
   gap: 18px;
   align-items: start;
-  font: 22px/1.4 var(--display);
+  font: var(--worksheet-text) / 1.4 var(--body);
 }
 .worksheet-match-row > span {
   padding-top: 9px;
@@ -214,12 +265,18 @@
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 22px;
+  font: 700 var(--worksheet-text) / 1.35 var(--body);
   margin-bottom: 13px;
 }
+.worksheet-discussion h2 svg {
+  flex-shrink: 0;
+}
 .worksheet-discussion p {
-  font-size: 20px;
+  font-size: var(--worksheet-text);
   line-height: 1.5;
+}
+.worksheet-discussion p + p {
+  margin-top: 12px;
 }
 .worksheet-navigation {
   display: flex;
@@ -228,27 +285,17 @@
   gap: 15px;
   padding: 25px 0 10px;
 }
-.worksheet-navigation > span {
-  font-size: 17px;
-  color: var(--muted);
-}
 .worksheet-page .sentence {
   min-height: 125px;
+}
+.projector .worksheet-page {
+  --worksheet-text: 25px;
 }
 .projector .worksheet-stage {
   grid-template-columns: 110px minmax(0, 1fr);
 }
 .projector .worksheet-heading h1 {
   font-size: 42px;
-}
-.projector .worksheet-choice,
-.projector .worksheet-discussion p,
-.projector .worksheet-reading,
-.projector .worksheet-verdict-row legend {
-  font-size: 25px;
-}
-.projector .worksheet-paper {
-  padding: 40px 50px 90px;
 }
 .projector .worksheet-navigation {
   padding-top: 20px;
@@ -257,9 +304,6 @@
   .worksheet-stage {
     grid-template-columns: 120px minmax(0, 1fr);
     gap: 10px;
-  }
-  .worksheet-paper {
-    padding-inline: 32px;
   }
   .worksheet-match-row {
     grid-template-columns: 1fr;
@@ -270,6 +314,10 @@
   }
 }
 @media (max-width: 700px) {
+  .worksheet-page,
+  .projector .worksheet-page {
+    --worksheet-text: 20px;
+  }
   .worksheet-stage,
   .projector .worksheet-stage {
     grid-template-columns: minmax(0, 1fr);
@@ -277,12 +325,8 @@
   .worksheet-guide {
     display: none;
   }
-  .worksheet-paper,
-  .projector .worksheet-paper {
-    background: #f8f0df url("/media/paper.webp");
-    border-radius: 8px;
+  .worksheet-paper {
     padding: 22px 18px;
-    min-height: 0;
   }
   .worksheet-heading {
     text-align: left;
@@ -294,57 +338,27 @@
     font-size: 31px;
     line-height: 1.18;
   }
-  .worksheet-heading > p:last-child {
-    font-size: 19px;
-    margin-top: 14px;
-  }
   .worksheet-position {
     font-size: 15px;
   }
-  .worksheet-options legend {
-    font-size: 17px;
+  .worksheet-reading-help {
+    font-size: 16px;
   }
-  .worksheet-reading,
-  .projector .worksheet-reading {
-    font-size: 20px;
-  }
-  .worksheet-choice,
-  .projector .worksheet-choice {
-    font-size: 18px;
+  .worksheet-choice {
     padding: 11px 10px;
-  }
-  .worksheet-verdict-row legend,
-  .projector .worksheet-verdict-row legend {
-    font-size: 20px;
   }
   .worksheet-verdict-row label {
     font-size: 16px;
     padding-inline: 10px;
   }
-  .worksheet-match-row {
-    font-size: 21px;
-  }
   .worksheet-picker-trigger,
   .worksheet-picker-options button {
     font-size: 16px;
-  }
-  .worksheet-discussion h2 {
-    font-size: 21px;
-  }
-  .worksheet-discussion p,
-  .projector .worksheet-discussion p {
-    font-size: 18px;
   }
   .worksheet-navigation {
     flex-wrap: wrap;
     gap: 12px;
     padding-top: 20px;
-  }
-  .worksheet-navigation > span {
-    order: -1;
-    flex-basis: 100%;
-    text-align: center;
-    font-size: 15px;
   }
   .worksheet-navigation .button {
     font-size: 17px;
@@ -356,5 +370,12 @@
   }
   .worksheet-page .word {
     font-size: 21px;
+  }
+}
+@media print {
+  .worksheet-paper {
+    background: none;
+    border: 0;
+    padding: 0;
   }
 }

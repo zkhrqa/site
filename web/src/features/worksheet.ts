@@ -21,6 +21,7 @@ export function checkTask(
   answers: WorksheetAnswers,
 ): { complete: boolean; correct: boolean } | null {
   switch (task.type) {
+    case "underline":
     case "multiple": {
       const selected = answers.selections[task.id] ?? [];
       return {
@@ -77,6 +78,7 @@ export function resetTask(
   answers: WorksheetAnswers,
 ): WorksheetAnswers {
   switch (task.type) {
+    case "underline":
     case "multiple":
       return {
         ...answers,

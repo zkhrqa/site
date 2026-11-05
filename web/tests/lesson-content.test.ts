@@ -79,12 +79,14 @@ test("all eight screens preserve the actual worksheet's instructions, choices an
         lines.includes(prompt),
         `oral prompt ${task.number}: ${prompt}`,
       );
-    if (task.type === "multiple" && task.text) {
-      assert.ok(lines.includes(task.text));
-      assert.ok(lines.includes(task.choicePrompt!));
-      assert.ok(
-        lines.includes(task.options.map((option) => option.text).join(" ")),
-      );
+    if (task.type === "underline") {
+      const passage = task.parts
+        .map((part) =>
+          "punctuation" in part ? part.text + part.punctuation : part.text,
+        )
+        .join("");
+      assert.ok(lines.includes(passage));
+      assert.ok(lines.includes(task.prompt));
     } else if (
       task.type === "multiple" ||
       task.type === "creative" ||

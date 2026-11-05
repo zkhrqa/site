@@ -522,13 +522,9 @@ main:focus {
   font: 600 30px var(--display);
   text-decoration: none;
 }
-.footer > p {
-  font-size: 17px;
-  margin-top: 10px;
-}
 .footer .small {
   font-size: 14px;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 .breadcrumbs {
   display: flex;
@@ -1679,9 +1675,6 @@ blockquote {
   }
   .footer-brand {
     font-size: 28px;
-  }
-  .footer > p {
-    font-size: 16px;
   }
   .footer .small {
     font-size: 13px;
