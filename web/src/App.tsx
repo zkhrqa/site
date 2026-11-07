@@ -1,3 +1,4 @@
+import { publicAsset } from "./features/public-assets";
 import {
   Fragment,
   lazy,
@@ -28,6 +29,7 @@ import {
 } from "@phosphor-icons/react";
 import {
   completeLesson,
+  removeLesson,
   emptyProgress,
   mergeProgress,
   parseProgress,
@@ -36,7 +38,9 @@ import {
   writeProgress,
   type Progress,
 } from "./features/progress";
-import { lesson } from "./content/lesson-01";
+import { lessonByNumber, type LessonContent } from "./content/lessons";
+import { publishedLessons } from "./content/published-lessons";
+import { parseLessonLocation } from "./features/routes";
 const JourneyMap = lazy(() =>
   import("./JourneyMap").then((module) => ({ default: module.JourneyMap })),
 );
@@ -49,8 +53,7 @@ const Worksheet = lazy(() =>
   import("./Worksheet").then((module) => ({ default: module.Worksheet })),
 );
 
-const media = (name: string) => `/media/${name}.webp`;
-type Route = "home" | "lesson" | "interactive" | "activity";
+const media = (name: string) => publicAsset(`media/${name}.webp`);
 type HomeSection = "map" | "lessons" | "about";
 type HomeNavigation = { section: HomeSection | null; behavior: ScrollBehavior };
 
@@ -64,15 +67,6 @@ function homeNavigationFromHash(): HomeNavigation {
     behavior: "instant",
   };
 }
-
-const routeFromHash = (): Route =>
-  location.hash.startsWith("#/lesson/1/activity")
-    ? "activity"
-    : location.hash.startsWith("#/lesson/1/interactive")
-      ? "interactive"
-      : location.hash.startsWith("#/lesson/1")
-        ? "lesson"
-        : "home";
 
 function Modal({
   title,
@@ -113,7 +107,11 @@ function Modal({
 }
 
 export function App() {
-  const [route, setRoute] = useState<Route>(routeFromHash);
+  const [lessonLocation, setLessonLocation] = useState(() =>
+    parseLessonLocation(location.hash),
+  );
+  const { route, number: lessonNumber } = lessonLocation;
+  const lesson = lessonByNumber(lessonNumber)!;
   const [homeNavigation, setHomeNavigation] = useState(homeNavigationFromHash);
   const [progress, setProgress] = useState<Progress>(emptyProgress);
   const [storageError, setStorageError] = useState("");
@@ -154,13 +152,12 @@ export function App() {
   const [projector, setProjector] = useState(
     location.hash.endsWith("?projector"),
   );
-  const [celebrate, setCelebrate] = useState(false);
+  const [celebrate, setCelebrate] = useState<string | null>(null);
   const done = progress.completedLessonIds.includes(lesson.id);
   useEffect(() => {
-    if (!celebrate) return;
-    const timer = setTimeout(() => setCelebrate(false), 1000);
-    return () => clearTimeout(timer);
-  }, [celebrate]);
+    if (route !== "home") setCelebrate(null);
+  }, [route]);
+  const endCelebration = useCallback(() => setCelebrate(null), []);
   useEffect(() => {
     try {
       const result = readProgress(localStorage);
@@ -174,8 +171,9 @@ export function App() {
       );
     }
     const onHash = () => {
-      const nextRoute = routeFromHash();
-      setRoute(nextRoute);
+      const nextLocation = parseLessonLocation(location.hash);
+      const nextRoute = nextLocation.route;
+      setLessonLocation(nextLocation);
       setMenuOpen(false);
       setProjector(location.hash.endsWith("?projector"));
       if (nextRoute === "home") setHomeNavigation(homeNavigationFromHash());
@@ -203,13 +201,13 @@ export function App() {
     document.title =
       route === "home"
         ? "Альбом дружбы — русский язык объединяет"
-        : `${route === "activity" ? lesson.exercise.title : lesson.title} · Альбом дружбы`;
+        : `${lesson.title} · Альбом дружбы`;
     const frame = requestAnimationFrame(() => {
       document.getElementById("main")?.focus({ preventScroll: true });
       if (route !== "home") window.scrollTo({ top: 0, behavior: "instant" });
     });
     return () => cancelAnimationFrame(frame);
-  }, [route]);
+  }, [route, lesson.id, lesson.title]);
   useEffect(() => {
     if (!toast) return;
     const id = setTimeout(() => setToast(""), 6500);
@@ -245,7 +243,7 @@ export function App() {
   }
   function finish() {
     const saved = save(completeLesson(progress, lesson.id));
-    setCelebrate(true);
+    setCelebrate(done ? null : lesson.id);
     setToast(
       saved
         ? "Урок пройден! Отметка сохранена в этом браузере."
@@ -336,7 +334,9 @@ export function App() {
           >
             <MapTrifold size={23} />
             <span>Моё путешествие</span>
-            {done && <Check size={19} weight="bold" />}
+            {progress.completedLessonIds.length > 0 && (
+              <Check size={19} weight="bold" />
+            )}
           </button>
           <button
             className="icon-button menu-button"
@@ -369,29 +369,37 @@ export function App() {
           <Home
             completedLessonIds={progress.completedLessonIds}
             celebrate={celebrate}
+            onCelebrationEnd={endCelebration}
             navigation={homeNavigation}
             onSection={goSection}
           />
         )}
-        {route === "lesson" && <Lesson />}
+        {route === "lesson" && <Lesson lesson={lesson} />}
+        {route === "not-found" && (
+          <section className="wrap missing-lesson">
+            <h1>Урок не найден</h1>
+            <a className="button primary" href="#/lessons">
+              Все уроки
+            </a>
+          </section>
+        )}
         {(route === "interactive" || route === "activity") && (
           <Suspense
             fallback={
               <div className="wrap journey-loading" aria-live="polite">
-                <h1>Рабочий лист Егора</h1>
+                <h1>Загружаем урок {lesson.number}</h1>
                 <p>Загружаем задания…</p>
               </div>
             }
           >
             <Worksheet
+              key={lesson.id}
+              lesson={lesson}
               done={done}
               projector={projector}
               setProjector={(value) => {
                 setProjector(value);
-                const path =
-                  route === "activity"
-                    ? "/lesson/1/activity"
-                    : "/lesson/1/interactive";
+                const path = `/lesson/${lesson.number}/${route === "activity" ? "activity" : "interactive"}`;
                 location.hash = value ? `${path}?projector` : path;
               }}
               onFinish={finish}
@@ -436,11 +444,13 @@ export function App() {
 function Home({
   completedLessonIds,
   celebrate,
+  onCelebrationEnd,
   navigation,
   onSection,
 }: {
   completedLessonIds: readonly string[];
-  celebrate: boolean;
+  celebrate: string | null;
+  onCelebrationEnd: () => void;
   navigation: HomeNavigation;
   onSection: (id: HomeSection) => void;
 }) {
@@ -524,6 +534,7 @@ function Home({
         <JourneyMap
           completedLessonIds={completedLessonIds}
           celebrate={celebrate}
+          onCelebrationEnd={onCelebrationEnd}
           sectionRef={mapRef}
         />
       </Suspense>
@@ -566,41 +577,55 @@ function Home({
   );
 }
 
-function Lesson() {
+function Lesson({ lesson }: { lesson: LessonContent }) {
   return (
     <div className="lesson-page preparation-page wrap">
       <div className="breadcrumbs">
         <a href="#/lessons">Все уроки</a>
         <span>/</span>
-        <span>Подготовка к уроку 1</span>
+        <span>Подготовка к уроку {lesson.number}</span>
       </div>
       <section className="lesson-hero" aria-labelledby="lesson-title">
         <div>
           <h1 id="lesson-title">
-            Русский язык —<br />
-            государственный
-            <br className="desktop-only" /> язык России
+            {lesson.number === 1 ? (
+              <>
+                Русский язык —<br />
+                государственный
+                <br className="desktop-only" /> язык России
+              </>
+            ) : (
+              lesson.title
+            )}
           </h1>
-          <p className="lesson-subtitle">Урок 1</p>
+          <p className="lesson-subtitle">Урок {lesson.number}</p>
           <p className="preparation-intro">{lesson.preparation.plot}</p>
         </div>
-        <div className="lesson-hero-art">
+        <div
+          className={`lesson-hero-art ${lesson.number !== 1 ? "family-lesson-art" : ""}`}
+        >
           <img
             className="museum-backdrop"
-            src={media("museum-background")}
+            src={media(lesson.number === 1 ? "museum-background" : "album")}
             alt=""
           />
           <img
             className="egor-hero"
-            src={media("egor")}
-            alt="Егор держит альбом дружбы"
+            src={publicAsset(lesson.heroImage)}
+            alt={lesson.heroAlt}
           />
           <p className="egor-greeting">
-            Привет! Я Егор.
-            <br />
-            Поможешь мне
-            <br />
-            заполнить альбом дружбы?
+            {lesson.number === 1 ? (
+              <>
+                Привет! Я Егор.
+                <br />
+                Поможешь мне
+                <br />
+                заполнить альбом дружбы?
+              </>
+            ) : (
+              lesson.greeting
+            )}
           </p>
         </div>
       </section>
@@ -616,7 +641,7 @@ function Lesson() {
               const last = index === trials.length - 1;
               return (
                 <Fragment key={trial.title}>
-                  {last ? "а в " : "в "}
+                  {trial.leadIn}
                   <strong>«{trial.title}»</strong> {trial.description}
                   {last ? "." : ", "}
                 </Fragment>
@@ -633,21 +658,38 @@ function Lesson() {
       >
         <h2 id="materials-title">Подготовка к занятию</h2>
         <p className="preparation-copy">{lesson.preparation.materials}</p>
+        {lesson.preparation.teacherNotes && (
+          <details className="teacher-notes">
+            <summary>Рекомендации учителю</summary>
+            {lesson.preparation.teacherNotes.map((note) => (
+              <p key={note}>{note}</p>
+            ))}
+          </details>
+        )}
         {lesson.downloads.map((file) => (
-          <a key={file.href} className="download-row" href={file.href} download>
+          <a
+            key={file.href}
+            className="download-row"
+            href={publicAsset(file.href)}
+            download
+          >
             <FileDoc size={32} weight="light" aria-hidden="true" />
             <span>
               <strong>{file.title}</strong>
               <span className="small">{file.detail}</span>
             </span>
             <span className="download-label">
-              Скачать DOCX <DownloadSimple size={22} aria-hidden="true" />
+              Скачать {file.format}{" "}
+              <DownloadSimple size={22} aria-hidden="true" />
             </span>
           </a>
         ))}
         <div className="preparation-actions">
-          <a className="button primary" href="#/lesson/1/interactive">
-            Запустить интерактивную часть <ArrowRight size={22} />
+          <a
+            className="button primary"
+            href={`#/lesson/${lesson.number}/interactive`}
+          >
+            Начать урок <ArrowRight size={22} />
           </a>
         </div>
       </section>
@@ -704,7 +746,7 @@ function ProgressDialog({
     <Modal title="Моё путешествие" onClose={close}>
       <p className="progress-count">
         <Star size={28} weight={count ? "fill" : "regular"} />
-        {count ? "Первый урок пройден" : "Альбом ждёт первой отметки"}
+        {count ? `Пройдено уроков: ${count}` : "Альбом ждёт первой отметки"}
       </p>
       <p>
         Отметки хранятся в этом браузере на этом устройстве. Чтобы перенести их
@@ -743,24 +785,30 @@ function ProgressDialog({
         </p>
       )}
       <div className="reset-progress">
-        {count > 0 && (
-          <div className="completed-lesson-row">
-            <p>Урок 1 · {lesson.title}</p>
-            <button
-              className="text-button"
-              onClick={() => {
-                const saved = save(emptyProgress());
-                notify(
-                  saved
-                    ? "Отметка урока убрана."
-                    : "Отметка убрана на этой странице. Сохранение браузера изменить не удалось.",
-                );
-              }}
-            >
-              Убрать отметку
-            </button>
-          </div>
-        )}
+        {progress.completedLessonIds.map((id) => {
+          const completed = publishedLessons[id];
+          return (
+            <div className="completed-lesson-row" key={id}>
+              <p>
+                Урок {completed.number} · {completed.title}
+              </p>
+              <button
+                className="text-button"
+                aria-label={`Убрать отметку урока ${completed.number}`}
+                onClick={() => {
+                  const saved = save(removeLesson(progress, id));
+                  notify(
+                    saved
+                      ? "Отметка урока убрана."
+                      : "Отметка убрана на этой странице. Сохранение браузера изменить не удалось.",
+                  );
+                }}
+              >
+                Убрать отметку
+              </button>
+            </div>
+          );
+        })}
         {confirmReset ? (
           <>
             <p>

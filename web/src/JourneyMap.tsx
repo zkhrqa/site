@@ -1,3 +1,4 @@
+import { publicAsset } from "./features/public-assets";
 import {
   useEffect,
   useLayoutEffect,
@@ -33,10 +34,12 @@ import "./journey-map.css";
 export function JourneyMap({
   completedLessonIds,
   celebrate,
+  onCelebrationEnd,
   sectionRef,
 }: {
   completedLessonIds: readonly string[];
-  celebrate: boolean;
+  celebrate: string | null;
+  onCelebrationEnd: () => void;
   sectionRef: (section: HTMLElement | null) => void;
 }) {
   const [selected, setSelected] = useState<JourneyStop | null>(null);
@@ -202,6 +205,32 @@ export function JourneyMap({
     () => groupStops(journeyStops, width, zoom),
     [width, zoom],
   );
+  const celebrationPoint = useRef<HTMLButtonElement>(null);
+  const [stamping, setStamping] = useState(false);
+  useEffect(() => {
+    if (!celebrate) {
+      setStamping(false);
+      return;
+    }
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      onCelebrationEnd();
+      return;
+    }
+    const point = celebrationPoint.current;
+    if (!point) return;
+    // Wait for the lazy map and the navigation scroll, so the stamp is seen.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setStamping(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 1 },
+    );
+    observer.observe(point);
+    return () => observer.disconnect();
+  }, [celebrate, groups, onCelebrationEnd]);
   const selectedPoint = selected
     ? (groups.find((group) => group.stops.includes(selected)) ?? selected)
     : null;
@@ -364,7 +393,7 @@ export function JourneyMap({
         <div className="journey-atlas">
           <img
             className="journey-book"
-            src="/media/album.webp"
+            src={publicAsset("media/album.webp")}
             alt=""
             loading="lazy"
           />
@@ -464,7 +493,7 @@ export function JourneyMap({
                 </defs>
                 <path d={geography.path ?? ""} fill="#d9dfb1" />
                 <image
-                  href="/media/russia-story-map.webp"
+                  href={publicAsset("media/russia-story-map.webp")}
                   width="1400"
                   height="680"
                   preserveAspectRatio="none"
@@ -500,7 +529,12 @@ export function JourneyMap({
                   return (
                     <button
                       key={group.stops.map((item) => item.id).join("-")}
-                      className={`journey-point ${isGroup ? "is-group" : ""} ${groupHasLesson ? "has-ready-lesson" : ""} ${groupHasCompletion ? "has-completed-lesson" : ""} ${available ? "is-available" : ""} ${completed ? "is-completed" : ""} ${active ? "is-selected" : ""} ${completed && celebrate ? "is-new-mark" : ""}`}
+                      ref={
+                        group.stops.some((item) => item.lessonId === celebrate)
+                          ? celebrationPoint
+                          : undefined
+                      }
+                      className={`journey-point ${isGroup ? "is-group" : ""} ${groupHasLesson ? "has-ready-lesson" : ""} ${groupHasCompletion ? "has-completed-lesson" : ""} ${available ? "is-available" : ""} ${completed ? "is-completed" : ""} ${active ? "is-selected" : ""} ${stamping && celebrate && group.stops.some((item) => item.lessonId === celebrate) ? "is-new-mark" : ""}`}
                       style={{
                         left: `${group.x / 14}%`,
                         top: `${group.y / 6.8}%`,
@@ -511,7 +545,13 @@ export function JourneyMap({
                       title={label}
                       onClick={(e) => revealGroup(group, e.currentTarget)}
                     >
-                      <span className="journey-point-face">
+                      <span
+                        className="journey-point-face"
+                        onAnimationEnd={(event) => {
+                          if (event.animationName === "discovery-stamp")
+                            onCelebrationEnd();
+                        }}
+                      >
                         {isGroup ? (
                           <>
                             {group.stops.length}
@@ -563,7 +603,7 @@ export function JourneyMap({
               <>
                 <img
                   className="journey-guide"
-                  src={selectedLesson.heroImage}
+                  src={publicAsset(selectedLesson.heroImage)}
                   alt={selectedLesson.heroName}
                 />
                 <div>

@@ -19,30 +19,29 @@ test("eight worksheet tasks have stable unique IDs and the original order", () =
     [1, 2, 3, 4, 5, 6, 7, 8],
   );
 });
-test("underlining accepts the four source words and rejects missing or extra words", () => {
+test("underlining accepts any source option without grading and can be undone independently", () => {
   const task = worksheetTasks[0];
   assert.ok(task.type === "underline");
-  const wordId = (word: string) => {
-    const part = task.parts.find((part) => "id" in part && part.text === word);
-    assert.ok(part && "id" in part);
-    return part.id;
-  };
   const state = emptyWorksheetAnswers();
-  assert.deepEqual(checkTask(task, state), {
-    complete: false,
-    correct: false,
-  });
-  const selected = ["указатели", "расписание", "экскурсовод"].map(wordId);
-  state.selections[task.id] = selected;
-  assert.equal(checkTask(task, state)?.correct, false);
-  selected.push(wordId("музее"));
-  assert.equal(checkTask(task, state)?.correct, true);
-  const extra = wordId("экспонатах");
-  state.selections[task.id] = toggleChoice(selected, extra);
-  assert.equal(checkTask(task, state)?.correct, false);
-  state.selections[task.id] = toggleChoice(state.selections[task.id], extra);
-  assert.equal(checkTask(task, state)?.correct, true);
-  assert.equal(checkTask(task, resetTask(task, state))?.complete, false);
+  state.words = [2, 4];
+  assert.equal(checkTask(task, state), null);
+  for (const option of task.options) {
+    state.selections[task.id] = toggleChoice(
+      state.selections[task.id] ?? [],
+      option.id,
+    );
+    assert.equal(checkTask(task, state), null);
+  }
+  assert.equal(state.selections[task.id].length, 5);
+  state.selections[task.id] = toggleChoice(
+    state.selections[task.id],
+    "sports-ground",
+  );
+  assert.equal(state.selections[task.id].length, 4);
+  assert.equal(checkTask(task, state), null);
+  const reset = resetTask(task, state);
+  assert.deepEqual(reset.selections[task.id], []);
+  assert.deepEqual(reset.words, [2, 4]);
 });
 test("the second task accepts all six situations from the worksheet", () => {
   const state = emptyWorksheetAnswers();
@@ -101,13 +100,43 @@ test("oral tasks and self-assessment are not graded; reset preserves other tasks
   const state = emptyWorksheetAnswers();
   state.words = [2, 4, 1];
   state.selections.situations = ["museum"];
-  state.creative = "three-sentences";
   for (const index of [5, 6, 7])
     assert.equal(checkTask(worksheetTasks[index], state), null);
   const reset = resetTask(worksheetTasks[3], state);
   assert.deepEqual(reset.words, []);
   assert.deepEqual(reset.selections.situations, ["museum"]);
-  assert.equal(reset.creative, "three-sentences");
   assert.deepEqual(state.words, [2, 4, 1]);
   assert.deepEqual(toggleChoice(["a", "b"], "a"), ["b"]);
+});
+
+test("Aydar classification is independent, rejects a mismatched text, and resets only its own choices", async () => {
+  const { aydarTasks } = await import("../src/content/lesson-02-worksheet");
+  const task = aydarTasks[1];
+  assert.ok(task.type === "classify");
+  const state = emptyWorksheetAnswers();
+  state.classifications["clues-story"] = "what-happened";
+  state.underlines["clues-story"] = ["0", "4"];
+  assert.equal(checkTask(task, state)?.complete, false);
+  state.classifications = {
+    ...state.classifications,
+    "page-a": "narrative",
+    "page-b": "description",
+    "page-c": "reasoning",
+  };
+  assert.deepEqual(checkTask(task, state), { complete: true, correct: true });
+  state.classifications["page-b"] = "narrative";
+  assert.equal(checkTask(task, state)?.correct, false);
+  const reset = resetTask(task, state);
+  assert.equal(checkTask(task, reset)?.complete, false);
+  assert.equal(reset.classifications["clues-story"], "what-happened");
+  assert.deepEqual(reset.underlines["clues-story"], ["0", "4"]);
+});
+
+test("Amina's sentence variations, punctuation and oral rule are never graded against a single invented answer", async () => {
+  const { aminaTasks } = await import("../src/content/lesson-03-worksheet");
+  const state = emptyWorksheetAnswers();
+  state.compositions.bees = { order: [2, 1, 0], capital: true, ending: "!" };
+  state.endings["saw-kurai"] = "!";
+  for (const task of aminaTasks) assert.equal(checkTask(task, state), null);
+  assert.equal(aminaTasks.at(-1)?.finalReview, true);
 });

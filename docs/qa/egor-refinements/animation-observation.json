@@ -1,0 +1,26 @@
+[
+  {
+    "animation": "discovery-stamp",
+    "label": "Урок 1. Пройден",
+    "opacity": "0.331583",
+    "transform": "matrix(1.57689, -0.365424, 0.365424, 1.57689, 0, 0)"
+  },
+  {
+    "animation": "discovery-stamp",
+    "label": "Урок 1. Пройден",
+    "opacity": "0.609741",
+    "transform": "matrix(1.29274, -0.125319, 0.125319, 1.29274, 0, 0)"
+  },
+  {
+    "animation": "discovery-stamp",
+    "label": "Урок 1. Пройден",
+    "opacity": "0.790816",
+    "transform": "matrix(1.09049, -0.0123331, 0.0123331, 1.09049, 0, 0)"
+  },
+  {
+    "animation": "discovery-stamp",
+    "label": "Урок 1. Пройден",
+    "opacity": "0.950079",
+    "transform": "matrix(0.905566, 0.0578007, -0.0578007, 0.905566, 0, 0)"
+  }
+]

@@ -1,0 +1,110 @@
+{
+  "completion-animation-390.png": {
+    "width": 390,
+    "height": 844
+  },
+  "completion-frame-0.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "completion-frame-1.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "completion-frame-2.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "completion-frame-3.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "map-completed-1440.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "preparation-1440.png": {
+    "width": 1440,
+    "height": 1585
+  },
+  "preparation-320.png": {
+    "width": 320,
+    "height": 2397
+  },
+  "preparation-390.png": {
+    "width": 390,
+    "height": 2142
+  },
+  "preparation-768.png": {
+    "width": 768,
+    "height": 1672
+  },
+  "preparation-before.png": {
+    "width": 1440,
+    "height": 1585
+  },
+  "task-1-1440.png": {
+    "width": 1440,
+    "height": 1105
+  },
+  "task-1-320.png": {
+    "width": 320,
+    "height": 1537
+  },
+  "task-1-390.png": {
+    "width": 390,
+    "height": 1304
+  },
+  "task-1-768.png": {
+    "width": 768,
+    "height": 1269
+  },
+  "task-1-before.png": {
+    "width": 1440,
+    "height": 1148
+  },
+  "task-3-390.png": {
+    "width": 390,
+    "height": 1312
+  },
+  "task-5-1440.png": {
+    "width": 1440,
+    "height": 1414
+  },
+  "task-5-320.png": {
+    "width": 320,
+    "height": 1745
+  },
+  "task-5-390.png": {
+    "width": 390,
+    "height": 1589
+  },
+  "task-5-768.png": {
+    "width": 768,
+    "height": 1627
+  },
+  "task-5-before.png": {
+    "width": 1440,
+    "height": 1144
+  },
+  "task-5-preview.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "task-5-projector-1366.png": {
+    "width": 1366,
+    "height": 1157
+  },
+  "task-5-unselected-1440.png": {
+    "width": 1440,
+    "height": 1372
+  },
+  "task-6-1440.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "task-6-390.png": {
+    "width": 390,
+    "height": 1001
+  }
+}

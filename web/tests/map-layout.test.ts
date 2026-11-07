@@ -28,7 +28,7 @@ test("desktop overview exposes every stop while a phone groups close touch targe
   assert.equal(groupStops(journeyStops, 1100, 1).length, 20);
   assert.ok(groupStops(journeyStops, 288, 1).length < 20);
   assert.equal(groupStops(journeyStops, 288, 3.5).length, 20);
-  assert.equal(journeyStops.filter((stop) => stop.lessonId).length, 1);
+  assert.equal(journeyStops.filter((stop) => stop.lessonId).length, 3);
 });
 test("panning cannot lose the map and reset returns the same overview", () => {
   assert.deepEqual(clampPan({ x: 900, y: -900 }, 350, 1), { x: 0, y: -0 });

@@ -161,7 +161,7 @@
   color: var(--journey-done-gold);
 }
 .journey-point.is-new-mark .journey-point-face {
-  animation: discovery-stamp 0.5s ease-out;
+  animation: discovery-stamp 700ms ease-out both;
 }
 .journey-map-bottom {
   display: flex;
@@ -425,11 +425,18 @@
   padding-inline: 15px;
 }
 @keyframes discovery-stamp {
-  from {
-    transform: scale(1.7) rotate(-20deg);
-    opacity: 0.1;
+  0% {
+    transform: scale(2) rotate(-22deg);
+    opacity: 0;
   }
-  to {
+  55% {
+    transform: scale(0.85) rotate(5deg);
+    opacity: 1;
+  }
+  78% {
+    transform: scale(1.12) rotate(-2deg);
+  }
+  100% {
     transform: scale(1) rotate(0);
     opacity: 1;
   }

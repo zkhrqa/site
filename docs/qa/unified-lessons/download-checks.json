@@ -1,0 +1,30 @@
+[
+  {
+    "file": "lesson-02-teacher.doc",
+    "status": 200,
+    "contentType": "application/msword",
+    "byteIdentical": true,
+    "sha256": "803c0c7ce1a4622f984118f580fb80b2f25e6e90468dec6783f14844cf28e670"
+  },
+  {
+    "file": "lesson-02-worksheet.docx",
+    "status": 200,
+    "contentType": "",
+    "byteIdentical": true,
+    "sha256": "29521f1b3a92b6977435dbca12cd5bbaa6bd8435543a40c05b34e8f37d2c9813"
+  },
+  {
+    "file": "lesson-03-teacher.docx",
+    "status": 200,
+    "contentType": "",
+    "byteIdentical": true,
+    "sha256": "63f3d6fb613e47b2fffd68e8e41a304839375f3247cec6c98ebf9f6387e1d6d9"
+  },
+  {
+    "file": "lesson-03-worksheet.docx",
+    "status": 200,
+    "contentType": "",
+    "byteIdentical": true,
+    "sha256": "5d9ef0c05a1560fa59809c2f0eb9fd565d36acf216279187a21ea7d304108583"
+  }
+]

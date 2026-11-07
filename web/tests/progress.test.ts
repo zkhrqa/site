@@ -78,3 +78,34 @@ test("import validates, deduplicates and merges instead of deleting existing pro
   assert.deepEqual(mergeProgress(incoming, emptyProgress()), incoming);
   assert.throws(() => completeLesson(incoming, "lesson-99"));
 });
+
+test("three lesson marks survive import, removing one preserves the others and the old v1 file still works", async () => {
+  const { removeLesson } = await import("../src/features/progress");
+  const oldFile = JSON.stringify({
+    ...emptyProgress(),
+    completedLessonIds: ["lesson-01"],
+  });
+  const current = completeLesson(
+    completeLesson(parseProgress(oldFile), "lesson-02"),
+    "lesson-03",
+  );
+  const restored = parseProgress(JSON.stringify(current));
+  assert.deepEqual(restored.completedLessonIds, [
+    "lesson-01",
+    "lesson-02",
+    "lesson-03",
+  ]);
+  const removed = removeLesson(restored, "lesson-02");
+  assert.deepEqual(removed.completedLessonIds, ["lesson-01", "lesson-03"]);
+  assert.deepEqual(restored.completedLessonIds, [
+    "lesson-01",
+    "lesson-02",
+    "lesson-03",
+  ]);
+  assert.deepEqual(mergeProgress(removed, parseProgress(oldFile)), removed);
+  assert.throws(() =>
+    parseProgress(
+      JSON.stringify({ ...emptyProgress(), completedLessonIds: ["lesson-04"] }),
+    ),
+  );
+});

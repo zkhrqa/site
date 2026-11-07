@@ -1,0 +1,242 @@
+{
+  "amina-build-1440.png": {
+    "width": 1440,
+    "height": 2360
+  },
+  "amina-completion.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "amina-preparation-1440.png": {
+    "width": 1440,
+    "height": 1777
+  },
+  "amina-preparation-320.png": {
+    "width": 320,
+    "height": 2772
+  },
+  "amina-preparation-390.png": {
+    "width": 390,
+    "height": 2366
+  },
+  "amina-preparation-768.png": {
+    "width": 768,
+    "height": 1963
+  },
+  "amina-projector.png": {
+    "width": 1366,
+    "height": 1368
+  },
+  "amina-task-1-1440.png": {
+    "width": 1440,
+    "height": 2360
+  },
+  "amina-task-1-320.png": {
+    "width": 320,
+    "height": 3110
+  },
+  "amina-task-1-390.png": {
+    "width": 390,
+    "height": 2768
+  },
+  "amina-task-1-768.png": {
+    "width": 768,
+    "height": 2598
+  },
+  "amina-task-2-1440.png": {
+    "width": 1440,
+    "height": 1548
+  },
+  "amina-task-2-320.png": {
+    "width": 320,
+    "height": 1970
+  },
+  "amina-task-2-390.png": {
+    "width": 390,
+    "height": 1946
+  },
+  "amina-task-2-768.png": {
+    "width": 768,
+    "height": 1793
+  },
+  "amina-task-3-1440.png": {
+    "width": 1440,
+    "height": 1633
+  },
+  "amina-task-3-320.png": {
+    "width": 320,
+    "height": 2171
+  },
+  "amina-task-3-390.png": {
+    "width": 390,
+    "height": 2065
+  },
+  "amina-task-3-768.png": {
+    "width": 768,
+    "height": 1905
+  },
+  "amina-task-4-1440.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "amina-task-4-320.png": {
+    "width": 320,
+    "height": 865
+  },
+  "amina-task-4-390.png": {
+    "width": 390,
+    "height": 844
+  },
+  "amina-task-4-768.png": {
+    "width": 768,
+    "height": 1000
+  },
+  "amina-task-5-1440.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "amina-task-5-320.png": {
+    "width": 320,
+    "height": 844
+  },
+  "amina-task-5-390.png": {
+    "width": 390,
+    "height": 844
+  },
+  "amina-task-5-768.png": {
+    "width": 768,
+    "height": 1000
+  },
+  "amina-task-6-1440.png": {
+    "width": 1440,
+    "height": 1294
+  },
+  "amina-task-6-320.png": {
+    "width": 320,
+    "height": 1575
+  },
+  "amina-task-6-390.png": {
+    "width": 390,
+    "height": 1281
+  },
+  "amina-task-6-768.png": {
+    "width": 768,
+    "height": 1313
+  },
+  "aydar-classification-1440.png": {
+    "width": 1440,
+    "height": 1714
+  },
+  "aydar-completion.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "aydar-preparation-1440.png": {
+    "width": 1440,
+    "height": 1777
+  },
+  "aydar-preparation-320.png": {
+    "width": 320,
+    "height": 2620
+  },
+  "aydar-preparation-390.png": {
+    "width": 390,
+    "height": 2318
+  },
+  "aydar-preparation-768.png": {
+    "width": 768,
+    "height": 1793
+  },
+  "aydar-projector.png": {
+    "width": 1366,
+    "height": 1456
+  },
+  "aydar-task-1-1440.png": {
+    "width": 1440,
+    "height": 1289
+  },
+  "aydar-task-1-320.png": {
+    "width": 320,
+    "height": 1253
+  },
+  "aydar-task-1-390.png": {
+    "width": 390,
+    "height": 1228
+  },
+  "aydar-task-1-768.png": {
+    "width": 768,
+    "height": 1307
+  },
+  "aydar-task-2-1440.png": {
+    "width": 1440,
+    "height": 1714
+  },
+  "aydar-task-2-320.png": {
+    "width": 320,
+    "height": 2482
+  },
+  "aydar-task-2-390.png": {
+    "width": 390,
+    "height": 2071
+  },
+  "aydar-task-2-768.png": {
+    "width": 768,
+    "height": 2087
+  },
+  "aydar-task-3-1440.png": {
+    "width": 1440,
+    "height": 1721
+  },
+  "aydar-task-3-320.png": {
+    "width": 320,
+    "height": 2724
+  },
+  "aydar-task-3-390.png": {
+    "width": 390,
+    "height": 2327
+  },
+  "aydar-task-3-768.png": {
+    "width": 768,
+    "height": 2098
+  },
+  "aydar-task-4-1440.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "aydar-task-4-320.png": {
+    "width": 320,
+    "height": 1236
+  },
+  "aydar-task-4-390.png": {
+    "width": 390,
+    "height": 1122
+  },
+  "aydar-task-4-768.png": {
+    "width": 768,
+    "height": 1081
+  },
+  "aydar-task-5-1440.png": {
+    "width": 1440,
+    "height": 1294
+  },
+  "aydar-task-5-320.png": {
+    "width": 320,
+    "height": 1461
+  },
+  "aydar-task-5-390.png": {
+    "width": 390,
+    "height": 1225
+  },
+  "aydar-task-5-768.png": {
+    "width": 768,
+    "height": 1313
+  },
+  "progress-remove-one.png": {
+    "width": 1440,
+    "height": 1000
+  },
+  "progress-three-imported.png": {
+    "width": 1440,
+    "height": 1000
+  }
+}

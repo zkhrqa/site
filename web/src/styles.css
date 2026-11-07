@@ -2687,6 +2687,8 @@ blockquote {
   margin-bottom: 16px;
 }
 .preparation-actions {
+  display: flex;
+  justify-content: center;
   margin-top: 18px;
 }
 .interactive-heading {
@@ -2737,4 +2739,34 @@ blockquote {
     justify-self: end;
     margin-left: 0;
   }
+}
+
+.family-lesson-art .museum-backdrop {
+  object-fit: contain;
+  height: 68%;
+  top: auto;
+  bottom: 0;
+}
+.family-lesson-art .egor-greeting {
+  font-size: clamp(16px, 1.6vw, 22px);
+  line-height: 1.35;
+}
+.teacher-notes {
+  margin-block: 18px 24px;
+  font: 18px/1.5 var(--body);
+}
+.teacher-notes summary {
+  color: var(--sage);
+  cursor: pointer;
+  padding-block: 10px;
+}
+.teacher-notes p {
+  max-width: 800px;
+  margin-top: 10px;
+}
+.missing-lesson {
+  padding-block: 60px;
+}
+.missing-lesson .button {
+  margin-top: 25px;
 }

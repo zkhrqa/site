@@ -1,81 +1,30 @@
 import { lesson } from "./lesson-01";
 
-export type Option = { id: string; text: string };
-type ReadingPart =
-  | { text: string }
-  | { id: string; text: string; punctuation: string };
-type BaseTask = {
-  id: string;
-  number: number;
-  title: string;
-  instruction: string;
-  source: { document: "lesson-01-worksheet.docx"; section: number };
-  discussion?: string[];
-};
-export type WorksheetTask = BaseTask &
-  (
-    | {
-        type: "multiple";
-        options: Option[];
-        correct: string[];
-      }
-    | {
-        type: "underline";
-        parts: ReadingPart[];
-        prompt: string;
-        correct: string[];
-      }
-    | {
-        type: "verdicts";
-        items: { id: string; text: string; answer: boolean }[];
-      }
-    | { type: "words"; words: string[]; answer: string[] }
-    | {
-        type: "matching";
-        categories: Option[];
-        items: { id: string; text: string; answer: string }[];
-        answerSource: string;
-      }
-    | { type: "creative"; options: Option[] }
-    | { type: "discussion" }
-    | { type: "self-review"; options: Option[] }
-  );
+import type { WorksheetTask } from "./worksheet-types";
+export type { Option, WorksheetTask } from "./worksheet-types";
 
 const source = (section: number) => ({
   document: "lesson-01-worksheet.docx" as const,
   section,
 });
-const readingParts: ReadingPart[] = lesson.story
-  .split(/(\s+)/)
-  .map((part, index) => {
-    const word = /^([\p{L}-]+)(.*)$/u.exec(part);
-    return word
-      ? { id: String(index), text: word[1], punctuation: word[2] }
-      : { text: part };
-  });
-const readingAnswers = new Set([
-  "музее",
-  "указатели",
-  "расписание",
-  "экскурсовод",
-]);
-
 export const worksheetTasks: WorksheetTask[] = [
   {
     id: "communication",
     number: 1,
     type: "underline",
     title: "Язык для общения",
-    instruction: "Прочитай текст.",
+    instruction: "",
     source: source(1),
-    parts: readingParts,
+    passage: lesson.story,
     prompt:
       "а) Где Егор встретил русский язык? Подчеркни все подходящие варианты.",
-    correct: readingParts.flatMap((part) =>
-      "id" in part && readingAnswers.has(part.text.toLowerCase())
-        ? [part.id]
-        : [],
-    ),
+    options: [
+      { id: "signs", text: "указатели" },
+      { id: "schedule", text: "расписание" },
+      { id: "guide", text: "экскурсовод" },
+      { id: "sports-ground", text: "спортивная площадка" },
+      { id: "museum", text: "музей" },
+    ],
     discussion: [`б) ${lesson.question}`],
   },
   {
@@ -114,7 +63,8 @@ export const worksheetTasks: WorksheetTask[] = [
     number: 3,
     type: "verdicts",
     title: "Верно или неверно?",
-    instruction:
+    instruction: "Выбери для каждого предложения «Верно» или «Неверно».",
+    sourceInstruction:
       "Поставь рядом с каждым предложением «В» (верно) или «Н» (неверно).",
     source: source(3),
     items: [
@@ -159,9 +109,9 @@ export const worksheetTasks: WorksheetTask[] = [
     instruction: "Соедини пример с тем, что он помогает нам узнавать.",
     source: source(5),
     categories: [
-      { id: "art", text: "предмет народного искусства" },
-      { id: "traditions", text: "народные традиции и праздники" },
       { id: "wisdom", text: "народная мудрость и меткие выражения" },
+      { id: "traditions", text: "народные традиции и праздники" },
+      { id: "art", text: "предмет народного искусства" },
     ],
     items: [
       { id: "tales", text: "Русские народные сказки", answer: "art" },
@@ -183,7 +133,7 @@ export const worksheetTasks: WorksheetTask[] = [
     number: 6,
     type: "creative",
     title: "Моя страница альбома",
-    instruction: "Выбери ОДНО задание и выполни его.",
+    instruction: "",
     source: source(6),
     options: [
       {

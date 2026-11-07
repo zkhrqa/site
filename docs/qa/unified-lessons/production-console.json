@@ -1,0 +1,8 @@
+[
+  {
+    "level": "error",
+    "message": "TypeError: Failed to fetch dynamically imported module: http://127.0.0.1:4173/assets/JourneyMap-C5A0Agfk.js",
+    "timestamp": "2026-11-07T17:28:48.098Z",
+    "url": "http://127.0.0.1:4173/assets/index-BYXg0qvk.js"
+  }
+]

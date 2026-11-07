@@ -101,3 +101,12 @@ export function completeLesson(current: Progress, id: string): Progress {
     completedLessonIds: [id],
   });
 }
+
+export function removeLesson(current: Progress, id: string): Progress {
+  return {
+    ...current,
+    completedLessonIds: current.completedLessonIds.filter(
+      (value) => value !== id,
+    ),
+  };
+}

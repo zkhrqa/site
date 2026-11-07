@@ -72,21 +72,22 @@ test("all eight screens preserve the actual worksheet's instructions, choices an
       lines.includes(`${task.number}. ${task.title}`),
       `title ${task.number}`,
     );
-    if (task.instruction)
-      assert.ok(lines.includes(task.instruction), `instruction ${task.number}`);
+    if (task.sourceInstruction || task.instruction)
+      assert.ok(
+        lines.includes(task.sourceInstruction ?? task.instruction),
+        `instruction ${task.number}`,
+      );
     for (const prompt of task.discussion ?? [])
       assert.ok(
         lines.includes(prompt),
         `oral prompt ${task.number}: ${prompt}`,
       );
     if (task.type === "underline") {
-      const passage = task.parts
-        .map((part) =>
-          "punctuation" in part ? part.text + part.punctuation : part.text,
-        )
-        .join("");
-      assert.ok(lines.includes(passage));
+      assert.ok(lines.includes(task.passage));
       assert.ok(lines.includes(task.prompt));
+      assert.ok(
+        lines.includes(task.options.map((option) => option.text).join(" ")),
+      );
     } else if (
       task.type === "multiple" ||
       task.type === "creative" ||
@@ -104,4 +105,86 @@ test("all eight screens preserve the actual worksheet's instructions, choices an
         assert.ok(lines.includes(item.text));
     }
   }
+});
+
+// These assertions use the actual files offered by the UI, independently of the
+// task data, so a copied-but-truncated exercise cannot pass by testing itself.
+test("Aydar and Amina retain every worksheet instruction, passage, word set and self-rating", async () => {
+  const { lessons } = await import("../src/content/lessons");
+  for (const lesson of lessons.slice(1)) {
+    const document = normalize(
+      paragraphs(
+        `../public/downloads/lesson-0${lesson.number}-worksheet.docx`,
+      ).join(" "),
+    );
+    const has = (text: string) =>
+      assert.ok(document.includes(normalize(text)), `${lesson.id}: ${text}`);
+    for (const task of lesson.tasks) {
+      if (task.instruction) has(task.sourceInstruction ?? task.instruction);
+      if (task.closing) has(task.closing);
+      switch (task.type) {
+        case "reference":
+          for (const entry of task.entries) {
+            has(entry.title.toLocaleUpperCase("ru"));
+            has(entry.question);
+            has(entry.description);
+          }
+          has(task.note);
+          break;
+        case "classify":
+        case "text-clues":
+        case "punctuation":
+        case "edit-sentences":
+          for (const item of task.items) has(item.text);
+          break;
+        case "sentence-groups":
+          for (const item of task.items) has(item.words.join(" / "));
+          break;
+        case "creative":
+          for (const option of task.options) has(option.text);
+          break;
+        case "self-rating":
+          for (const item of [...task.items, ...task.options]) has(item.text);
+          break;
+        case "discussion":
+          for (const prompt of task.discussion ?? []) has(prompt);
+          break;
+      }
+    }
+    assert.equal(
+      new Set(lesson.tasks.map((task) => task.id)).size,
+      lesson.tasks.length,
+    );
+    assert.equal(lesson.tasks.filter((task) => !task.finalReview).length, 5);
+  }
+});
+
+test("all three lessons expose their own source downloads and distinct routes", async () => {
+  const { lessons } = await import("../src/content/lessons");
+  const { parseLessonLocation } = await import("../src/features/routes");
+  const { readFileSync } = await import("node:fs");
+  for (const lesson of lessons) {
+    for (const file of lesson.downloads) {
+      const filename = file.href.split("/").at(-1);
+      if (lesson.number > 1)
+        assert.deepEqual(
+          readFileSync(path(`../public${file.href}`)),
+          readFileSync(path(`../../references/lessons/${filename}`)),
+        );
+    }
+    assert.deepEqual(parseLessonLocation(`#/lesson/${lesson.number}`), {
+      route: "lesson",
+      number: lesson.number,
+    });
+    assert.deepEqual(
+      parseLessonLocation(`#/lesson/${lesson.number}/interactive?projector`),
+      { route: "interactive", number: lesson.number },
+    );
+  }
+  assert.equal(parseLessonLocation("#/lesson/20").route, "not-found");
+  assert.equal(
+    parseLessonLocation("#/lesson/2/unavailable").route,
+    "not-found",
+  );
+  assert.equal(parseLessonLocation("#/lessons").route, "home");
 });

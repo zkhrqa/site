@@ -56,6 +56,8 @@ export const journeyStops: JourneyStop[] = positions.map(([x, y], index) => ({
   number: index + 1,
   x,
   y,
-  ...(index === 0 ? { lessonId: "lesson-01" } : {}),
+  ...(index < 3
+    ? { lessonId: `lesson-${String(index + 1).padStart(2, "0")}` }
+    : {}),
   ...(introductions[index] ? { introduction: introductions[index] } : {}),
 }));

@@ -1,27 +1,39 @@
-import type { WorksheetTask } from "../content/lesson-01-worksheet";
+import type { WorksheetTask } from "../content/worksheet-types";
 
 export type WorksheetAnswers = {
   selections: Record<string, string[]>;
   verdicts: Record<string, boolean>;
   words: number[];
   matches: Record<string, string>;
-  creative: string | null;
   selfReview: string[];
+  classifications: Record<string, string>;
+  underlines: Record<string, string[]>;
+  compositions: Record<
+    string,
+    { order: number[]; capital: boolean; ending: string }
+  >;
+  capitals: Record<string, string[]>;
+  endings: Record<string, string>;
+  ratings: Record<string, string>;
 };
 export const emptyWorksheetAnswers = (): WorksheetAnswers => ({
   selections: {},
   verdicts: {},
   words: [],
   matches: {},
-  creative: null,
   selfReview: [],
+  classifications: {},
+  underlines: {},
+  compositions: {},
+  capitals: {},
+  endings: {},
+  ratings: {},
 });
 export function checkTask(
   task: WorksheetTask,
   answers: WorksheetAnswers,
 ): { complete: boolean; correct: boolean } | null {
   switch (task.type) {
-    case "underline":
     case "multiple": {
       const selected = answers.selections[task.id] ?? [];
       return {
@@ -32,6 +44,17 @@ export function checkTask(
           selected.every((id) => task.correct.includes(id)),
       };
     }
+    case "classify":
+      return {
+        complete: task.items.every((item) =>
+          task.options.some(
+            (option) => option.id === answers.classifications[item.id],
+          ),
+        ),
+        correct: task.items.every(
+          (item) => answers.classifications[item.id] === item.answer,
+        ),
+      };
     case "verdicts":
       return {
         complete: task.items.every(
@@ -84,14 +107,23 @@ export function resetTask(
         ...answers,
         selections: { ...answers.selections, [task.id]: [] },
       };
+    case "classify": {
+      const ids = new Set(task.items.map((item) => item.id));
+      return {
+        ...answers,
+        classifications: Object.fromEntries(
+          Object.entries(answers.classifications).filter(
+            ([id]) => !ids.has(id),
+          ),
+        ),
+      };
+    }
     case "verdicts":
       return { ...answers, verdicts: {} };
     case "words":
       return { ...answers, words: [] };
     case "matching":
       return { ...answers, matches: {} };
-    case "creative":
-      return { ...answers, creative: null };
     case "self-review":
       return { ...answers, selfReview: [] };
     default:

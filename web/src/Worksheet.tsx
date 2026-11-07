@@ -1,9 +1,9 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { publicAsset } from "./features/public-assets";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
   ArrowCounterClockwise,
-  CaretDown,
   Check,
   CheckCircle,
   ChatsCircle,
@@ -12,20 +12,20 @@ import {
   Star,
   X,
 } from "@phosphor-icons/react";
-import {
-  worksheetTasks,
-  type Option,
-  type WorksheetTask,
-} from "./content/lesson-01-worksheet";
+import type { Option, WorksheetTask } from "./content/worksheet-types";
+import type { LessonContent } from "./content/lessons";
+import { AdditionalTasks } from "./AdditionalTasks";
 import {
   checkTask,
   emptyWorksheetAnswers,
   resetTask,
   toggleChoice,
 } from "./features/worksheet";
+import { MatchingExercise } from "./MatchingExercise";
 import "./worksheet.css";
 
 type Props = {
+  lesson: LessonContent;
   done: boolean;
   projector: boolean;
   setProjector: (value: boolean) => void;
@@ -56,123 +56,9 @@ function Choice({
     </label>
   );
 }
-function MatchPicker({
-  label,
-  options,
-  value,
-  onChange,
-}: {
-  label: string;
-  options: Option[];
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  const id = useId();
-  const [open, setOpen] = useState(false);
-  const trigger = useRef<HTMLButtonElement>(null);
-  const list = useRef<HTMLDivElement>(null);
-  const choices = [{ id: "", text: "Выбери соответствие" }, ...options];
-  const selectedIndex = Math.max(
-    0,
-    choices.findIndex((item) => item.id === value),
-  );
-  useEffect(() => {
-    if (open)
-      (
-        list.current?.children[selectedIndex] as HTMLButtonElement | undefined
-      )?.focus({ preventScroll: true });
-  }, [open, selectedIndex]);
-
-  function close() {
-    trigger.current?.focus({ preventScroll: true });
-    setOpen(false);
-  }
-
-  return (
-    <div
-      className="worksheet-picker"
-      onMouseDown={(event) => {
-        if (open && (event.target as Element).closest("button"))
-          event.preventDefault();
-      }}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
-      }}
-      onKeyDown={(event) => {
-        if (open && event.key === "Escape") {
-          event.stopPropagation();
-          close();
-          return;
-        }
-        const direction =
-          event.key === "ArrowDown" ? 1 : event.key === "ArrowUp" ? -1 : 0;
-        if (!direction && (!open || !["Home", "End"].includes(event.key)))
-          return;
-        event.preventDefault();
-        if (!open) {
-          setOpen(true);
-          return;
-        }
-        const items = Array.from(
-          list.current?.children ?? [],
-        ) as HTMLButtonElement[];
-        const current = items.indexOf(event.target as HTMLButtonElement);
-        const next =
-          event.key === "Home"
-            ? 0
-            : event.key === "End"
-              ? items.length - 1
-              : (current + direction + items.length) % items.length;
-        items[next]?.focus();
-      }}
-    >
-      <button
-        ref={trigger}
-        type="button"
-        className="worksheet-picker-trigger"
-        aria-label={`${label}. ${choices[selectedIndex].text}`}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-controls={id}
-        onClick={() => (open ? close() : setOpen(true))}
-      >
-        <span>{choices[selectedIndex].text}</span>
-        <CaretDown size={18} aria-hidden="true" />
-      </button>
-      <div className="disclosure" data-open={open} inert={!open}>
-        <div className="disclosure-clip">
-          <div
-            className="worksheet-picker-options"
-            ref={list}
-            id={id}
-            role="listbox"
-            aria-label={label}
-          >
-            {choices.map((choice) => (
-              <button
-                key={choice.id}
-                type="button"
-                role="option"
-                aria-selected={choice.id === value}
-                tabIndex={-1}
-                onClick={() => {
-                  onChange(choice.id);
-                  close();
-                }}
-              >
-                {choice.text}
-                {choice.id === value && <Check size={18} aria-hidden="true" />}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 function Subtask({ prompt }: { prompt: string }) {
   const part = /^([аб])\) (.+)$/u.exec(prompt);
-  if (!part) return prompt;
+  if (!part) return prompt.replace(/_{2,}/g, "…");
 
   return (
     <span className="worksheet-subtask">
@@ -196,7 +82,14 @@ function Discussion({ prompts }: { prompts: string[] }) {
     </section>
   );
 }
-export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
+export function Worksheet({
+  lesson,
+  done,
+  projector,
+  setProjector,
+  onFinish,
+}: Props) {
+  const worksheetTasks = lesson.tasks;
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState(emptyWorksheetAnswers);
   const [checkedIds, setCheckedIds] = useState<string[]>([]);
@@ -224,55 +117,33 @@ export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
     switch (current.type) {
       case "underline": {
         const selected = answers.selections[current.id] ?? [];
-        const isSelected = (part?: (typeof current.parts)[number]) =>
-          part !== undefined && "id" in part && selected.includes(part.id);
-
         return (
-          <fieldset className="worksheet-reading-group">
-            <legend>
-              <Subtask prompt={current.prompt} />
-            </legend>
-            <p className="worksheet-reading-help">
-              Нажми на слово в тексте, чтобы подчеркнуть его. Нажми ещё раз,
-              чтобы снять подчёркивание.
-            </p>
-            <p className="worksheet-reading">
-              {current.parts.map((part, index, parts) => {
-                if (!("id" in part)) {
-                  return isSelected(parts[index - 1]) &&
-                    isSelected(parts[index + 1]) ? (
-                    <span className="worksheet-reading-join" key={index}>
-                      {part.text}
-                    </span>
-                  ) : (
-                    part.text
-                  );
-                }
-
-                const pressed = isSelected(part);
-                return (
-                  <span className="worksheet-reading-token" key={part.id}>
-                    <button
-                      type="button"
-                      className="worksheet-reading-word"
-                      aria-pressed={pressed}
-                      onClick={() => toggleSelection(part.id)}
-                    >
-                      {part.text}
-                    </button>
-                    {part.punctuation &&
-                      (pressed && isSelected(parts[index + 2]) ? (
-                        <span className="worksheet-reading-join">
-                          {part.punctuation}
-                        </span>
-                      ) : (
-                        part.punctuation
-                      ))}
-                  </span>
-                );
-              })}
-            </p>
-          </fieldset>
+          <>
+            <p className="worksheet-reading">{current.passage}</p>
+            <fieldset className="worksheet-reading-group">
+              <legend>
+                <Subtask prompt={current.prompt} />
+              </legend>
+              <div className="worksheet-reading-options">
+                {current.options.map((option) => (
+                  <button
+                    key={option.id}
+                    type="button"
+                    className="worksheet-reading-word"
+                    data-option-id={option.id}
+                    aria-pressed={selected.includes(option.id)}
+                    onClick={() => toggleSelection(option.id)}
+                  >
+                    {option.text}
+                  </button>
+                ))}
+              </div>
+              <p className="worksheet-reading-help">
+                Нажми на вариант, чтобы подчеркнуть его. Повторное нажатие
+                снимает подчёркивание.
+              </p>
+            </fieldset>
+          </>
         );
       }
       case "multiple":
@@ -317,7 +188,7 @@ export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
                           editing();
                         }}
                       />
-                      {value ? "В — верно" : "Н — неверно"}
+                      {value ? "Верно" : "Неверно"}
                     </label>
                   ))}
                 </div>
@@ -382,58 +253,36 @@ export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
         );
       case "matching":
         return (
-          <div className="worksheet-matching">
-            {current.items.map((item) => (
-              <div className="worksheet-match-row" key={item.id}>
-                <span>{item.text}</span>
-                <MatchPicker
-                  label={`Соответствие: ${item.text}`}
-                  options={current.categories}
-                  value={answers.matches[item.id] ?? ""}
-                  onChange={(value) => {
-                    setAnswers((state) => ({
-                      ...state,
-                      matches: { ...state.matches, [item.id]: value },
-                    }));
-                    editing();
-                  }}
-                />
-              </div>
-            ))}
-          </div>
+          <MatchingExercise
+            key={current.id}
+            items={current.items}
+            categories={current.categories}
+            matches={answers.matches}
+            onMatch={(itemId, categoryId) => {
+              setAnswers((state) => ({
+                ...state,
+                matches: { ...state.matches, [itemId]: categoryId },
+              }));
+              editing();
+            }}
+          />
         );
       case "creative":
         return (
-          <>
-            <fieldset className="worksheet-options">
-              <legend>Выбери одно задание</legend>
+          <section
+            className="worksheet-discussion"
+            aria-label="Обсудите в классе"
+          >
+            <h2>
+              <ChatsCircle size={23} aria-hidden="true" />
+              Обсудите в классе
+            </h2>
+            <ul className="worksheet-creative-list">
               {current.options.map((option) => (
-                <Choice
-                  key={option.id}
-                  option={option}
-                  radio
-                  name="creative-task"
-                  checked={answers.creative === option.id}
-                  onChange={() =>
-                    setAnswers((state) => ({ ...state, creative: option.id }))
-                  }
-                />
+                <li key={option.id}>{option.text}</li>
               ))}
-            </fieldset>
-            <section
-              className="worksheet-discussion"
-              aria-label="Обсудите в классе"
-            >
-              <h2>
-                <ChatsCircle size={23} aria-hidden="true" />
-                Обсудите в классе
-              </h2>
-              <p>
-                Сформулируйте ответ на выбранное задание устно и обсудите его с
-                классом.
-              </p>
-            </section>
-          </>
+            </ul>
+          </section>
         );
       case "self-review":
         return (
@@ -456,12 +305,22 @@ export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
         );
       case "discussion":
         return null;
+      default:
+        return (
+          <AdditionalTasks
+            task={current}
+            answers={answers}
+            setAnswers={setAnswers}
+            editing={editing}
+            checked={checked}
+          />
+        );
     }
   }
   return (
     <div className="activity-page worksheet-page wrap">
       <div className="activity-toolbar">
-        <a className="text-link" href="#/lesson/1">
+        <a className="text-link" href={`#/lesson/${lesson.number}`}>
           <ArrowLeft size={20} />К подготовке учителя
         </a>
         <button
@@ -470,12 +329,14 @@ export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
           onClick={() => setProjector(!projector)}
         >
           {projector ? <X size={22} /> : <ProjectorScreen size={22} />}
-          {projector ? "Выйти из режима проектора" : "На проектор"}
+          {projector ? "Выйти из режима проектора" : "Режим проектора"}
         </button>
       </div>
       <header className="activity-heading worksheet-heading">
         <p className="worksheet-position">
-          Задание {task.number} из {worksheetTasks.length}
+          {task.finalReview
+            ? "Итог урока"
+            : `Задание ${task.number} из ${worksheetTasks.filter((item) => !item.finalReview).length}`}
         </p>
         <h1 ref={title} tabIndex={-1}>
           {task.title}
@@ -486,7 +347,7 @@ export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
       </header>
       <div className="activity-stage worksheet-stage">
         <aside className="guide worksheet-guide">
-          <img src="/media/egor.webp" alt="Егор с альбомом дружбы" />
+          <img src={publicAsset(lesson.heroImage)} alt={lesson.heroAlt} />
           <p>
             Выполняй задания
             <br />
@@ -495,7 +356,7 @@ export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
         </aside>
         <section
           className="worksheet-paper"
-          aria-label={`Рабочий лист, задание ${task.number}`}
+          aria-label={`Рабочий лист, ${task.finalReview ? "итог урока" : `задание ${task.number}`}`}
         >
           {content(task)}
           {result && (
@@ -551,6 +412,9 @@ export function Worksheet({ done, projector, setProjector, onFinish }: Props) {
             </>
           )}
           {task.discussion && <Discussion prompts={task.discussion} />}
+          {task.closing && (
+            <p className="worksheet-rule-note">{task.closing}</p>
+          )}
         </section>
       </div>
       <nav
