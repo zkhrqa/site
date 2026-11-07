@@ -1,0 +1,50 @@
+[
+  {
+    "path": "index.html",
+    "http_success": true,
+    "bytes": 818,
+    "matches_local_build": true
+  },
+  {
+    "path": "downloads/lesson-01-teacher.docx",
+    "http_success": true,
+    "bytes": 30059,
+    "matches_local_build": true
+  },
+  {
+    "path": "downloads/lesson-01-worksheet.docx",
+    "http_success": true,
+    "bytes": 28751,
+    "matches_local_build": true
+  },
+  {
+    "path": "downloads/lesson-02-teacher.doc",
+    "http_success": true,
+    "bytes": 125440,
+    "matches_local_build": true
+  },
+  {
+    "path": "downloads/lesson-02-worksheet.docx",
+    "http_success": true,
+    "bytes": 29645,
+    "matches_local_build": true
+  },
+  {
+    "path": "downloads/lesson-03-teacher.docx",
+    "http_success": true,
+    "bytes": 36214,
+    "matches_local_build": true
+  },
+  {
+    "path": "downloads/lesson-03-worksheet.docx",
+    "http_success": true,
+    "bytes": 29090,
+    "matches_local_build": true
+  },
+  {
+    "path": "downloads/manifest.json",
+    "http_success": true,
+    "bytes": 1721,
+    "matches_local_build": true
+  }
+]
