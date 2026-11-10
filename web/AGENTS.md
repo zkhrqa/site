@@ -1,5 +1,7 @@
 # Prototype Instructions
 
+При обновлении одежды героев сохраняй позу, лицо, руки, книгу, кадрирование и рисованную технику текущего портрета. Фото костюмов задают одежду, головной убор и украшения.
+
 Run the local server yourself and open the preview in the browser available to this environment. Do not give the user server-start instructions when you can run it.
 
 Before making substantial visual changes, use the Product Design plugin's `get-context` skill when the visual source is unclear or no longer matches the current goal. When the user gives durable prototype-specific design feedback, preferences, or decisions, record them in `AGENTS.md`.
@@ -15,7 +17,7 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 
 ## Тексты первого экрана, 3 ноября 2026
 
-Последняя редакция пользователя: H1 «Русский язык объединяет»; подзаголовок «20 интерактивных уроков о традициях и народах России»; рядом с портретом «[Имя Фамилия Автора]», затем «Учитель начальных классов, методист». Имя — явная заглушка до предоставления настоящего. Вторичная кнопка «Как устроен курс» ведёт к прежнему разделу о проекте. Подсказка над картой «Выберите урок на карте ниже ↓». Не возвращать прежние два лозунга в блок автора.
+Редакция пользователя от 10 ноября 2026: H1 «Альбом дружбы», подзаголовок «Интерактивные уроки русского языка с героями народов России.». В каталоге указывается количество доступных уроков и статус остальных, кнопка «Показать все уроки». Вторичная кнопка «Как устроен курс» ведёт к разделу о проекте. Тексты главной собраны в `docs/PAGE_COPY.md`.
 
 ## Плотность мобильного Hero, 3 ноября 2026
 

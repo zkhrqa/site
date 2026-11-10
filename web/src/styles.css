@@ -325,6 +325,7 @@ main:focus {
 }
 .hero-subtitle {
   font: 25px/1.4 var(--display);
+  text-wrap: balance;
   margin-top: 19px;
   max-width: 750px;
   position: relative;
@@ -2741,12 +2742,6 @@ blockquote {
   }
 }
 
-.family-lesson-art .museum-backdrop {
-  object-fit: contain;
-  height: 68%;
-  top: auto;
-  bottom: 0;
-}
 .family-lesson-art .egor-greeting {
   font-size: clamp(16px, 1.6vw, 22px);
   line-height: 1.35;

@@ -412,6 +412,12 @@ export function Worksheet({
             </>
           )}
           {task.discussion && <Discussion prompts={task.discussion} />}
+          {task.hint && (
+            <details key={task.id} className="teacher-notes">
+              <summary>Подсказка</summary>
+              <p>{task.hint}</p>
+            </details>
+          )}
           {task.closing && (
             <p className="worksheet-rule-note">{task.closing}</p>
           )}

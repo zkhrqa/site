@@ -224,5 +224,74 @@
       "fullyTransparentPixels": 874104,
       "totalPixels": 1572326
     }
+  },
+  {
+    "id": "egor-folk-v2",
+    "path": "assets/illustrations/egor-folk-v2.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "c701705737ed9b29b78b593df16c27f460f5c27a907e5e1763f86cc038f82bda",
+    "bytes": 2420159,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 55.49,
+      "hasActualTransparency": true,
+      "softEdgePixels": 700141
+    }
+  },
+  {
+    "id": "aydar-folk-v2",
+    "path": "assets/illustrations/aydar-folk-v2.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "edea1229ccfa5f0f6c2785460fc0e05c4b5824f3031d47de8549328e478d2846",
+    "bytes": 2494183,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 49.31,
+      "hasActualTransparency": true,
+      "softEdgePixels": 797236
+    }
+  },
+  {
+    "id": "amina-folk-v2",
+    "path": "assets/illustrations/amina-folk-v2.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "61f9e53757f93f62028e24e5d901cbd9522e26238715e2a932a6c54423361330",
+    "bytes": 2624656,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 44.23,
+      "hasActualTransparency": true,
+      "softEdgePixels": 877179
+    }
   }
 ]

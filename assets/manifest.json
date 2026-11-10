@@ -433,6 +433,135 @@
       "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted. Geographic layout reference derived from Natural Earth public-domain data.",
       "sha256": "169d6922088a9ad85ef8d18daafe582f277cdc010da3d2494049958fd349ee44",
       "bytes": 1856309
+    },
+    {
+      "id": "egor-folk-v2",
+      "path": "assets/illustrations/egor-folk-v2.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "c701705737ed9b29b78b593df16c27f460f5c27a907e5e1763f86cc038f82bda",
+      "bytes": 2420159,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 55.49,
+        "hasActualTransparency": true,
+        "softEdgePixels": 700141
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-10",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/egor-v1.png",
+          "sha256": "437737b1a05fb86da7649c178f104c2bee4420c7dc00b3fd6424ae5956d881e6",
+          "role": "edit target, identity, pose, framing and watercolor style"
+        },
+        {
+          "filename": "codex-clipboard-a22e552c-6dd8-4ebf-89b0-c467646d5cf0.png",
+          "sha256": "48e1124226deeada403ca47c63e22faff51bcd486b2a50cce4f9763d2d8c6f62",
+          "role": "user-supplied wardrobe reference"
+        }
+      ],
+      "promptPath": "assets/prompts/egor-folk-v2.txt",
+      "promptText": "Use case: identity-preserve.\nAsset type: one versioned transparent watercolor character cutout for «Альбом дружбы».\nINPUT 1 is the EDIT TARGET and the sole source for the illustrated character's identity, pose, layout, angle, original age about nine, proportions, palette, style, light and paper grain. INPUT 2 is a CLOTHING-ONLY photo swatch. Extract only the pictured garment construction, trim, patterns, and requested clothing accessories. Ignore the photographed person's face, head/body proportions, hair, makeup, pose, gesture, framing, lighting and background.\nPerform a precise localized wardrobe replacement on input 1. Freeze the head orientation, eye direction, face and expression, body and shoulder orientation, exact angle of elbows, location and gesture of both hands, and position, size, angle and appearance of the original book or album. Preserve crop and the arrangement and scale of the figure on canvas. No reposing, front-facing reset, mirroring, different view or extension to full body. Do not move the book to uncover the garment. Clothing fits the existing silhouette and natural folds.\nEgor: keep the chestnut curls, eyebrows, freckles, gaze angled up toward screen right, closed friendly smile, visible ear, both hand positions on the same closed chestnut album, and tan backpack with its existing straps. Replace his blue hoodie with the cream long-sleeved folk shirt from photo 2. Put the red and muted dark-gold embroidery along the stand collar, exposed chest placket, both cuffs and the visible lower hem, using the photographed repeating design as a guide. Add the narrow patterned woven sash at the same existing waist, with its ends hanging naturally below the album. Replace the visible top of his trousers with the dark plaid cloth from photo 2. Keep the original hips/thighs crop, so lower-leg wraps and shoes are outside the image. No hat.\nMatch input 1's dry watercolor washes, subtle pigment and paper grain, warm colored-pencil contours, soft shadows, muted warm palette and natural child proportions. No glossy or photo-real rendering. Preserve genuine RGBA transparency around the entire figure, with no added backdrop, floor, cast-shadow patch, border, text, UI or watermark. One complete edited illustration only.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "aydar-folk-v2",
+      "path": "assets/illustrations/aydar-folk-v2.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "edea1229ccfa5f0f6c2785460fc0e05c4b5824f3031d47de8549328e478d2846",
+      "bytes": 2494183,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 49.31,
+        "hasActualTransparency": true,
+        "softEdgePixels": 797236
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-10",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/aydar-v1-provisional.png",
+          "sha256": "b3e979824a4011a83a6552a650c6b0cca731b08b9ae894cccfad4925e7f3f918",
+          "role": "edit target, identity, pose, framing and watercolor style"
+        },
+        {
+          "filename": "codex-clipboard-c20968b6-e2a8-410e-a6a8-c6e4958eb371.png",
+          "sha256": "3fcc2f91a86a469e0e553f19952a7391a512132b4ee83a417e0b8dc6c1c609dc",
+          "role": "user-supplied wardrobe reference"
+        }
+      ],
+      "promptPath": "assets/prompts/aydar-folk-v2.txt",
+      "promptText": "Use case: identity-preserve.\nAsset type: one versioned transparent watercolor character cutout for «Альбом дружбы».\nINPUT 1 is the EDIT TARGET and the sole source for the illustrated character's identity, pose, layout, angle, original age about nine, proportions, palette, style, light and paper grain. INPUT 2 is a CLOTHING-ONLY photo swatch. Extract only the pictured garment construction, trim, patterns, and requested clothing accessories. Ignore the photographed person's face, head/body proportions, hair, makeup, pose, gesture, framing, lighting and background.\nPerform a precise localized wardrobe replacement on input 1. Freeze the head orientation, eye direction, face and expression, body and shoulder orientation, exact angle of elbows, location and gesture of both hands, and position, size, angle and appearance of the original book or album. Preserve crop and the arrangement and scale of the figure on canvas. No reposing, front-facing reset, mirroring, different view or extension to full body. Do not move the book to uncover the garment. Clothing fits the existing silhouette and natural folds.\nAydar: keep the short dark chestnut hair where visible, cheek freckles, visible ear, upturned gaze to screen right and the friendly open smile, identical original arm and hand position holding the same open burgundy-brown storybook. Replace the jumper and collar with the green long-sleeved stand-collar shirt and open deep green sleeveless vest from photo 2. Show fine warm gold edging and the photographed stylized embroidered scrolls wherever the vest remains visible around and below the book. Fit the photo's matching deep green tubeteika with a muted gold scroll front onto the original tilted head without changing the head angle or eyes. Leave original hair visible below cap. Render green fabrics in softly muted watercolor, without studio shine. Keep original hips crop.\nMatch input 1's dry watercolor washes, subtle pigment and paper grain, warm colored-pencil contours, soft shadows, muted warm palette and natural child proportions. No glossy or photo-real rendering. Preserve genuine RGBA transparency around the entire figure, with no added backdrop, floor, cast-shadow patch, border, text, UI or watermark. One complete edited illustration only.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "amina-folk-v2",
+      "path": "assets/illustrations/amina-folk-v2.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "61f9e53757f93f62028e24e5d901cbd9522e26238715e2a932a6c54423361330",
+      "bytes": 2624656,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 44.23,
+        "hasActualTransparency": true,
+        "softEdgePixels": 877179
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-10",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/amina-v1-provisional.png",
+          "sha256": "88d6a284b50d652dbd78221a425efaaf531ae0b621987a83fcdbda69ae80e82c",
+          "role": "edit target, identity, pose, framing and watercolor style"
+        },
+        {
+          "filename": "codex-clipboard-af2a16db-a039-4002-92c9-11d9a5302c1e.png",
+          "sha256": "805f4ed54961be729eac0b408f4f7ffa8be851e05d807bc6eea76cd3afada032",
+          "role": "user-supplied wardrobe reference"
+        }
+      ],
+      "promptPath": "assets/prompts/amina-folk-v2.txt",
+      "promptText": "Use case: identity-preserve.\nAsset type: one versioned transparent watercolor character cutout for «Альбом дружбы».\nINPUT 1 is the EDIT TARGET and the sole source for the illustrated character's identity, pose, layout, angle, original age about nine, proportions, palette, style, light and paper grain. INPUT 2 is a CLOTHING-ONLY photo swatch. Extract only the pictured garment construction, trim, patterns, and requested clothing accessories. Ignore the photographed person's face, head/body proportions, hair, makeup, pose, gesture, framing, lighting and background.\nPerform a precise localized wardrobe replacement on input 1. Freeze the head orientation, eye direction, face and expression, body and shoulder orientation, exact angle of elbows, location and gesture of both hands, and position, size, angle and appearance of the original book or album. Preserve crop and the arrangement and scale of the figure on canvas. No reposing, front-facing reset, mirroring, different view or extension to full body. Do not move the book to uncover the garment. Clothing fits the existing silhouette and natural folds.\nAmina: keep the child's gentle smile, gaze toward upper screen right, brown eyes, cheek shape, natural skin, side braid over her shoulder, head angle and both hand positions holding the same warm brown closed album. Replace the blue cardigan and blouse with the photographed red dress and dark long outer garment, visible on the existing half-body crop. Reproduce the red cuffs, restrained gold/green band edging and red headpiece lined with a modest row of silver coins, plus the layered silver coin and red bead chest jewelry in visible areas above or alongside the album. Adapt headpiece to the original angle, leaving her familiar hairline and braid wherever plausible. Keep her original childlike face and delicate natural watercolor cheek tint; no adult face, cosmetics or eyebrow reshaping. Preserve exact original crop, do not extend to full length.\nMatch input 1's dry watercolor washes, subtle pigment and paper grain, warm colored-pencil contours, soft shadows, muted warm palette and natural child proportions. No glossy or photo-real rendering. Preserve genuine RGBA transparency around the entire figure, with no added backdrop, floor, cast-shadow patch, border, text, UI or watermark. One complete edited illustration only.",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
     }
   ],
   "planned": [
@@ -761,6 +890,42 @@
       "bytes": 2024350,
       "sha256": "ccad38467db4ab27899c1a7d4c69b4ae3ccdef1fe6b52d0699ecd34e9baf2ab7",
       "contentType": "image/png"
+    },
+    {
+      "path": "assets/illustrations/amina-folk-v2.png",
+      "bytes": 2624656,
+      "sha256": "61f9e53757f93f62028e24e5d901cbd9522e26238715e2a932a6c54423361330",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/illustrations/aydar-folk-v2.png",
+      "bytes": 2494183,
+      "sha256": "edea1229ccfa5f0f6c2785460fc0e05c4b5824f3031d47de8549328e478d2846",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/illustrations/egor-folk-v2.png",
+      "bytes": 2420159,
+      "sha256": "c701705737ed9b29b78b593df16c27f460f5c27a907e5e1763f86cc038f82bda",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/amina-folk-v2.txt",
+      "bytes": 2367,
+      "sha256": "e201fe051ac6be288b56d8d0cfb7d56bb491f685b8961a03a631801a57a44691",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/prompts/aydar-folk-v2.txt",
+      "bytes": 2290,
+      "sha256": "435755bc6e8fe8d8bb287d0cbd769595bf780984272dfb8b945ce201c7fd18aa",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/prompts/egor-folk-v2.txt",
+      "bytes": 2276,
+      "sha256": "982071b26f61447e3ad223a21b96663719ed92b586dea6960878b9952edf9e1c",
+      "contentType": "text/plain"
     }
   ]
 }

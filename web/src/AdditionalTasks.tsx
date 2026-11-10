@@ -70,7 +70,10 @@ export function AdditionalTasks({
       return (
         <div className="worksheet-reference">
           {task.entries.map((entry) => (
-            <section className="worksheet-block" key={entry.title}>
+            <section
+              className="worksheet-block worksheet-reference-entry"
+              key={entry.title}
+            >
               <h2>{entry.title}</h2>
               <p>
                 <strong>{entry.question}</strong>
@@ -78,7 +81,6 @@ export function AdditionalTasks({
               <p>{entry.description}</p>
             </section>
           ))}
-          <p className="worksheet-rule-note">{task.note}</p>
         </div>
       );
     case "classify":
@@ -181,6 +183,12 @@ export function AdditionalTasks({
                 <p className="worksheet-source-words">
                   {item.words.join(" / ")}
                 </p>
+                {item.footnote && (
+                  <p className="worksheet-footnote">
+                    <strong>{item.footnote.term}</strong> —{" "}
+                    {item.footnote.definition}
+                  </p>
+                )}
                 <div
                   className="sentence"
                   aria-label={`Предложение ${index + 1}`}
@@ -323,7 +331,7 @@ export function AdditionalTasks({
           {task.items.map((item) => (
             <section className="worksheet-block" key={item.id}>
               <RadioOptions
-                label={item.text}
+                label={uppercaseFirst(item.text)}
                 options={task.options}
                 value={answers.ratings[item.id]}
                 onChange={(value) => choose("ratings", item.id, value)}

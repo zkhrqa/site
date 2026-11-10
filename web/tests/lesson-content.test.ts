@@ -129,7 +129,7 @@ test("Aydar and Amina retain every worksheet instruction, passage, word set and 
             has(entry.question);
             has(entry.description);
           }
-          has(task.note);
+          has(task.sourceNote);
           break;
         case "classify":
         case "text-clues":

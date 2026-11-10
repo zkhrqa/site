@@ -199,9 +199,7 @@ export function App() {
   }, []);
   useEffect(() => {
     document.title =
-      route === "home"
-        ? "Альбом дружбы — русский язык объединяет"
-        : `${lesson.title} · Альбом дружбы`;
+      route === "home" ? "Альбом дружбы" : `${lesson.title} · Альбом дружбы`;
     const frame = requestAnimationFrame(() => {
       document.getElementById("main")?.focus({ preventScroll: true });
       if (route !== "home") window.scrollTo({ top: 0, behavior: "instant" });
@@ -471,13 +469,9 @@ function Home({
       <section className="home-hero wrap" aria-labelledby="home-title">
         <div className="hero-copy">
           <p className="eyebrow">Авторский образовательный проект</p>
-          <h1 id="home-title">
-            Русский язык
-            <br />
-            объединяет
-          </h1>
+          <h1 id="home-title">Альбом дружбы</h1>
           <p className="hero-subtitle">
-            20 интерактивных уроков о традициях и народах России
+            Интерактивные уроки русского языка с героями народов России.
           </p>
           <div className="author-note">
             <strong>Медведева Екатерина Ивановна</strong>
@@ -548,8 +542,8 @@ function Home({
           <h2 id="about-title">Один язык — много историй</h2>
           <p>
             «Альбом дружбы» — авторский образовательный проект, посвящённый Году
-            единства народов России. Он объединяет 20 уроков русского языка для
-            учеников начальных классов, каждый из которых знакомит детей с
+            единства народов России. Он объединяет уроки русского языка для
+            учеников начальных классов. На каждом уроке дети знакомятся с
             культурой, традициями и историей одного из народов нашей страны.
             Через увлекательные задания и путешествия с героями школьники не
             только осваивают русский язык, но и учатся понимать и ценить
@@ -606,7 +600,7 @@ function Lesson({ lesson }: { lesson: LessonContent }) {
         >
           <img
             className="museum-backdrop"
-            src={media(lesson.number === 1 ? "museum-background" : "album")}
+            src={media("museum-background")}
             alt=""
           />
           <img

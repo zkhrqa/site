@@ -625,7 +625,7 @@ export function JourneyMap({
             ) : (
               <div className="journey-coming">
                 <p className="journey-panel-meta">
-                  Урок {selected.number} из {journeyStops.length}
+                  Урок {selected.number}
                   {selected.introduction &&
                     ` · ${selected.introduction.heroName}`}
                 </p>
@@ -726,8 +726,13 @@ export function JourneyMap({
           <h3 id="journey-list-title">Все уроки</h3>
           <p className="journey-list-count">
             {readyStops.length}{" "}
-            {readyStops.length === 1 ? "урок доступен" : "урока доступны"} · ещё{" "}
-            {journeyStops.length - readyStops.length} готовятся
+            {readyStops.length === 1
+              ? "урок доступен"
+              : readyStops.length >= 2 && readyStops.length <= 4
+                ? "урока доступны"
+                : "уроков доступны"}
+            {readyStops.length < journeyStops.length &&
+              " · остальные уроки в разработке"}
           </p>
         </div>
         <div
@@ -767,9 +772,7 @@ export function JourneyMap({
               }
             }}
           >
-            {catalogueExpanded
-              ? `Свернуть до ${previewCount} уроков`
-              : `Показать все ${journeyStops.length} уроков`}
+            {catalogueExpanded ? "Свернуть список" : "Показать все уроки"}
             <CaretDown size={19} aria-hidden="true" />
           </button>
         )}

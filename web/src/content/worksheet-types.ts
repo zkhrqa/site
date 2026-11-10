@@ -15,6 +15,7 @@ type BaseTask = {
   finalReview?: boolean;
   closing?: string;
   discussion?: string[];
+  hint?: string;
 };
 export type WorksheetTask = BaseTask &
   (
@@ -46,7 +47,7 @@ export type WorksheetTask = BaseTask &
     | {
         type: "reference";
         entries: { title: string; question: string; description: string }[];
-        note: string;
+        sourceNote: string;
       }
     | {
         type: "classify";
@@ -64,7 +65,14 @@ export type WorksheetTask = BaseTask &
         options: Option[];
         items: { id: string; text: string }[];
       }
-    | { type: "sentence-groups"; items: { id: string; words: string[] }[] }
+    | {
+        type: "sentence-groups";
+        items: {
+          id: string;
+          words: string[];
+          footnote?: { term: string; definition: string };
+        }[];
+      }
     | {
         type: "punctuation" | "edit-sentences";
         items: { id: string; text: string }[];

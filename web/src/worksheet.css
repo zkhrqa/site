@@ -446,6 +446,24 @@
 .worksheet-rule-note {
   font: var(--worksheet-text) / 1.5 var(--body);
 }
+@media (min-width: 801px) {
+  .worksheet-reference {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .worksheet-reference-entry + .worksheet-reference-entry {
+    margin-top: 0;
+    padding: 0 0 0 18px;
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
+}
+.worksheet-block .worksheet-footnote {
+  margin-top: 8px;
+  font-size: calc(var(--worksheet-text) - 4px);
+  color: var(--muted);
+}
 .worksheet-passage {
   margin-bottom: 16px;
 }
