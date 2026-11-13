@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { accessSync } from "node:fs";
 import { publicAsset } from "../src/features/public-assets";
 import { lessons } from "../src/content/lessons";
 
@@ -13,6 +14,8 @@ test("all lesson illustrations and downloads stay under the selected static host
         const url = new URL(publicAsset(path, base), "https://example.test");
         assert.equal(url.pathname, base + path.slice(1));
         assert.equal(url.origin, "https://example.test");
+        if (base === "/")
+          accessSync(new URL(`../public${path}`, import.meta.url));
       }
     }
   }

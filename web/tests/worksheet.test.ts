@@ -140,3 +140,44 @@ test("Amina's sentence variations, punctuation and oral rule are never graded ag
   for (const task of aminaTasks) assert.equal(checkTask(task, state), null);
   assert.equal(aminaTasks.at(-1)?.finalReview, true);
 });
+
+test("new tasks check marked words and short spelling answers without grading free responses", async () => {
+  const { lessonByNumber } = await import("../src/content/lessons");
+  const marking = lessonByNumber(4)?.tasks[1];
+  const spelling = lessonByNumber(7)?.tasks[1];
+  const open = lessonByNumber(5)?.tasks[2];
+  assert.ok(marking?.type === "mark-words");
+  assert.ok(spelling?.type === "short-answers");
+  assert.ok(open?.type === "short-answers");
+  const state = emptyWorksheetAnswers();
+  for (const item of marking.items) state.underlines[item.id] = ["1"];
+  assert.deepEqual(checkTask(marking, state), {
+    complete: true,
+    correct: true,
+  });
+  state.underlines[marking.items[0].id] = ["1", "2"];
+  assert.equal(checkTask(marking, state)?.correct, false);
+  for (const [index, word] of [
+    "чашка",
+    "чудо",
+    "жираф",
+    "речка",
+    "точный",
+    "мощный",
+    "нянчить",
+    "что",
+  ].entries())
+    state.shortAnswers[spelling.items[index].id] =
+      word.toLocaleUpperCase("ru") + " ";
+  assert.deepEqual(checkTask(spelling, state), {
+    complete: true,
+    correct: true,
+  });
+  state.shortAnswers[spelling.items[0].id] = "чяшка";
+  assert.equal(checkTask(spelling, state)?.correct, false);
+  assert.equal(
+    checkTask(spelling, resetTask(spelling, state))?.complete,
+    false,
+  );
+  assert.equal(checkTask(open, state), null);
+});

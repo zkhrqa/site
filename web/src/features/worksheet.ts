@@ -8,6 +8,7 @@ export type WorksheetAnswers = {
   selfReview: string[];
   classifications: Record<string, string>;
   underlines: Record<string, string[]>;
+  shortAnswers: Record<string, string>;
   compositions: Record<
     string,
     { order: number[]; capital: boolean; ending: string }
@@ -24,11 +25,15 @@ export const emptyWorksheetAnswers = (): WorksheetAnswers => ({
   selfReview: [],
   classifications: {},
   underlines: {},
+  shortAnswers: {},
   compositions: {},
   capitals: {},
   endings: {},
   ratings: {},
 });
+const normalizeAnswer = (text: string) =>
+  text.trim().toLocaleLowerCase("ru").replace(/\s+/gu, " ");
+
 export function checkTask(
   task: WorksheetTask,
   answers: WorksheetAnswers,
@@ -47,12 +52,39 @@ export function checkTask(
     case "classify":
       return {
         complete: task.items.every((item) =>
-          task.options.some(
+          (item.options ?? task.options).some(
             (option) => option.id === answers.classifications[item.id],
           ),
         ),
         correct: task.items.every(
           (item) => answers.classifications[item.id] === item.answer,
+        ),
+      };
+    case "mark-words":
+      return {
+        complete: task.items.every(
+          (item) => answers.underlines[item.id]?.length,
+        ),
+        correct: task.items.every((item) => {
+          const selected = answers.underlines[item.id] ?? [];
+          return (
+            selected.length === item.correct.length &&
+            item.correct.every((index) => selected.includes(String(index)))
+          );
+        }),
+      };
+    case "short-answers":
+      if (task.items.some((item) => !item.accepted?.length)) return null;
+      return {
+        complete: task.items.every((item) =>
+          normalizeAnswer(answers.shortAnswers[item.id] ?? ""),
+        ),
+        correct: task.items.every((item) =>
+          item.accepted?.some(
+            (answer) =>
+              normalizeAnswer(answer) ===
+              normalizeAnswer(answers.shortAnswers[item.id] ?? ""),
+          ),
         ),
       };
     case "verdicts":
@@ -118,6 +150,22 @@ export function resetTask(
         ),
       };
     }
+    case "mark-words":
+      return {
+        ...answers,
+        underlines: {
+          ...answers.underlines,
+          ...Object.fromEntries(task.items.map(({ id }) => [id, []])),
+        },
+      };
+    case "short-answers":
+      return {
+        ...answers,
+        shortAnswers: {
+          ...answers.shortAnswers,
+          ...Object.fromEntries(task.items.map(({ id }) => [id, ""])),
+        },
+      };
     case "verdicts":
       return { ...answers, verdicts: {} };
     case "words":

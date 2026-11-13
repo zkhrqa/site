@@ -1,0 +1,10 @@
+Use case: illustration-story. Asset type: one transparent painted character cutout for «Альбом дружбы».
+Create a new fictional child. The provided approved portrait is only a style and scale reference, not an identity, outfit, or pose target. Match exactly its warm hand-painted dry watercolor washes with subtle paper pigment granulation, warm brown colored-pencil contours, tactile textile folds, matte quiet palette, soft peach skin and diffuse light, and recognizable animated storybook child anatomy with fairly natural shoulders and hands. National clothing described below is a simplified illustrated child outfit based on museum examples. No stereotyped physiognomy.
+Centered upright portrait, three-quarter body turned subtly to screen right, direct or slightly right/up gaze, relaxed friendly expression, natural schoolchild proportions, from top of head including hat to hips/upper thighs, like the reference, both elbows completely inside frame. Frame to maximize character height, with small margins and a soft clean painted hem without halo. Intended for both a 400px hero and a small 130px lesson guide so large readable shapes. Actual transparent RGBA around subject. No paper background, no vignette, no floating accessories, no shadows outside body, no words or letters, no logos, no frame, one child only.
+Subject: Айыына. A 9-year-old Sakha (Yakut) girl in a child-scaled Sakha folk outfit: an ankle-length halaa daay dress (here cropped at hips) with a gathered yoke and full sleeves, in muted deep teal-blue cotton and narrow, quietly contrasting decorative bands. A slim felt forehead band with sparse small beads and a silver-toned disc, small silver-toned earrings; no bridal regalia. Tidy dark braids, looking alert and friendly, holding a few small word cards beside a plain leather-bound map notebook.
+
+Costume reference (museum or ethnographic collection):
+https://tsaritsyno-museum.ru/events/exhibitions/p/yakutskaya-nevesta/
+
+Image generation: built-in ImageGen, transparent RGBA.
+Style reference: assets/illustrations/amina-folk-v2.png.

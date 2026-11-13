@@ -1,0 +1,11 @@
+Use case: illustration-story. Asset type: one transparent painted character cutout for «Альбом дружбы».
+Create a new fictional child. The provided approved portrait is only a style and scale reference, not an identity, outfit, or pose target. Match exactly its warm hand-painted dry watercolor washes with subtle paper pigment granulation, warm brown colored-pencil contours, tactile textile folds, matte quiet palette, soft peach skin and diffuse light, and recognizable animated storybook child anatomy with fairly natural shoulders and hands. National clothing described below is a simplified illustrated child outfit based on museum examples. No stereotyped physiognomy.
+Centered upright portrait, three-quarter body turned subtly to screen right, direct or slightly right/up gaze, relaxed friendly expression, natural schoolchild proportions, from top of head including hat to hips/upper thighs, like the reference, both elbows completely inside frame. Frame to maximize character height, with small margins and a soft clean painted hem without halo. Intended for both a 400px hero and a small 130px lesson guide so large readable shapes. Actual transparent RGBA around subject. No paper background, no vignette, no floating accessories, no shadows outside body, no words or letters, no logos, no frame, one child only.
+Subject: Мадина. A 9-year-old Ingush girl in a child-scaled version of an Ingush chokkhi festive outfit: muted blue-green velvet-like matte dress with long sleeves, pale ivory modest front bib, narrow vertically arranged paired antique-silver plate fastenings on the chest, simple matching fabric sash. Small understated cloth forehead band, dark hair in two neat braids, no bridal headwear. Holding a thin ochre guidebook notebook with both hands at mid torso, friendly steady gaze.
+
+Costume reference (museum or ethnographic collection):
+https://igmkri.ru/%D0%B7%D0%B0%D0%BB-%D1%8D%D1%82%D0%BD%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%B8/
+https://ar.culture.ru/es/subject/zhen-nac-nagrudnik
+
+Image generation: built-in ImageGen, transparent RGBA.
+Style reference: assets/illustrations/amina-folk-v2.png.

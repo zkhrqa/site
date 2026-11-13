@@ -562,6 +562,487 @@
       "promptPath": "assets/prompts/amina-folk-v2.txt",
       "promptText": "Use case: identity-preserve.\nAsset type: one versioned transparent watercolor character cutout for «Альбом дружбы».\nINPUT 1 is the EDIT TARGET and the sole source for the illustrated character's identity, pose, layout, angle, original age about nine, proportions, palette, style, light and paper grain. INPUT 2 is a CLOTHING-ONLY photo swatch. Extract only the pictured garment construction, trim, patterns, and requested clothing accessories. Ignore the photographed person's face, head/body proportions, hair, makeup, pose, gesture, framing, lighting and background.\nPerform a precise localized wardrobe replacement on input 1. Freeze the head orientation, eye direction, face and expression, body and shoulder orientation, exact angle of elbows, location and gesture of both hands, and position, size, angle and appearance of the original book or album. Preserve crop and the arrangement and scale of the figure on canvas. No reposing, front-facing reset, mirroring, different view or extension to full body. Do not move the book to uncover the garment. Clothing fits the existing silhouette and natural folds.\nAmina: keep the child's gentle smile, gaze toward upper screen right, brown eyes, cheek shape, natural skin, side braid over her shoulder, head angle and both hand positions holding the same warm brown closed album. Replace the blue cardigan and blouse with the photographed red dress and dark long outer garment, visible on the existing half-body crop. Reproduce the red cuffs, restrained gold/green band edging and red headpiece lined with a modest row of silver coins, plus the layered silver coin and red bead chest jewelry in visible areas above or alongside the album. Adapt headpiece to the original angle, leaving her familiar hairline and braid wherever plausible. Keep her original childlike face and delicate natural watercolor cheek tint; no adult face, cosmetics or eyebrow reshaping. Preserve exact original crop, do not extend to full length.\nMatch input 1's dry watercolor washes, subtle pigment and paper grain, warm colored-pencil contours, soft shadows, muted warm palette and natural child proportions. No glossy or photo-real rendering. Preserve genuine RGBA transparency around the entire figure, with no added backdrop, floor, cast-shadow patch, border, text, UI or watermark. One complete edited illustration only.",
       "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "ilempi-folk-v1",
+      "path": "assets/illustrations/ilempi-folk-v1.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "4e7ed38d2a40ab25519ffba0397c20a4f6276dba964fc2b7da03830a67254433",
+      "bytes": 2684259,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 46.83,
+        "hasActualTransparency": true,
+        "softEdgePixels": 836257
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson preparation, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/amina-folk-v2.png",
+          "sha256": "61f9e53757f93f62028e24e5d901cbd9522e26238715e2a932a6c54423361330",
+          "role": "Watercolor style and framing reference"
+        }
+      ],
+      "promptPath": "assets/prompts/ilempi-folk-v1.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "vedyava-folk-v1",
+      "path": "assets/illustrations/vedyava-folk-v1.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "744b37358fa075678c0e643a5de531deede891a37080a8eeaaca5d6eaab85fa2",
+      "bytes": 2725023,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 44.64,
+        "hasActualTransparency": true,
+        "softEdgePixels": 870696
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson preparation, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/amina-folk-v2.png",
+          "sha256": "61f9e53757f93f62028e24e5d901cbd9522e26238715e2a932a6c54423361330",
+          "role": "Watercolor style and framing reference"
+        }
+      ],
+      "promptPath": "assets/prompts/vedyava-folk-v1.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "zarni-folk-v1",
+      "path": "assets/illustrations/zarni-folk-v1.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "accebb103b05d5358004ce12beb7231918ab24a6418bc368764eb6a52a4492c6",
+      "bytes": 2699801,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 45.62,
+        "hasActualTransparency": true,
+        "softEdgePixels": 855272
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson preparation, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/amina-folk-v2.png",
+          "sha256": "61f9e53757f93f62028e24e5d901cbd9522e26238715e2a932a6c54423361330",
+          "role": "Watercolor style and framing reference"
+        }
+      ],
+      "promptPath": "assets/prompts/zarni-folk-v1.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "elnet-folk-v1",
+      "path": "assets/illustrations/elnet-folk-v1.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "d795e6659e058c41da3b364123f8cc9c7d782d1b81a1a58bbd7954b93a6b21a3",
+      "bytes": 2552847,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 50.28,
+        "hasActualTransparency": true,
+        "softEdgePixels": 782061
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson preparation, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/aydar-folk-v2.png",
+          "sha256": "edea1229ccfa5f0f6c2785460fc0e05c4b5824f3031d47de8549328e478d2846",
+          "role": "Watercolor style and framing reference"
+        }
+      ],
+      "promptPath": "assets/prompts/elnet-folk-v1.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "aino-folk-v1",
+      "path": "assets/illustrations/aino-folk-v1.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "263c459ff9ca57c05f3178a0d0d968387a87e737bee39698a82547970a83025b",
+      "bytes": 2837205,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 40.71,
+        "hasActualTransparency": true,
+        "softEdgePixels": 932623
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson preparation, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/amina-folk-v2.png",
+          "sha256": "61f9e53757f93f62028e24e5d901cbd9522e26238715e2a932a6c54423361330",
+          "role": "Watercolor style and framing reference"
+        }
+      ],
+      "promptPath": "assets/prompts/aino-folk-v1.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "aiyyna-folk-v1",
+      "path": "assets/illustrations/aiyyna-folk-v1.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "9a7d8033be5dc6bb4dbc7619f3cf758aa02007661417bda1d349f653e3934e6a",
+      "bytes": 2591495,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 44.69,
+        "hasActualTransparency": true,
+        "softEdgePixels": 870015
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson preparation, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/amina-folk-v2.png",
+          "sha256": "61f9e53757f93f62028e24e5d901cbd9522e26238715e2a932a6c54423361330",
+          "role": "Watercolor style and framing reference"
+        }
+      ],
+      "promptPath": "assets/prompts/aiyyna-folk-v1.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "eren-folk-v1",
+      "path": "assets/illustrations/eren-folk-v1.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "1ef343a5942f49a5a434603266084a4a5dbe8226afed0b14b428cd7a1f973ccb",
+      "bytes": 2543124,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 50.06,
+        "hasActualTransparency": true,
+        "softEdgePixels": 785539
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson preparation, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/aydar-folk-v2.png",
+          "sha256": "edea1229ccfa5f0f6c2785460fc0e05c4b5824f3031d47de8549328e478d2846",
+          "role": "Watercolor style and framing reference"
+        }
+      ],
+      "promptPath": "assets/prompts/eren-folk-v1.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "sar-folk-v1",
+      "path": "assets/illustrations/sar-folk-v1.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "83e55255767203ebed83aaab22178c322e2d8f01ae48bf1141fd180716c866fa",
+      "bytes": 2594255,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 46.19,
+        "hasActualTransparency": true,
+        "softEdgePixels": 846330
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson preparation, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/amina-folk-v2.png",
+          "sha256": "61f9e53757f93f62028e24e5d901cbd9522e26238715e2a932a6c54423361330",
+          "role": "Watercolor style and framing reference"
+        }
+      ],
+      "promptPath": "assets/prompts/sar-folk-v1.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "ayan-folk-v1",
+      "path": "assets/illustrations/ayan-folk-v1.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "1fac83799f4db8867aecc9ed50246183d52ac36cfe1f02776651e9fa22973dc4",
+      "bytes": 2587646,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 48.64,
+        "hasActualTransparency": true,
+        "softEdgePixels": 807897
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson preparation, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/aydar-folk-v2.png",
+          "sha256": "edea1229ccfa5f0f6c2785460fc0e05c4b5824f3031d47de8549328e478d2846",
+          "role": "Watercolor style and framing reference"
+        }
+      ],
+      "promptPath": "assets/prompts/ayan-folk-v1.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "nino-folk-v1",
+      "path": "assets/illustrations/nino-folk-v1.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "1c4c38bf143ed2ebc17c3f12dd55104676fd6e86b8a1929fbc2ebec323d06ebc",
+      "bytes": 2639286,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 46.57,
+        "hasActualTransparency": true,
+        "softEdgePixels": 840392
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson preparation, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/amina-folk-v2.png",
+          "sha256": "61f9e53757f93f62028e24e5d901cbd9522e26238715e2a932a6c54423361330",
+          "role": "Watercolor style and framing reference"
+        }
+      ],
+      "promptPath": "assets/prompts/nino-folk-v1.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "adam-folk-v1",
+      "path": "assets/illustrations/adam-folk-v1.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "fe56d2cc4122a8eb6a418a5627a435f989b136189c8e646b2df2d025460d0328",
+      "bytes": 2436203,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 50.59,
+        "hasActualTransparency": true,
+        "softEdgePixels": 777113
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson preparation, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/aydar-folk-v2.png",
+          "sha256": "edea1229ccfa5f0f6c2785460fc0e05c4b5824f3031d47de8549328e478d2846",
+          "role": "Watercolor style and framing reference"
+        }
+      ],
+      "promptPath": "assets/prompts/adam-folk-v1.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "madina-folk-v1",
+      "path": "assets/illustrations/madina-folk-v1.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "dc6d3bfb8a80faa1f71941ea93dcb083fa9ff2f575dfd48b6651786e14563707",
+      "bytes": 2541922,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 48.81,
+        "hasActualTransparency": true,
+        "softEdgePixels": 805154
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Portrait for lesson preparation, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/amina-folk-v2.png",
+          "sha256": "61f9e53757f93f62028e24e5d901cbd9522e26238715e2a932a6c54423361330",
+          "role": "Watercolor style and framing reference"
+        }
+      ],
+      "promptPath": "assets/prompts/madina-folk-v1.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
+    },
+    {
+      "id": "egor-folk-v3",
+      "path": "assets/illustrations/egor-folk-v3.png",
+      "requestedDimensions": [
+        1024,
+        1536
+      ],
+      "actualDimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "transparentBackgroundRequested": true,
+      "sha256": "7b9fe88ffc32e2aff2f60cca54363d9d568a1a0d3372ab243afade041edecad3",
+      "bytes": 2566944,
+      "alpha": {
+        "min": 0,
+        "max": 254,
+        "fullyTransparentPercent": 48.89,
+        "hasActualTransparency": true,
+        "softEdgePixels": 803876
+      },
+      "kind": "generated-bitmap",
+      "status": "base",
+      "usage": "Waist-up Egor portrait without a backpack for lesson, worksheet and map card",
+      "generator": "built-in image_gen.imagegen",
+      "preparedAt": "2026-11-11",
+      "sourceReferences": [
+        {
+          "path": "assets/illustrations/egor-folk-v2.png",
+          "sha256": "c701705737ed9b29b78b593df16c27f460f5c27a907e5e1763f86cc038f82bda",
+          "role": "Edit target for identity, costume, pose and watercolor style"
+        }
+      ],
+      "promptPath": "assets/prompts/egor-folk-v3.txt",
+      "licenseStatus": "Generated for this project with Image Gen; no external open-source license is asserted"
     }
   ],
   "planned": [
@@ -925,6 +1406,162 @@
       "path": "assets/prompts/egor-folk-v2.txt",
       "bytes": 2276,
       "sha256": "982071b26f61447e3ad223a21b96663719ed92b586dea6960878b9952edf9e1c",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/ilempi-folk-v1.png",
+      "bytes": 2684259,
+      "sha256": "4e7ed38d2a40ab25519ffba0397c20a4f6276dba964fc2b7da03830a67254433",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/ilempi-folk-v1.txt",
+      "bytes": 2165,
+      "sha256": "91090f684017d4ee54e0c72168326418fae49fe07f4005d8da5b5c7455999a9a",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/vedyava-folk-v1.png",
+      "bytes": 2725023,
+      "sha256": "744b37358fa075678c0e643a5de531deede891a37080a8eeaaca5d6eaab85fa2",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/vedyava-folk-v1.txt",
+      "bytes": 2149,
+      "sha256": "bdec37cc13ed8496fb87bc543026d9be9d2b3d658a09f97890f15cbfcde7500c",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/zarni-folk-v1.png",
+      "bytes": 2699801,
+      "sha256": "accebb103b05d5358004ce12beb7231918ab24a6418bc368764eb6a52a4492c6",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/zarni-folk-v1.txt",
+      "bytes": 2062,
+      "sha256": "12ba5f2e71d4b8adde5a368712480f3f3478f42680da22bb71a35a0f55029a62",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/elnet-folk-v1.png",
+      "bytes": 2552847,
+      "sha256": "d795e6659e058c41da3b364123f8cc9c7d782d1b81a1a58bbd7954b93a6b21a3",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/elnet-folk-v1.txt",
+      "bytes": 2144,
+      "sha256": "df9d027fbf94b947f0ca521dc1f960064a12ab0dec9e1286c9ce9bb32ad26d6f",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/aino-folk-v1.png",
+      "bytes": 2837205,
+      "sha256": "263c459ff9ca57c05f3178a0d0d968387a87e737bee39698a82547970a83025b",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/aino-folk-v1.txt",
+      "bytes": 2064,
+      "sha256": "9ab8a208d3890625e81bcc70dc2182894b8f6dd92ebfb1f6f9f090a19556cb19",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/aiyyna-folk-v1.png",
+      "bytes": 2591495,
+      "sha256": "9a7d8033be5dc6bb4dbc7619f3cf758aa02007661417bda1d349f653e3934e6a",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/aiyyna-folk-v1.txt",
+      "bytes": 2089,
+      "sha256": "f10eec56760332e864067d7095b7431140d662dc6ff47e0aa8597acdc318d2c5",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/eren-folk-v1.png",
+      "bytes": 2543124,
+      "sha256": "1ef343a5942f49a5a434603266084a4a5dbe8226afed0b14b428cd7a1f973ccb",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/eren-folk-v1.txt",
+      "bytes": 2070,
+      "sha256": "bd2a3902139d7d42e10d2310b8822c3bd2f5cdd7a59b0cedb34088c47cefb498",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/sar-folk-v1.png",
+      "bytes": 2594255,
+      "sha256": "83e55255767203ebed83aaab22178c322e2d8f01ae48bf1141fd180716c866fa",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/sar-folk-v1.txt",
+      "bytes": 2220,
+      "sha256": "0cae67b073e094a1ffb1aba91441d8c25365c554bc197fea1adf40b88ee0392d",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/ayan-folk-v1.png",
+      "bytes": 2587646,
+      "sha256": "1fac83799f4db8867aecc9ed50246183d52ac36cfe1f02776651e9fa22973dc4",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/ayan-folk-v1.txt",
+      "bytes": 2035,
+      "sha256": "b0f36d142c7c6786f6f2b956c8deec7bfbd5aafbd2f62339d289815c6c0bdc75",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/nino-folk-v1.png",
+      "bytes": 2639286,
+      "sha256": "1c4c38bf143ed2ebc17c3f12dd55104676fd6e86b8a1929fbc2ebec323d06ebc",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/nino-folk-v1.txt",
+      "bytes": 2124,
+      "sha256": "351ce24f811aba33bda86feb11bee069c40e6a5f35903258cdb0541808156e58",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/adam-folk-v1.png",
+      "bytes": 2436203,
+      "sha256": "fe56d2cc4122a8eb6a418a5627a435f989b136189c8e646b2df2d025460d0328",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/adam-folk-v1.txt",
+      "bytes": 2190,
+      "sha256": "10171161708469273ca63dce6f0239d4a14cffda2e43bb69d69f1098e8bfea19",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/madina-folk-v1.png",
+      "bytes": 2541922,
+      "sha256": "dc6d3bfb8a80faa1f71941ea93dcb083fa9ff2f575dfd48b6651786e14563707",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/madina-folk-v1.txt",
+      "bytes": 2149,
+      "sha256": "72c463da7652623c3830731f2bcff3d81a3dc1be3632091270752413588974d7",
+      "contentType": "text/plain"
+    },
+    {
+      "path": "assets/illustrations/egor-folk-v3.png",
+      "bytes": 2566944,
+      "sha256": "7b9fe88ffc32e2aff2f60cca54363d9d568a1a0d3372ab243afade041edecad3",
+      "contentType": "image/png"
+    },
+    {
+      "path": "assets/prompts/egor-folk-v3.txt",
+      "bytes": 2838,
+      "sha256": "82a4820a5550636975f51b25fcb3736e0ce09c2209702bdbc5d94d82f5865278",
       "contentType": "text/plain"
     }
   ]

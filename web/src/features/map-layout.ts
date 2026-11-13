@@ -2,6 +2,48 @@ import type { JourneyStop } from "../content/journey-stops";
 
 export type StopGroup = { stops: JourneyStop[]; x: number; y: number };
 
+const labelWidth = 82;
+const labelHeight = 33;
+const labelTop = 20;
+
+export function mapLabelOffsets(groups: StopGroup[], scale: number) {
+  const points = groups.map((group) => ({
+    group,
+    x: group.x * scale,
+    y: group.y * scale,
+    radius: group.stops.length > 1 ? 19 : 18,
+  }));
+  const labels: { x: number; y: number }[] = [];
+  const offsets = new Map<string, number>();
+
+  for (const point of points) {
+    const [stop] = point.group.stops;
+    if (point.group.stops.length !== 1 || !stop.lessonId) continue;
+
+    const y = point.y + labelTop;
+    for (const offset of [0, -12, 12]) {
+      const x = point.x + offset;
+      const overlapsMarker = points.some(
+        (other) =>
+          Math.abs(x - other.x) < labelWidth / 2 + other.radius &&
+          y < other.y + other.radius &&
+          y + labelHeight > other.y - other.radius,
+      );
+      const overlapsLabel = labels.some(
+        (label) =>
+          Math.abs(x - label.x) < labelWidth + 2 &&
+          Math.abs(y - label.y) < labelHeight + 2,
+      );
+      if (overlapsMarker || overlapsLabel) continue;
+
+      offsets.set(stop.id, offset);
+      labels.push({ x, y });
+      break;
+    }
+  }
+  return offsets;
+}
+
 /** Merge nearby screen-space targets until each group has a distinct touch target. */
 export function groupStops(
   stops: JourneyStop[],

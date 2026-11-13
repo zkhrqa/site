@@ -105,7 +105,7 @@ test("three lesson marks survive import, removing one preserves the others and t
   assert.deepEqual(mergeProgress(removed, parseProgress(oldFile)), removed);
   assert.throws(() =>
     parseProgress(
-      JSON.stringify({ ...emptyProgress(), completedLessonIds: ["lesson-04"] }),
+      JSON.stringify({ ...emptyProgress(), completedLessonIds: ["lesson-20"] }),
     ),
   );
 });

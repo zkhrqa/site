@@ -2,11 +2,13 @@ import { lesson as egor } from "./lesson-01";
 import { worksheetTasks } from "./lesson-01-worksheet";
 import { aydarTasks } from "./lesson-02-worksheet";
 import { aminaTasks } from "./lesson-03-worksheet";
+import { newLessons } from "./lessons-04-15";
 import type { WorksheetTask } from "./worksheet-types";
 export type LessonContent = {
   id: string;
   number: number;
   title: string;
+  people: string;
   heroName: string;
   heroImage: string;
   heroAlt: string;
@@ -26,6 +28,7 @@ export const lessons: LessonContent[] = [
   {
     ...egor,
     number: 1,
+    people: "Русский народ",
     heroName: "Егор",
     heroImage: "/media/egor.webp",
     heroAlt: "Егор с альбомом дружбы",
@@ -37,6 +40,7 @@ export const lessons: LessonContent[] = [
     id: "lesson-02",
     number: 2,
     title: "Типы текстов: повествование, описание, рассуждение",
+    people: "Татарский народ",
     heroName: "Айдар",
     heroImage: "/media/aydar.webp",
     heroAlt: "Айдар с семейной книгой",
@@ -90,6 +94,7 @@ export const lessons: LessonContent[] = [
     number: 3,
     title:
       "Предложение. Главные признаки предложения. Связь слов в предложении",
+    people: "Башкирский народ",
     heroName: "Амина",
     heroImage: "/media/amina.webp",
     heroAlt: "Амина с семейным альбомом",
@@ -140,6 +145,7 @@ export const lessons: LessonContent[] = [
     ],
     tasks: aminaTasks,
   },
+  ...newLessons,
 ];
 export const lessonByNumber = (number: number) =>
   lessons.find((lesson) => lesson.number === number);

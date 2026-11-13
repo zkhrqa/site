@@ -1,3 +1,19 @@
+@property --map-zoom {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+@property --map-pan-x {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+@property --map-pan-y {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
 .journey-section {
   --journey-ready: #405d30;
   --journey-ready-pale: #e7efdc;
@@ -56,6 +72,14 @@
   overflow: hidden;
   border-radius: 8px;
   isolation: isolate;
+  transition:
+    --map-zoom 180ms ease-out,
+    --map-pan-x 180ms ease-out,
+    --map-pan-y 180ms ease-out;
+}
+.journey-viewport.is-gesturing,
+.journey-viewport.is-dragging {
+  transition: none;
 }
 .journey-plane {
   position: absolute;
@@ -63,8 +87,9 @@
   left: 50%;
   width: 100%;
   aspect-ratio: 1400/680;
+  transform: translate(-50%, -50%) translate(var(--map-pan-x), var(--map-pan-y))
+    scale(var(--map-zoom));
   transform-origin: center;
-  will-change: transform;
 }
 .journey-geography {
   display: block;
@@ -88,6 +113,9 @@
 }
 .journey-point {
   position: absolute;
+  /* Position the button in the viewport so its text is never scaled with the map. */
+  left: calc(50% + var(--point-x) * var(--map-zoom) + var(--map-pan-x) - 24px);
+  top: calc(50% + var(--point-y) * var(--map-zoom) + var(--map-pan-y) - 24px);
   display: grid;
   place-items: center;
   width: 48px;
@@ -97,8 +125,6 @@
   border-radius: 50%;
   background: transparent;
   color: var(--sage);
-  transform: translate(-50%, -50%) scale(calc(1 / var(--map-zoom)));
-  transform-origin: center;
   cursor: pointer;
   isolation: isolate;
 }
@@ -116,6 +142,20 @@
     box-shadow 0.15s,
     transform 0.15s;
   font: 700 17px/1 var(--body);
+}
+.journey-point-label {
+  position: absolute;
+  top: 44px;
+  left: calc(50% - 41px);
+  width: 82px;
+  min-height: 33px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 700 13px/1.1 var(--body);
+  text-align: center;
+  text-wrap: balance;
 }
 .journey-point:hover .journey-point-face {
   background: #fffbee;
@@ -640,22 +680,15 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .journey-viewport {
+    transition: none;
+  }
   .journey-point.is-new-mark .journey-point-face {
     animation: none;
-  }
-  .journey-plane {
-    will-change: auto;
   }
   .journey-point-face {
     transition: none;
   }
-}
-.journey-plane {
-  transition: transform 180ms ease-out;
-}
-.journey-viewport.is-gesturing .journey-plane,
-.journey-viewport.is-dragging .journey-plane {
-  transition: none;
 }
 @media (max-width: 700px) {
   .journey-atlas {
@@ -678,12 +711,6 @@
     padding-top: 8px;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .journey-plane {
-    transition: none;
-  }
-}
-
 .journey-stop-list .journey-stop-card {
   display: flex;
   flex-direction: column;
@@ -746,6 +773,10 @@
 }
 .journey-stop-name {
   font: 600 21px/1.25 var(--display);
+}
+.journey-stop-people {
+  color: var(--sage);
+  font: 600 15px/1.3 var(--body);
 }
 .journey-stop-topic {
   font: 16px/1.4 var(--body);

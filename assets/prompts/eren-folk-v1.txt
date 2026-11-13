@@ -1,0 +1,10 @@
+Use case: illustration-story. Asset type: one transparent painted character cutout for «Альбом дружбы».
+Create a new fictional child. The provided approved portrait is only a style and scale reference, not an identity, outfit, or pose target. Match exactly its warm hand-painted dry watercolor washes with subtle paper pigment granulation, warm brown colored-pencil contours, tactile textile folds, matte quiet palette, soft peach skin and diffuse light, and recognizable animated storybook child anatomy with fairly natural shoulders and hands. National clothing described below is a simplified illustrated child outfit based on museum examples. No stereotyped physiognomy.
+Centered upright portrait, three-quarter body turned subtly to screen right, direct or slightly right/up gaze, relaxed friendly expression, natural schoolchild proportions, from top of head including hat to hips/upper thighs, like the reference, both elbows completely inside frame. Frame to maximize character height, with small margins and a soft clean painted hem without halo. Intended for both a 400px hero and a small 130px lesson guide so large readable shapes. Actual transparent RGBA around subject. No paper background, no vignette, no floating accessories, no shadows outside body, no words or letters, no logos, no frame, one child only.
+Subject: Эрен. A 9-year-old Altai boy in a child-scaled Altai folk outfit: ivory tunic-cut cotton chamcha visible at sleeves and collar, a low-key russet-brown robe derived from a kognut with a simple diagonal overlap and piping in contrasting golden tan, narrow fabric sash, small muted brown rounded cloth cap. Holding a few small smooth cut geometric card pieces for a school word mosaic in open palm and a little wooden sorting board against his side. Dark straight hair, natural friendly face.
+
+Costume reference (museum or ethnographic collection):
+https://atlaskmns.ru/page/ru/people_chelkancy_matcult.html
+
+Image generation: built-in ImageGen, transparent RGBA.
+Style reference: assets/illustrations/aydar-folk-v2.png.

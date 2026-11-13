@@ -363,7 +363,7 @@ main:focus {
   opacity: 0.9;
   z-index: 2;
 }
-.portrait-placeholder {
+.author-portrait {
   position: absolute;
   top: 26px;
   right: 28px;
@@ -371,17 +371,18 @@ main:focus {
   height: 380px;
   border: 3px double #aa855c;
   border-radius: 50%;
-  background: var(--paper) url("/media/paper.webp");
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  font: 22px/1.35 var(--display);
-  color: var(--muted);
-  gap: 19px;
+  overflow: hidden;
   z-index: 3;
   transform: rotate(4deg);
+}
+.author-portrait img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: auto;
+  max-width: none;
+  height: 155%;
+  transform: translateX(-58%);
 }
 .hero-landscape {
   position: absolute;
@@ -1118,7 +1119,7 @@ blockquote {
   .hero-landscape {
     width: 620px;
   }
-  .portrait-placeholder {
+  .author-portrait {
     width: 320px;
     height: 420px;
   }
@@ -1160,12 +1161,11 @@ blockquote {
   .author-art {
     height: 430px;
   }
-  .portrait-placeholder {
+  .author-portrait {
     width: 230px;
     height: 325px;
     right: 8px;
     top: 15px;
-    font-size: 19px;
   }
   .hero-rowan {
     width: 280px;
@@ -1279,10 +1279,10 @@ blockquote {
   .author-art {
     height: 370px;
   }
-  .portrait-placeholder {
+  .author-portrait {
     width: 205px;
     height: 280px;
-    font-size: 18px;
+
     right: 0;
     top: 12px;
   }
@@ -1571,16 +1571,11 @@ blockquote {
     max-width: 450px;
     margin-inline: auto;
   }
-  .portrait-placeholder {
+  .author-portrait {
     height: 230px;
     width: 175px;
     right: 28px;
     top: 10px;
-    font-size: 16px;
-    gap: 12px;
-  }
-  .portrait-placeholder svg {
-    width: 31px;
   }
   .hero-rowan {
     width: 220px;
@@ -2050,7 +2045,7 @@ blockquote {
   .author-art {
     height: 260px;
   }
-  .portrait-placeholder {
+  .author-portrait {
     right: 15px;
   }
   .navigation {
@@ -2174,7 +2169,7 @@ blockquote {
   .hero-art {
     pointer-events: none;
   }
-  .portrait-placeholder {
+  .author-portrait {
     top: 18px;
   }
   .lesson-hero {
@@ -2243,7 +2238,7 @@ blockquote {
   .author-art {
     height: 385px;
   }
-  .portrait-placeholder {
+  .author-portrait {
     width: 255px;
     height: 335px;
     right: 12px;
@@ -2346,7 +2341,7 @@ blockquote {
     position: relative;
     z-index: 1;
   }
-  .portrait-placeholder {
+  .author-portrait {
     z-index: 3;
   }
 }
@@ -2617,18 +2612,12 @@ blockquote {
     width: 124px;
     margin: 12px 0 0;
   }
-  .home-hero .portrait-placeholder {
+  .home-hero .author-portrait {
     width: 112px;
     height: 136px;
     top: 3px;
     right: 3px;
     transform: none;
-    font-size: 13px;
-    gap: 8px;
-  }
-  .home-hero .portrait-placeholder svg {
-    width: 24px;
-    height: 24px;
   }
   .home-hero .hero-rowan {
     width: 96px;

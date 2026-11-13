@@ -88,20 +88,95 @@ export function AdditionalTasks({
         <>
           {task.items.map((item) => (
             <section className="worksheet-block" key={item.id}>
-              <h2>Текст {item.label}</h2>
-              <p className="worksheet-passage">{item.text}</p>
+              {item.label && <h2>Текст {item.label}</h2>}
+              {item.label && <p className="worksheet-passage">{item.text}</p>}
               <RadioOptions
-                label={`Тип текста ${item.label}`}
-                options={task.options}
+                label={item.label ? `Тип текста ${item.label}` : item.text}
+                options={item.options ?? task.options}
                 value={answers.classifications[item.id]}
                 onChange={(value) => choose("classifications", item.id, value)}
               />
-              {checked && answers.classifications[item.id] === item.answer && (
-                <p className="worksheet-explanation">{item.explanation}</p>
-              )}
+              {item.explanation &&
+                checked &&
+                answers.classifications[item.id] === item.answer && (
+                  <p className="worksheet-explanation">{item.explanation}</p>
+                )}
             </section>
           ))}
         </>
+      );
+    case "mark-words":
+      return (
+        <>
+          <p className="worksheet-reading-help">
+            Нажми на слово, чтобы подчеркнуть его. Повторное нажатие снимает
+            подчёркивание.
+          </p>
+          {task.items.map((item) => (
+            <p
+              key={item.id}
+              className="worksheet-passage worksheet-token-passage"
+            >
+              {item.text.split(" ").map((word, index) => (
+                <span key={index}>
+                  {index > 0 && " "}
+                  {index === 0 && /^[А-ЯЁ]\)$/u.test(word) ? (
+                    word
+                  ) : (
+                    <button
+                      type="button"
+                      className="worksheet-reading-word"
+                      aria-pressed={(
+                        answers.underlines[item.id] ?? []
+                      ).includes(String(index))}
+                      onClick={() => {
+                        setAnswers((state) => ({
+                          ...state,
+                          underlines: {
+                            ...state.underlines,
+                            [item.id]: toggleChoice(
+                              state.underlines[item.id] ?? [],
+                              String(index),
+                            ),
+                          },
+                        }));
+                        editing();
+                      }}
+                    >
+                      {word}
+                    </button>
+                  )}
+                </span>
+              ))}
+            </p>
+          ))}
+        </>
+      );
+    case "short-answers":
+      return (
+        <div className="worksheet-short-answers">
+          {task.items.map((item) => (
+            <label key={item.id}>
+              <span>{item.text}</span>
+              <input
+                type="text"
+                autoComplete="off"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                value={answers.shortAnswers[item.id] ?? ""}
+                onChange={(event) => {
+                  const value = event.currentTarget.value;
+                  setAnswers((state) => ({
+                    ...state,
+                    shortAnswers: { ...state.shortAnswers, [item.id]: value },
+                  }));
+                  editing();
+                }}
+              />
+            </label>
+          ))}
+        </div>
       );
     case "text-clues":
       return (

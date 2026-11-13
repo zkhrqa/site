@@ -1,3 +1,5 @@
+import { publishedLessons } from "./published-lessons";
+
 export type JourneyStop = {
   id: string;
   number: number;
@@ -51,13 +53,15 @@ const introductions = [
   },
 ];
 
-export const journeyStops: JourneyStop[] = positions.map(([x, y], index) => ({
-  id: `stop-${String(index + 1).padStart(2, "0")}`,
-  number: index + 1,
-  x,
-  y,
-  ...(index < 3
-    ? { lessonId: `lesson-${String(index + 1).padStart(2, "0")}` }
-    : {}),
-  ...(introductions[index] ? { introduction: introductions[index] } : {}),
-}));
+export const journeyStops: JourneyStop[] = positions.map(([x, y], index) => {
+  const suffix = String(index + 1).padStart(2, "0");
+  const lessonId = `lesson-${suffix}`;
+  return {
+    id: `stop-${suffix}`,
+    number: index + 1,
+    x,
+    y,
+    ...(publishedLessons[lessonId] ? { lessonId } : {}),
+    ...(introductions[index] ? { introduction: introductions[index] } : {}),
+  };
+});

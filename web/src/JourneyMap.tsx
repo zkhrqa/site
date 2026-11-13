@@ -24,6 +24,7 @@ import { journeyStops, type JourneyStop } from "./content/journey-stops";
 import {
   clampPan,
   groupStops,
+  mapLabelOffsets,
   zoomAround,
   type MapView,
   type StopGroup,
@@ -205,6 +206,10 @@ export function JourneyMap({
     () => groupStops(journeyStops, width, zoom),
     [width, zoom],
   );
+  const labelOffsets = useMemo(
+    () => mapLabelOffsets(groups, (width / 1400) * zoom),
+    [groups, width, zoom],
+  );
   const celebrationPoint = useRef<HTMLButtonElement>(null);
   const [stamping, setStamping] = useState(false);
   useEffect(() => {
@@ -316,7 +321,9 @@ export function JourneyMap({
     const ready = stop.lessonId ? publishedLessons[stop.lessonId] : undefined;
     const completed = isDone(stop);
     const info = ready ?? stop.introduction;
-    const description = info ? ` ${info.heroName}. ${info.title}.` : "";
+    const description = info
+      ? ` ${info.heroName}. ${ready ? `${ready.people}. ` : ""}${info.title}.`
+      : "";
     const contents = (
       <>
         <span className="journey-stop-meta">
@@ -337,6 +344,7 @@ export function JourneyMap({
         <strong className="journey-stop-name">
           {info?.heroName ?? "Новый урок"}
         </strong>
+        {ready && <span className="journey-stop-people">{ready.people}</span>}
         <span className="journey-stop-topic">
           {info?.title ?? "Тема урока появится позже"}
         </span>
@@ -403,7 +411,14 @@ export function JourneyMap({
             tabIndex={0}
             role="group"
             aria-label="Карта России. При увеличении перемещайте карту стрелками или перетаскиванием."
-            style={{ touchAction: zoom > 1 ? "none" : "pan-y" }}
+            style={
+              {
+                touchAction: zoom > 1 ? "none" : "pan-y",
+                "--map-zoom": zoom,
+                "--map-pan-x": `${pan.x}px`,
+                "--map-pan-y": `${pan.y}px`,
+              } as CSSProperties
+            }
             onClickCapture={(e) => {
               if (Date.now() < suppressClickUntil.current) {
                 e.preventDefault();
@@ -471,15 +486,7 @@ export function JourneyMap({
               setDragging(false);
             }}
           >
-            <div
-              className="journey-plane"
-              style={
-                {
-                  transform: `translate(-50%, -50%) translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
-                  "--map-zoom": zoom,
-                } as CSSProperties
-              }
-            >
+            <div className="journey-plane">
               <svg
                 viewBox="0 0 1400 680"
                 className="journey-geography"
@@ -507,68 +514,82 @@ export function JourneyMap({
                   strokeWidth="1.2"
                 />
               </svg>
-              <div className="journey-points" aria-label="Уроки на карте">
-                {groups.map((group) => {
-                  const stop = group.stops[0],
-                    isGroup = group.stops.length > 1;
-                  const completed = !isGroup && isDone(stop);
-                  const available = !isGroup && isPublished(stop);
-                  const groupHasLesson =
-                    isGroup &&
-                    group.stops.some(
-                      (item) => isPublished(item) && !isDone(item),
-                    );
-                  const groupHasCompletion =
-                    isGroup && group.stops.some(isDone);
-                  const active =
-                    selected &&
-                    group.stops.some((item) => item.id === selected.id);
-                  const label = isGroup
-                    ? `Увеличить группу уроков (${group.stops.length})${groupHasLesson ? ". Есть доступный урок" : ""}${groupHasCompletion ? ". Есть пройденный урок" : ""}`
-                    : `Урок ${stop.number}. ${completed ? "Пройден" : available ? "Доступен" : "Готовится"}`;
-                  return (
-                    <button
-                      key={group.stops.map((item) => item.id).join("-")}
-                      ref={
-                        group.stops.some((item) => item.lessonId === celebrate)
-                          ? celebrationPoint
-                          : undefined
-                      }
-                      className={`journey-point ${isGroup ? "is-group" : ""} ${groupHasLesson ? "has-ready-lesson" : ""} ${groupHasCompletion ? "has-completed-lesson" : ""} ${available ? "is-available" : ""} ${completed ? "is-completed" : ""} ${active ? "is-selected" : ""} ${stamping && celebrate && group.stops.some((item) => item.lessonId === celebrate) ? "is-new-mark" : ""}`}
-                      style={{
-                        left: `${group.x / 14}%`,
-                        top: `${group.y / 6.8}%`,
-                      }}
-                      aria-label={label}
-                      aria-pressed={Boolean(active)}
-                      aria-controls={active ? "journey-selection" : undefined}
-                      title={label}
-                      onClick={(e) => revealGroup(group, e.currentTarget)}
-                    >
-                      <span
-                        className="journey-point-face"
-                        onAnimationEnd={(event) => {
-                          if (event.animationName === "discovery-stamp")
-                            onCelebrationEnd();
-                        }}
-                      >
-                        {isGroup ? (
-                          <>
-                            {group.stops.length}
-                            {groupHasCompletion && (
-                              <Star size={12} weight="fill" />
-                            )}
-                          </>
-                        ) : completed ? (
-                          <Star size={22} weight="fill" />
-                        ) : (
-                          <QuestionMark size={20} weight="bold" />
-                        )}
-                      </span>
-                    </button>
+            </div>
+            <div className="journey-points" aria-label="Уроки на карте">
+              {groups.map((group) => {
+                const stop = group.stops[0],
+                  isGroup = group.stops.length > 1;
+                const completed = !isGroup && isDone(stop);
+                const lesson =
+                  !isGroup && stop.lessonId
+                    ? publishedLessons[stop.lessonId]
+                    : undefined;
+                const available = Boolean(lesson);
+                const labelOffset = labelOffsets.get(stop.id);
+                const groupHasLesson =
+                  isGroup &&
+                  group.stops.some(
+                    (item) => isPublished(item) && !isDone(item),
                   );
-                })}
-              </div>
+                const groupHasCompletion = isGroup && group.stops.some(isDone);
+                const active =
+                  selected &&
+                  group.stops.some((item) => item.id === selected.id);
+                const label = isGroup
+                  ? `Увеличить группу уроков (${group.stops.length})${groupHasLesson ? ". Есть доступный урок" : ""}${groupHasCompletion ? ". Есть пройденный урок" : ""}`
+                  : `Урок ${stop.number}. ${lesson ? `${lesson.people}. ` : ""}${completed ? "Пройден" : available ? "Доступен" : "Готовится"}`;
+                return (
+                  <button
+                    key={group.stops.map((item) => item.id).join("-")}
+                    ref={
+                      group.stops.some((item) => item.lessonId === celebrate)
+                        ? celebrationPoint
+                        : undefined
+                    }
+                    className={`journey-point ${isGroup ? "is-group" : ""} ${groupHasLesson ? "has-ready-lesson" : ""} ${groupHasCompletion ? "has-completed-lesson" : ""} ${available ? "is-available" : ""} ${completed ? "is-completed" : ""} ${active ? "is-selected" : ""} ${stamping && celebrate && group.stops.some((item) => item.lessonId === celebrate) ? "is-new-mark" : ""}`}
+                    style={
+                      {
+                        "--point-x": `${((group.x - 700) / 1400) * 100}%`,
+                        "--point-y": `${((group.y - 340) / 1400) * width}px`,
+                      } as CSSProperties
+                    }
+                    aria-label={label}
+                    aria-pressed={Boolean(active)}
+                    aria-controls={active ? "journey-selection" : undefined}
+                    title={label}
+                    onClick={(e) => revealGroup(group, e.currentTarget)}
+                  >
+                    <span
+                      className="journey-point-face"
+                      onAnimationEnd={(event) => {
+                        if (event.animationName === "discovery-stamp")
+                          onCelebrationEnd();
+                      }}
+                    >
+                      {isGroup ? (
+                        <>
+                          {group.stops.length}
+                          {groupHasCompletion && (
+                            <Star size={12} weight="fill" />
+                          )}
+                        </>
+                      ) : completed ? (
+                        <Star size={22} weight="fill" />
+                      ) : (
+                        <QuestionMark size={20} weight="bold" />
+                      )}
+                    </span>
+                    {lesson && labelOffset !== undefined && (
+                      <span
+                        className="journey-point-label"
+                        style={{ marginLeft: labelOffset }}
+                      >
+                        {lesson.people}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -607,7 +628,9 @@ export function JourneyMap({
                   alt={selectedLesson.heroName}
                 />
                 <div>
-                  <p className="journey-panel-meta">Урок {selected.number}</p>
+                  <p className="journey-panel-meta">
+                    Урок {selected.number} · {selectedLesson.people}
+                  </p>
                   <h3 id="journey-selection-title">{selectedLesson.title}</h3>
                   <p>{selectedLesson.greeting}</p>
                   {done && (

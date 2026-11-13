@@ -6,15 +6,13 @@ type BaseTask = {
   instruction: string;
   sourceInstruction?: string;
   source: {
-    document:
-      | "lesson-01-worksheet.docx"
-      | "lesson-02-worksheet.docx"
-      | "lesson-03-worksheet.docx";
+    document: `lesson-${string}-worksheet.docx`;
     section: number | string;
   };
   finalReview?: boolean;
   closing?: string;
   discussion?: string[];
+  onPaper?: boolean;
   hint?: string;
 };
 export type WorksheetTask = BaseTask &
@@ -54,11 +52,20 @@ export type WorksheetTask = BaseTask &
         options: Option[];
         items: {
           id: string;
-          label: string;
+          label?: string;
           text: string;
           answer: string;
-          explanation: string;
+          options?: Option[];
+          explanation?: string;
         }[];
+      }
+    | {
+        type: "mark-words";
+        items: { id: string; text: string; correct: number[] }[];
+      }
+    | {
+        type: "short-answers";
+        items: { id: string; text: string; accepted?: string[] }[];
       }
     | {
         type: "text-clues";

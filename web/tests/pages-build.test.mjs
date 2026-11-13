@@ -48,6 +48,12 @@ test("Pages publishes the client and prepared Word files, with no server or orig
     "lesson-03-worksheet.docx",
   ])
     await exists(`downloads/${file}`);
+  for (let number = 4; number <= 15; number++) {
+    const id = `lesson-${String(number).padStart(2, "0")}`;
+    await exists(`downloads/${id}-teacher.docx`);
+    await exists(`downloads/${id}-worksheet.docx`);
+  }
+  await exists("media/author-portrait.webp");
   const files = await readdir(root);
   for (const name of ["server", "src", "references", "docs", "node_modules"])
     assert.ok(!files.includes(name));

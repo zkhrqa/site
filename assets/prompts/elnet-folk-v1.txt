@@ -1,0 +1,11 @@
+Use case: illustration-story. Asset type: one transparent painted character cutout for «Альбом дружбы».
+Create a new fictional child. The provided approved portrait is only a style and scale reference, not an identity, outfit, or pose target. Match exactly its warm hand-painted dry watercolor washes with subtle paper pigment granulation, warm brown colored-pencil contours, tactile textile folds, matte quiet palette, soft peach skin and diffuse light, and recognizable animated storybook child anatomy with fairly natural shoulders and hands. National clothing described below is a simplified illustrated child outfit based on museum examples. No stereotyped physiognomy.
+Centered upright portrait, three-quarter body turned subtly to screen right, direct or slightly right/up gaze, relaxed friendly expression, natural schoolchild proportions, from top of head including hat to hips/upper thighs, like the reference, both elbows completely inside frame. Frame to maximize character height, with small margins and a soft clean painted hem without halo. Intended for both a 400px hero and a small 130px lesson guide so large readable shapes. Actual transparent RGBA around subject. No paper background, no vignette, no floating accessories, no shadows outside body, no words or letters, no logos, no frame, one child only.
+Subject: Элнет. A 9-year-old Mari boy in a child-scaled Mari male outfit: clean straight-cut cream homespun linen shirt with an off-center slit opening, restrained dark burgundy and soot-blue embroidered geometric lines around the neckline, opening, cuffs and lower edge, tied narrow woven sash with muted wine-red and blue bands. Bareheaded with soft light brown wavy hair. Holding a neatly folded blank warm ivory route map at lower chest level with one hand, lightly indicating its folded edge with the other, warm curious expression.
+
+Costume reference (museum collection):
+https://collection.ethnomuseum.ru/entity/OBJECT/206079
+https://collection.ethnomuseum.ru/entity/ARTICLE/2370
+
+Image generation: built-in ImageGen, transparent RGBA.
+Style reference: assets/illustrations/aydar-folk-v2.png.

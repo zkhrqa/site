@@ -5,6 +5,7 @@ export const publishedLessons: Record<
     id: string;
     number: number;
     title: string;
+    people: string;
     href: string;
     heroName: string;
     heroImage: string;
@@ -17,6 +18,7 @@ export const publishedLessons: Record<
       id: lesson.id,
       number: lesson.number,
       title: lesson.title,
+      people: lesson.people,
       href: `#/lesson/${lesson.number}`,
       heroName: lesson.heroName,
       heroImage: lesson.heroImage,

@@ -67,12 +67,19 @@ function Subtask({ prompt }: { prompt: string }) {
     </span>
   );
 }
-function Discussion({ prompts }: { prompts: string[] }) {
+function Discussion({
+  prompts,
+  onPaper = false,
+}: {
+  prompts: string[];
+  onPaper?: boolean;
+}) {
+  const heading = onPaper ? "Работа на бумаге" : "Обсудите в классе";
   return (
-    <section className="worksheet-discussion" aria-label="Обсудите в классе">
+    <section className="worksheet-discussion" aria-label={heading}>
       <h2>
         <ChatsCircle size={23} aria-hidden="true" />
-        Обсудите в классе
+        {heading}
       </h2>
       {prompts.map((prompt) => (
         <p key={prompt}>
@@ -95,6 +102,10 @@ export function Worksheet({
   const [checkedIds, setCheckedIds] = useState<string[]>([]);
   const title = useRef<HTMLHeadingElement>(null);
   const task = worksheetTasks[step];
+  const paperTask = task.type === "discussion" && task.onPaper;
+  const discussionPrompts = paperTask
+    ? [task.instruction, ...(task.discussion ?? [])].filter(Boolean)
+    : task.discussion;
   const result = checkTask(task, answers);
   const checked = checkedIds.includes(task.id);
   useEffect(() => {
@@ -341,7 +352,7 @@ export function Worksheet({
         <h1 ref={title} tabIndex={-1}>
           {task.title}
         </h1>
-        {task.instruction && (
+        {task.instruction && !paperTask && (
           <p className="worksheet-instruction">{task.instruction}</p>
         )}
       </header>
@@ -411,7 +422,9 @@ export function Worksheet({
               </div>
             </>
           )}
-          {task.discussion && <Discussion prompts={task.discussion} />}
+          {discussionPrompts && (
+            <Discussion prompts={discussionPrompts} onPaper={task.onPaper} />
+          )}
           {task.hint && (
             <details key={task.id} className="teacher-notes">
               <summary>Подсказка</summary>

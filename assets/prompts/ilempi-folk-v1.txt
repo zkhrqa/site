@@ -1,0 +1,11 @@
+Use case: illustration-story. Asset type: one transparent painted character cutout for «Альбом дружбы».
+Create a new fictional child. The provided approved portrait is only a style and scale reference, not an identity, outfit, or pose target. Match exactly its warm hand-painted dry watercolor washes with subtle paper pigment granulation, warm brown colored-pencil contours, tactile textile folds, matte quiet palette, soft peach skin and diffuse light, and recognizable animated storybook child anatomy with fairly natural shoulders and hands. National clothing described below is a simplified illustrated child outfit based on museum examples. No stereotyped physiognomy.
+Centered upright portrait, three-quarter body turned subtly to screen right, direct or slightly right/up gaze, relaxed friendly expression, natural schoolchild proportions, from top of head including hat to hips/upper thighs, like the reference, both elbows completely inside frame. Frame to maximize character height, with small margins and a soft clean painted hem without halo. Intended for both a 400px hero and a small 130px lesson guide so large readable shapes. Actual transparent RGBA around subject. No paper background, no vignette, no floating accessories, no shadows outside body, no words or letters, no logos, no frame, one child only.
+Subject: Илемпи. A 9-year-old Chuvash girl in a child-scaled historic folk outfit: an ivory linen straight-cut shirt with narrow brick-red and dark wine geometric counted embroidery at the shoulders, front opening and cuffs. A rounded fitted Chuvash maiden's tukhya cap, with neat bands of red and dark beads and small silver discs along the edge, no exaggerated point. Holding her small brown book about the native land partly open against her side, with the free hand resting lightly across its cover. Chestnut hair in two braids, curious slight smile.
+
+Costume reference (museum collection):
+https://collection.ethnomuseum.ru/entity/OBJECT/155301
+https://collection.ethnomuseum.ru/entity/ARTICLE/1985103
+
+Image generation: built-in ImageGen, transparent RGBA.
+Style reference: assets/illustrations/amina-folk-v2.png.

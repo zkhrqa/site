@@ -1,7 +1,13 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { journeyStops } from "../src/content/journey-stops";
-import { groupStops, clampPan, zoomAround } from "../src/features/map-layout";
+import { lessons } from "../src/content/lessons";
+import {
+  groupStops,
+  clampPan,
+  mapLabelOffsets,
+  zoomAround,
+} from "../src/features/map-layout";
 
 test("all 20 discoveries survive clustering at every supported screen width and zoom", () => {
   for (const width of [288, 358, 650, 1100]) {
@@ -28,7 +34,24 @@ test("desktop overview exposes every stop while a phone groups close touch targe
   assert.equal(groupStops(journeyStops, 1100, 1).length, 20);
   assert.ok(groupStops(journeyStops, 288, 1).length < 20);
   assert.equal(groupStops(journeyStops, 288, 3.5).length, 20);
-  assert.equal(journeyStops.filter((stop) => stop.lessonId).length, 3);
+  assert.deepEqual(
+    journeyStops.flatMap((stop) => stop.lessonId ?? []),
+    lessons.map((lesson) => lesson.id),
+  );
+});
+test("all published stops have room for a label on desktop and on a fully zoomed phone", () => {
+  const publishedStopIds = journeyStops
+    .filter((stop) => stop.lessonId)
+    .map((stop) => stop.id);
+  for (const [width, zoom] of [
+    [1188, 1],
+    [320, 3.5],
+    [390, 3.5],
+  ]) {
+    const groups = groupStops(journeyStops, width, zoom);
+    const offsets = mapLabelOffsets(groups, (width / 1400) * zoom);
+    assert.deepEqual([...offsets.keys()], publishedStopIds);
+  }
 });
 test("panning cannot lose the map and reset returns the same overview", () => {
   assert.deepEqual(clampPan({ x: 900, y: -900 }, 350, 1), { x: 0, y: -0 });

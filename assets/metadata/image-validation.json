@@ -293,5 +293,304 @@
       "hasActualTransparency": true,
       "softEdgePixels": 877179
     }
+  },
+  {
+    "id": "ilempi-folk-v1",
+    "path": "assets/illustrations/ilempi-folk-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "4e7ed38d2a40ab25519ffba0397c20a4f6276dba964fc2b7da03830a67254433",
+    "bytes": 2684259,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 46.83,
+      "hasActualTransparency": true,
+      "softEdgePixels": 836257
+    }
+  },
+  {
+    "id": "vedyava-folk-v1",
+    "path": "assets/illustrations/vedyava-folk-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "744b37358fa075678c0e643a5de531deede891a37080a8eeaaca5d6eaab85fa2",
+    "bytes": 2725023,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 44.64,
+      "hasActualTransparency": true,
+      "softEdgePixels": 870696
+    }
+  },
+  {
+    "id": "zarni-folk-v1",
+    "path": "assets/illustrations/zarni-folk-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "accebb103b05d5358004ce12beb7231918ab24a6418bc368764eb6a52a4492c6",
+    "bytes": 2699801,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 45.62,
+      "hasActualTransparency": true,
+      "softEdgePixels": 855272
+    }
+  },
+  {
+    "id": "elnet-folk-v1",
+    "path": "assets/illustrations/elnet-folk-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "d795e6659e058c41da3b364123f8cc9c7d782d1b81a1a58bbd7954b93a6b21a3",
+    "bytes": 2552847,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 50.28,
+      "hasActualTransparency": true,
+      "softEdgePixels": 782061
+    }
+  },
+  {
+    "id": "aino-folk-v1",
+    "path": "assets/illustrations/aino-folk-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "263c459ff9ca57c05f3178a0d0d968387a87e737bee39698a82547970a83025b",
+    "bytes": 2837205,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 40.71,
+      "hasActualTransparency": true,
+      "softEdgePixels": 932623
+    }
+  },
+  {
+    "id": "aiyyna-folk-v1",
+    "path": "assets/illustrations/aiyyna-folk-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "9a7d8033be5dc6bb4dbc7619f3cf758aa02007661417bda1d349f653e3934e6a",
+    "bytes": 2591495,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 44.69,
+      "hasActualTransparency": true,
+      "softEdgePixels": 870015
+    }
+  },
+  {
+    "id": "eren-folk-v1",
+    "path": "assets/illustrations/eren-folk-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "1ef343a5942f49a5a434603266084a4a5dbe8226afed0b14b428cd7a1f973ccb",
+    "bytes": 2543124,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 50.06,
+      "hasActualTransparency": true,
+      "softEdgePixels": 785539
+    }
+  },
+  {
+    "id": "sar-folk-v1",
+    "path": "assets/illustrations/sar-folk-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "83e55255767203ebed83aaab22178c322e2d8f01ae48bf1141fd180716c866fa",
+    "bytes": 2594255,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 46.19,
+      "hasActualTransparency": true,
+      "softEdgePixels": 846330
+    }
+  },
+  {
+    "id": "ayan-folk-v1",
+    "path": "assets/illustrations/ayan-folk-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "1fac83799f4db8867aecc9ed50246183d52ac36cfe1f02776651e9fa22973dc4",
+    "bytes": 2587646,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 48.64,
+      "hasActualTransparency": true,
+      "softEdgePixels": 807897
+    }
+  },
+  {
+    "id": "nino-folk-v1",
+    "path": "assets/illustrations/nino-folk-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "1c4c38bf143ed2ebc17c3f12dd55104676fd6e86b8a1929fbc2ebec323d06ebc",
+    "bytes": 2639286,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 46.57,
+      "hasActualTransparency": true,
+      "softEdgePixels": 840392
+    }
+  },
+  {
+    "id": "adam-folk-v1",
+    "path": "assets/illustrations/adam-folk-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "fe56d2cc4122a8eb6a418a5627a435f989b136189c8e646b2df2d025460d0328",
+    "bytes": 2436203,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 50.59,
+      "hasActualTransparency": true,
+      "softEdgePixels": 777113
+    }
+  },
+  {
+    "id": "madina-folk-v1",
+    "path": "assets/illustrations/madina-folk-v1.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "dc6d3bfb8a80faa1f71941ea93dcb083fa9ff2f575dfd48b6651786e14563707",
+    "bytes": 2541922,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 48.81,
+      "hasActualTransparency": true,
+      "softEdgePixels": 805154
+    }
+  },
+  {
+    "id": "egor-folk-v3",
+    "path": "assets/illustrations/egor-folk-v3.png",
+    "requestedDimensions": [
+      1024,
+      1536
+    ],
+    "actualDimensions": [
+      1024,
+      1536
+    ],
+    "mode": "RGBA",
+    "transparentBackgroundRequested": true,
+    "sha256": "7b9fe88ffc32e2aff2f60cca54363d9d568a1a0d3372ab243afade041edecad3",
+    "bytes": 2566944,
+    "alpha": {
+      "min": 0,
+      "max": 254,
+      "fullyTransparentPercent": 48.89,
+      "hasActualTransparency": true,
+      "softEdgePixels": 803876
+    }
   }
 ]

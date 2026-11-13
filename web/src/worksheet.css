@@ -467,6 +467,28 @@
 .worksheet-passage {
   margin-bottom: 16px;
 }
+.worksheet-short-answers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 16px;
+  font: var(--worksheet-text) / 1.4 var(--body);
+}
+.worksheet-short-answers label {
+  display: grid;
+  align-content: end;
+  gap: 6px;
+}
+.worksheet-short-answers input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: inherit;
+  font: inherit;
+}
 .worksheet-rule-note {
   margin-top: 24px;
   padding: 16px;

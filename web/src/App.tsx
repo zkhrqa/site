@@ -14,7 +14,6 @@ import {
   ArrowLeft,
   ArrowCounterClockwise,
   BookOpen,
-  Camera,
   Check,
   CheckCircle,
   DownloadSimple,
@@ -507,13 +506,12 @@ function Home({
             src={media("landscape")}
             alt="Акварельный пейзаж с рекой и лесом"
           />
-          <div className="portrait-placeholder">
-            <Camera size={39} weight="light" />
-            <p>
-              Здесь будет
-              <br />
-              фотография автора
-            </p>
+          <div className="author-portrait">
+            <img
+              src={media("author-portrait")}
+              alt="Медведева Екатерина Ивановна"
+              fetchPriority="high"
+            />
           </div>
         </div>
       </section>
@@ -592,7 +590,9 @@ function Lesson({ lesson }: { lesson: LessonContent }) {
               lesson.title
             )}
           </h1>
-          <p className="lesson-subtitle">Урок {lesson.number}</p>
+          <p className="lesson-subtitle">
+            Урок {lesson.number} · {lesson.people}
+          </p>
           <p className="preparation-intro">{lesson.preparation.plot}</p>
         </div>
         <div

@@ -111,7 +111,7 @@ test("all eight screens preserve the actual worksheet's instructions, choices an
 // task data, so a copied-but-truncated exercise cannot pass by testing itself.
 test("Aydar and Amina retain every worksheet instruction, passage, word set and self-rating", async () => {
   const { lessons } = await import("../src/content/lessons");
-  for (const lesson of lessons.slice(1)) {
+  for (const lesson of lessons.slice(1, 3)) {
     const document = normalize(
       paragraphs(
         `../public/downloads/lesson-0${lesson.number}-worksheet.docx`,
@@ -159,7 +159,7 @@ test("Aydar and Amina retain every worksheet instruction, passage, word set and 
   }
 });
 
-test("all three lessons expose their own source downloads and distinct routes", async () => {
+test("all published lessons expose their own source downloads and distinct routes", async () => {
   const { lessons } = await import("../src/content/lessons");
   const { parseLessonLocation } = await import("../src/features/routes");
   const { readFileSync } = await import("node:fs");
@@ -187,4 +187,50 @@ test("all three lessons expose their own source downloads and distinct routes", 
     "not-found",
   );
   assert.equal(parseLessonLocation("#/lessons").route, "home");
+});
+
+test("the 12 new lesson routes cover each numbered task in their downloadable worksheets", async () => {
+  const { lessons } = await import("../src/content/lessons");
+  const additions = lessons.slice(3);
+  assert.equal(additions.length, 12);
+  for (const lesson of additions) {
+    const document = `${lesson.id}-worksheet.docx`;
+    const lines = paragraphs(`../public/downloads/${document}`).filter(Boolean);
+    const headings = lines.flatMap((line, index) => {
+      const match = /^(\d+)\. ([А-ЯЁ ?]+)$/u.exec(line);
+      return match
+        ? [{ index, number: Number(match[1]), title: match[2] }]
+        : [];
+    });
+    assert.deepEqual(
+      lesson.tasks.map((task) => task.number),
+      headings.map((heading) => heading.number),
+      lesson.id,
+    );
+    assert.equal(
+      new Set(lesson.tasks.map((task) => task.id)).size,
+      headings.length,
+      lesson.id,
+    );
+    for (const [index, task] of lesson.tasks.entries()) {
+      const heading = headings[index];
+      assert.deepEqual(task.source, { document, section: heading.number });
+      assert.equal(task.title.toLocaleUpperCase("ru"), heading.title);
+      const body = lines.slice(heading.index + 1, headings[index + 1]?.index);
+      const instruction = task.sourceInstruction ?? task.instruction;
+      if (instruction)
+        assert.ok(
+          normalize(body.join(" ")).includes(normalize(instruction)),
+          `${lesson.id}, задание ${task.number}`,
+        );
+      if (task.type === "self-review")
+        assert.deepEqual(
+          task.options.map((option) => option.text),
+          body[0]
+            .split("□")
+            .map((item) => item.trim())
+            .filter(Boolean),
+        );
+    }
+  }
 });
